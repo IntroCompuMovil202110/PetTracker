@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProductDetailsActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:fitsSystemWindows="true">
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+            app:title="Titulo"
+            app:titleTextColor="@color/red"
+            android:id="@+id/Title_product_details"
+            android:background="@drawable/bg_details"
+            >
+
+            <ImageView
+                android:id="@+id/product_image"
+                android:layout_width="250dp"
+                android:layout_marginRight="20dp"
+                android:layout_height="180dp"
+                android:layout_gravity="center|end"
+                android:layout_marginBottom="15dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/search_results" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:srcCompat="@drawable/ic_back"
+                android:onClick="back"/>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:background="@drawable/layout_bg">
+        <TextView
+            android:id="@+id/product_price"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Este collar de mascotas es hecho con el diseño y los materiales de más alta calidad. \nLa línea de mascotas LAZO ha sido elaborada por manos colombianas, de forma meticulosa creando un producto innovador, confortable y resistente. \n· Color: rosado.· Material confortable: reata elástica, fabricada con nylon y poliéster, interior de la reata reforzando en cuero para mayor resistencia y durabilidad. \n· Hebilla resistente: material potente que aseguran una larga duración.\n· Acabados en cuero con finas costuras. \n· Ancho reata 2.5cm"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:shadowColor="#000000"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintHorizontal_bias="0"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp" />
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:baselineAlignBottom="false"
+        android:clickable="true"
+        android:src="@drawable/ic_shopping_car"
+        app:layout_anchor="@id/Title_product_details"
+        app:layout_anchorGravity="bottom|right|end"
+        android:layout_marginRight="30dp"
+        app:borderWidth="0dp"
+        android:backgroundTint="@color/yellow"
+        />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

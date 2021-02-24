@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:orientation="vertical"
-    android:background="@color/red"
+    android:background="@drawable/ic_rojo"
     android:gravity="bottom"
     android:padding="20dp">
     <ImageView
@@ -16,17 +16,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/baloo"
+        android:shadowColor="#000000"
         android:text="PET TRACKER"
         android:textColor="@color/white"
         android:textSize="22sp" />
 
-   <TextView
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="www.pettracker.com"
-       android:textSize="14sp"
-       android:textColor="@color/white"
-       android:textStyle="bold"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:shadowColor="#000000"
+        android:text="www.pettracker.com"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
 
 </LinearLayout>

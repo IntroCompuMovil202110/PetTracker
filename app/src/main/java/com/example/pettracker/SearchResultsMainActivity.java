@@ -12,23 +12,32 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class HomePageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class SearchResultsMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    ListView list;
     Toolbar toolBar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
 
+    int[] IMANENES = {R.drawable.bone, R.drawable.products, R.drawable.dog_collar, R.drawable.search_results,R.drawable.bone, R.drawable.products, R.drawable.dog_collar, R.drawable.search_results,R.drawable.bone, R.drawable.products, R.drawable.dog_collar, R.drawable.search_results};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
-        toolBar = findViewById(R.id.toolbar);
-        drawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
+        setContentView(R.layout.activity_search_results_main);
+        toolBar = findViewById(R.id.toolbar2);
+        drawerLayout = findViewById(R.id.drawer_layout2);
+        navigationView = findViewById(R.id.nav_view2);
         setSupportActionBar(toolBar);
 
         navigationView.bringToFront();
@@ -36,8 +45,16 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        navigationView.setCheckedItem(R.id.nav_home);
 
+        list = findViewById(R.id.results);
+        CustomAdapter customAdapter = new CustomAdapter();
+        list.setAdapter(customAdapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                startActivity(new Intent(getBaseContext(),ProductDetailsActivity.class));
+            }
+        });
     }
 
     @Override
@@ -68,9 +85,9 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_home:
+                startActivity(new Intent(this,HomePageActivity.class));
                 break;
             case R.id.nav_profile:
-                startActivity(new Intent(this,ProductDetailsActivity.class));
                 break;
             case R.id.nav_pet:
                 Toast.makeText(getApplicationContext(), "Selecciono mis mascotas", Toast.LENGTH_SHORT).show();
@@ -85,7 +102,33 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         return true;
     }
 
-    public void SearchKeyWord(View v) {
-        startActivity(new Intent(this,SearchResultsMainActivity.class));
+    class CustomAdapter extends BaseAdapter{
+        @Override
+        public int getCount() {
+            return IMANENES.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            convertView = getLayoutInflater().inflate(R.layout.static_rv_item,null);
+            ImageView imageView = (ImageView) convertView.findViewById(R.id.Product_image);
+            TextView text_title = (TextView) convertView.findViewById(R.id.Product_title);
+            TextView text_details = (TextView) convertView.findViewById(R.id.Product_details);
+
+            imageView.setImageResource(IMANENES[position]);
+            text_title.setText("Hermoso collar");
+            text_details.setText("$58.000");
+            return convertView;
+        }
     }
 }

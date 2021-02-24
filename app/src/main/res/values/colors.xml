@@ -13,5 +13,6 @@
     <color name="grey">#707070</color>
     <color name="dark_grey">#333333</color>
     <color name="blue">#2F6CE6</color>
+    <color name="yellow">#FFC300</color>
     <color name="purple">#9007F8</color>
 </resources>
