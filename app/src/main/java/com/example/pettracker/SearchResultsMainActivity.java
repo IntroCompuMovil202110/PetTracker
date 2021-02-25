@@ -20,7 +20,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pettracker.Model.Product;
 import com.google.android.material.navigation.NavigationView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchResultsMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -28,8 +40,7 @@ public class SearchResultsMainActivity extends AppCompatActivity implements Navi
     Toolbar toolBar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-
-    int[] IMANENES = {R.drawable.bone, R.drawable.products, R.drawable.dog_collar, R.drawable.search_results,R.drawable.bone, R.drawable.products, R.drawable.dog_collar, R.drawable.search_results,R.drawable.bone, R.drawable.products, R.drawable.dog_collar, R.drawable.search_results};
+    List<Product> products;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +50,12 @@ public class SearchResultsMainActivity extends AppCompatActivity implements Navi
         drawerLayout = findViewById(R.id.drawer_layout2);
         navigationView = findViewById(R.id.nav_view2);
         setSupportActionBar(toolBar);
+
+        try {
+            initArray();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolBar, R.string.app_name, R.string.app_name);
@@ -52,9 +69,41 @@ public class SearchResultsMainActivity extends AppCompatActivity implements Navi
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(getBaseContext(),ProductDetailsActivity.class));
+                Intent intent= new Intent (getBaseContext() , ProductDetailsActivity.class);
+                Bundle bs =new Bundle();
+                Product p = products.get(position);
+                bs.putSerializable("product", p);
+                intent.putExtra("data",bs);
+                startActivity(intent);
             }
         });
+    }
+
+    private void initArray() throws JSONException {
+        products = new ArrayList<Product>();
+        JSONObject json = new JSONObject(loadJSONFromAsset());
+        JSONArray paisesJson = json.getJSONArray("products");
+        for (int i =0 ; i < paisesJson.length();i++){
+            JSONObject objeJson = paisesJson.getJSONObject(i);
+            Product p = new Product(objeJson.getString("title"), objeJson.getString("image"),objeJson.getString("about"), objeJson.getString("price"));
+            products.add(p);
+        }
+    }
+
+    public String loadJSONFromAsset() {
+        String json =null;
+        try{
+            InputStream is = this.getAssets().open("products.json");
+            int size = is.available();
+            byte [] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json=new String (buffer, "UTF-8");
+        } catch (IOException ex){
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
     }
 
     @Override
@@ -105,12 +154,12 @@ public class SearchResultsMainActivity extends AppCompatActivity implements Navi
     class CustomAdapter extends BaseAdapter{
         @Override
         public int getCount() {
-            return IMANENES.length;
+            return products.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return null;
+            return products.get(position);
         }
 
         @Override
@@ -125,9 +174,10 @@ public class SearchResultsMainActivity extends AppCompatActivity implements Navi
             TextView text_title = (TextView) convertView.findViewById(R.id.Product_title);
             TextView text_details = (TextView) convertView.findViewById(R.id.Product_details);
 
-            imageView.setImageResource(IMANENES[position]);
-            text_title.setText("Hermoso collar");
-            text_details.setText("$58.000");
+            text_title.setText(products.get(position).getTitle());
+            text_details.setText(products.get(position).getPrice());
+            int imageId = getResources().getIdentifier(products.get(position).getImage() , "drawable", getPackageName());
+            imageView.setImageResource(imageId);
             return convertView;
         }
     }

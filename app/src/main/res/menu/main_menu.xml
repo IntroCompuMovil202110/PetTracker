@@ -17,8 +17,8 @@
 
         <item
             android:id="@+id/nav_shops"
-            android:title="Mis compras"
-            android:icon="@drawable/ic_shopping_car"/>
+            android:title="Paseadores"
+            android:icon="@drawable/ic_paseadores"/>
 
         <item
             android:id="@+id/nav_chat"
