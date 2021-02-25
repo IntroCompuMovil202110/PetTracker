@@ -70,10 +70,10 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             case R.id.nav_home:
                 break;
             case R.id.nav_profile:
-                startActivity(new Intent(this,ProductDetailsActivity.class));
+                //startActivity(new Intent(this,ProductDetailsActivity.class));
                 break;
             case R.id.nav_pet:
-                Toast.makeText(getApplicationContext(), "Selecciono mis mascotas", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this,MapsActivity.class));
                 break;
             case R.id.nav_shops:
                 Toast.makeText(getApplicationContext(), "Selecciono mis compras", Toast.LENGTH_SHORT).show();

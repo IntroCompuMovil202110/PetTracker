@@ -334,9 +334,8 @@
                             android:layout_width="81dp"
                             android:layout_height="73dp"
                             android:layout_centerInParent="true"
-                            android:layout_centerVertical="true"
                             android:layout_marginBottom="16dp"
-                            app:srcCompat="@drawable/walking_the_dog" />
+                            app:srcCompat="@drawable/medical_kit" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -360,9 +359,8 @@
                             android:layout_width="81dp"
                             android:layout_height="73dp"
                             android:layout_centerInParent="true"
-                            android:layout_centerVertical="true"
                             android:layout_marginBottom="16dp"
-                            app:srcCompat="@drawable/medical_kit" />
+                            app:srcCompat="@drawable/walking_the_dog" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -388,7 +386,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/allerta"
-                android:text="Paseadores"
+                android:text="Medicamentos"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -403,12 +401,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/allerta"
-                android:text="Veterinarias"
+                android:text="Mas"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.933"
+                app:layout_constraintHorizontal_bias="0.847"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
                 app:layout_constraintVertical_bias="0.0" />

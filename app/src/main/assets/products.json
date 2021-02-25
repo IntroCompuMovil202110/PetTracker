@@ -1,0 +1,100 @@
+{
+    "products":[
+        {
+            "title": "Katina",
+            "image": "search_results",
+            "price": "25.000",
+            "about": "Qui qui ex tempor tempor eiusmod minim veniam. Esse id officia irure ex officia magna eiusmod. Officia dolore eu dolor sit Lorem anim aliquip enim nisi occaecat. Id excepteur veniam exercitation laboris exercitation dolore aute. Quis mollit aute laborum amet dolore aliqua non sint. Duis nisi aliquip do fugiat commodo culpa eu aute tempor tempor enim sit. Anim incididunt commodo in excepteur sint amet magna enim ipsum ad tempor aliqua.\r\n"
+        },
+        {
+            "title": "Clara",
+            "image": "dog_collar",
+            "price": "55.000",
+            "about": "Esse nostrud aute mollit qui excepteur. Dolore fugiat qui ut aute occaecat esse magna et. Consectetur voluptate nulla ea consequat non dolor sint nulla amet magna velit. Nulla minim laborum Lorem ut pariatur cupidatat consectetur nulla Lorem id incididunt voluptate. Culpa culpa fugiat dolor ad elit est Lorem sunt occaecat in sint anim incididunt ad. Nostrud sint irure Lorem adipisicing enim magna amet occaecat laborum eu culpa.\r\n"
+        },
+        {
+            "title": "Jana",
+            "image": "collar_1",
+            "price": "5.000",
+            "about": "Ad irure in et velit adipisicing. Consectetur proident enim veniam tempor qui ipsum veniam cillum sunt aute minim sunt. Amet irure anim ut fugiat Lorem proident nostrud quis sunt laboris sit. Pariatur elit qui dolore aliqua ut culpa veniam irure. Consequat laborum cillum irure ex. Nostrud voluptate commodo pariatur dolor est aute adipisicing ad esse do amet aute occaecat.\r\n"
+        },
+        {
+            "title": "Griffin",
+            "image": "collar_2",
+            "price": "28.000",
+            "about": "Exercitation voluptate consequat irure dolor voluptate. Consequat laborum do anim anim. In ipsum tempor consequat velit nisi laborum voluptate culpa cillum. Consectetur aliqua enim voluptate eu aliquip elit eiusmod quis velit adipisicing laborum cillum. Magna fugiat eu incididunt exercitation. Culpa Lorem velit anim officia fugiat velit ipsum deserunt sunt anim.\r\n"
+        },
+        {
+            "title": "Wilder",
+            "image": "collar_3",
+            "price": "75.000",
+            "about": "Ea et aliquip ex qui excepteur fugiat qui est aliqua non magna. Nulla laboris consequat ad adipisicing nostrud commodo amet. Consequat exercitation adipisicing dolor adipisicing eiusmod excepteur. Commodo ex nisi id proident deserunt magna. Velit exercitation ad deserunt ea veniam laboris mollit non magna labore tempor Lorem sint Lorem. Proident non qui nulla quis aute amet est cillum in qui occaecat reprehenderit.\r\n"
+        },
+        {
+            "title": "Karyn",
+            "image": "collar_4",
+            "price": "28.000",
+            "about": "Magna eiusmod nulla id exercitation voluptate aliqua dolore irure exercitation magna. Adipisicing cupidatat esse commodo duis ipsum dolore tempor laborum aliqua commodo dolor. Voluptate elit adipisicing nisi velit consequat excepteur consequat Lorem velit. Lorem cupidatat velit cupidatat minim dolore cupidatat. Cupidatat ad sunt irure aliquip magna consequat nisi eiusmod consectetur officia pariatur reprehenderit. Sunt labore eu reprehenderit cillum ullamco fugiat anim cupidatat.\r\n"
+        },
+        {
+            "title": "Katina",
+            "image": "toys",
+            "price": "25.000",
+            "about": "Qui qui ex tempor tempor eiusmod minim veniam. Esse id officia irure ex officia magna eiusmod. Officia dolore eu dolor sit Lorem anim aliquip enim nisi occaecat. Id excepteur veniam exercitation laboris exercitation dolore aute. Quis mollit aute laborum amet dolore aliqua non sint. Duis nisi aliquip do fugiat commodo culpa eu aute tempor tempor enim sit. Anim incididunt commodo in excepteur sint amet magna enim ipsum ad tempor aliqua.\r\n"
+        },
+        {
+            "title": "Clara",
+            "image": "medical_kit",
+            "price": "75.000",
+            "about": "Esse nostrud aute mollit qui excepteur. Dolore fugiat qui ut aute occaecat esse magna et. Consectetur voluptate nulla ea consequat non dolor sint nulla amet magna velit. Nulla minim laborum Lorem ut pariatur cupidatat consectetur nulla Lorem id incididunt voluptate. Culpa culpa fugiat dolor ad elit est Lorem sunt occaecat in sint anim incididunt ad. Nostrud sint irure Lorem adipisicing enim magna amet occaecat laborum eu culpa.\r\n"
+        },
+        {
+            "title": "Katina",
+            "image": "search_results",
+            "price": "25.000",
+            "about": "Qui qui ex tempor tempor eiusmod minim veniam. Esse id officia irure ex officia magna eiusmod. Officia dolore eu dolor sit Lorem anim aliquip enim nisi occaecat. Id excepteur veniam exercitation laboris exercitation dolore aute. Quis mollit aute laborum amet dolore aliqua non sint. Duis nisi aliquip do fugiat commodo culpa eu aute tempor tempor enim sit. Anim incididunt commodo in excepteur sint amet magna enim ipsum ad tempor aliqua.\r\n"
+        },
+        {
+            "title": "Clara",
+            "image": "dog_collar",
+            "price": "55.000",
+            "about": "Esse nostrud aute mollit qui excepteur. Dolore fugiat qui ut aute occaecat esse magna et. Consectetur voluptate nulla ea consequat non dolor sint nulla amet magna velit. Nulla minim laborum Lorem ut pariatur cupidatat consectetur nulla Lorem id incididunt voluptate. Culpa culpa fugiat dolor ad elit est Lorem sunt occaecat in sint anim incididunt ad. Nostrud sint irure Lorem adipisicing enim magna amet occaecat laborum eu culpa.\r\n"
+        },
+        {
+            "title": "Jana",
+            "image": "collar_1",
+            "price": "5.000",
+            "about": "Ad irure in et velit adipisicing. Consectetur proident enim veniam tempor qui ipsum veniam cillum sunt aute minim sunt. Amet irure anim ut fugiat Lorem proident nostrud quis sunt laboris sit. Pariatur elit qui dolore aliqua ut culpa veniam irure. Consequat laborum cillum irure ex. Nostrud voluptate commodo pariatur dolor est aute adipisicing ad esse do amet aute occaecat.\r\n"
+        },
+        {
+            "title": "Griffin",
+            "image": "collar_2",
+            "price": "28.000",
+            "about": "Exercitation voluptate consequat irure dolor voluptate. Consequat laborum do anim anim. In ipsum tempor consequat velit nisi laborum voluptate culpa cillum. Consectetur aliqua enim voluptate eu aliquip elit eiusmod quis velit adipisicing laborum cillum. Magna fugiat eu incididunt exercitation. Culpa Lorem velit anim officia fugiat velit ipsum deserunt sunt anim.\r\n"
+        },
+        {
+            "title": "Wilder",
+            "image": "collar_3",
+            "price": "75.000",
+            "about": "Ea et aliquip ex qui excepteur fugiat qui est aliqua non magna. Nulla laboris consequat ad adipisicing nostrud commodo amet. Consequat exercitation adipisicing dolor adipisicing eiusmod excepteur. Commodo ex nisi id proident deserunt magna. Velit exercitation ad deserunt ea veniam laboris mollit non magna labore tempor Lorem sint Lorem. Proident non qui nulla quis aute amet est cillum in qui occaecat reprehenderit.\r\n"
+        },
+        {
+            "title": "Karyn",
+            "image": "collar_4",
+            "price": "28.000",
+            "about": "Magna eiusmod nulla id exercitation voluptate aliqua dolore irure exercitation magna. Adipisicing cupidatat esse commodo duis ipsum dolore tempor laborum aliqua commodo dolor. Voluptate elit adipisicing nisi velit consequat excepteur consequat Lorem velit. Lorem cupidatat velit cupidatat minim dolore cupidatat. Cupidatat ad sunt irure aliquip magna consequat nisi eiusmod consectetur officia pariatur reprehenderit. Sunt labore eu reprehenderit cillum ullamco fugiat anim cupidatat.\r\n"
+        },
+        {
+            "title": "Katina",
+            "image": "toys",
+            "price": "25.000",
+            "about": "Qui qui ex tempor tempor eiusmod minim veniam. Esse id officia irure ex officia magna eiusmod. Officia dolore eu dolor sit Lorem anim aliquip enim nisi occaecat. Id excepteur veniam exercitation laboris exercitation dolore aute. Quis mollit aute laborum amet dolore aliqua non sint. Duis nisi aliquip do fugiat commodo culpa eu aute tempor tempor enim sit. Anim incididunt commodo in excepteur sint amet magna enim ipsum ad tempor aliqua.\r\n"
+        },
+        {
+            "title": "Clara",
+            "image": "medical_kit",
+            "price": "75.000",
+            "about": "Esse nostrud aute mollit qui excepteur. Dolore fugiat qui ut aute occaecat esse magna et. Consectetur voluptate nulla ea consequat non dolor sint nulla amet magna velit. Nulla minim laborum Lorem ut pariatur cupidatat consectetur nulla Lorem id incididunt voluptate. Culpa culpa fugiat dolor ad elit est Lorem sunt occaecat in sint anim incididunt ad. Nostrud sint irure Lorem adipisicing enim magna amet occaecat laborum eu culpa.\r\n"
+        }
+    ]
+}
