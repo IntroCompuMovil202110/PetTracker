@@ -7,6 +7,8 @@ public class Product implements Serializable {
     String image;
     String details;
     String price;
+    String type;
+    String SpeciesClassification;
 
     public Product(String title, String image, String details, String price) {
         this.title = title;
@@ -45,5 +47,21 @@ public class Product implements Serializable {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getSpeciesClassification() {
+        return SpeciesClassification;
+    }
+
+    public void setSpeciesClassification(String speciesClassification) {
+        SpeciesClassification = speciesClassification;
     }
 }
