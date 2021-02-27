@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PetTracker">
-        <activity android:name=".MisPublicacionesActivity"></activity>
+        <activity android:name=".WalkersListActivity"></activity>
+        <activity android:name=".MisPublicacionesActivity" />
         <activity android:name=".RegistrationActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
