@@ -29,8 +29,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -141,8 +139,8 @@ public class SearchResultsMainActivity extends AppCompatActivity implements Navi
             case R.id.nav_pet:
                 Toast.makeText(getApplicationContext(), "Selecciono mis mascotas", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.nav_shops:
-                Toast.makeText(getApplicationContext(), "Selecciono mis compras", Toast.LENGTH_SHORT).show();
+            case R.id.nav_walkers:
+                startActivity(new Intent(this, WalkersListActivity.class));
                 break;
             case R.id.nav_chat:
                 Toast.makeText(getApplicationContext(), "Selecciono mis chats", Toast.LENGTH_SHORT).show();

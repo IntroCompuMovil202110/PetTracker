@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -75,8 +76,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             case R.id.nav_pet:
                 startActivity(new Intent(this,MapsActivity.class));
                 break;
-            case R.id.nav_shops:
-                Toast.makeText(getApplicationContext(), "Selecciono mis compras", Toast.LENGTH_SHORT).show();
+            case R.id.nav_walkers:
+                startActivity(new Intent(this, WalkersListActivity.class));
                 break;
             case R.id.nav_chat:
                 Toast.makeText(getApplicationContext(), "Selecciono mis chats", Toast.LENGTH_SHORT).show();
