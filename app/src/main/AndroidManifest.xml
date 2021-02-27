@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PetTracker">
-        <activity android:name=".WalkersListActivity"></activity>
+        <activity android:name=".EditProductActivity"></activity>
+        <activity android:name=".PublishProductActivity" />
+        <activity android:name=".WalkersListActivity" />
         <activity android:name=".MisPublicacionesActivity" />
         <activity android:name=".RegistrationActivity" />
         <!--
