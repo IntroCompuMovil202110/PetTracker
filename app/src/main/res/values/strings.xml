@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">PetTracker</string>
     <string name="title_activity_maps">Map</string>
+    <string name="bienvenido">¡BIENVENIDO!</string>
+    <string name="mensaje">¡Disfruta de la mejor tienda
+        para mascotas!</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="correoElectronico">Correo Electrónico</string>
+    <string name="iniciarsesion">INICIAR SESIÓN</string>
+    <string name="registrarse">REGISTRARSE</string>
+    <string name="olvideContrasena">¡Olvidé mi Contraseña!</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellido">Apellido</string>
+    <string name="telefono">Teléfono</string>
+    <string name="direccion">Dirección</string>
+    <string name="crearCuenta">CREAR CUENTA</string>
+    <string name="crearPublicacion">CREAR PUBLICACIÓN</string>
+    <string name="mispublicaciones">Mis Publicaciones</string>
 </resources>
