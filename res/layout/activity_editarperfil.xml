@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tag_primer_nombre"
+        android:text="Primer Nombre:  "
+        android:textSize="15dp"
+        android:textColor="#5E5C5C"
+        android:textStyle="bold"
+        android:paddingBottom="20dp"
+        android:paddingTop="15dp"
+        />
+    <EditText
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/primer_nombre"
+        android:textSize="15dp"
+        android:hint="Primer Nombre"
+        android:layout_toRightOf="@+id/tag_primer_nombre"
+        android:paddingTop="15dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tag_segundo_nombre"
+        android:text="Segundo Nombre:  "
+        android:textSize="15dp"
+        android:textColor="#5E5C5C"
+        android:textStyle="bold"
+        android:paddingBottom="20dp"
+        android:paddingTop="15dp"
+        android:layout_below="@+id/tag_primer_nombre"
+        />
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="25dp"
+        android:id="@+id/segundo_nombre"
+        android:textSize="15dp"
+        android:hint="Segundo Nombre"
+        android:layout_below="@+id/primer_nombre"
+        android:layout_toRightOf="@+id/tag_segundo_nombre"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tag_apellidos"
+        android:text="Apellidos:  "
+        android:textSize="15dp"
+        android:textColor="#5E5C5C"
+        android:textStyle="bold"
+        android:paddingBottom="20dp"
+        android:paddingTop="15dp"
+        android:layout_below="@+id/tag_segundo_nombre"
+        />
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="25dp"
+        android:id="@+id/apellidos"
+        android:textSize="15dp"
+        android:hint="Apellido1 Apellido2"
+        android:layout_below="@+id/segundo_nombre"
+        android:layout_toRightOf="@+id/tag_apellidos"
+        />
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tag_fecha_nacimiento"
+        android:text="Fecha de nacimiento:  "
+        android:textSize="15dp"
+        android:textColor="#5E5C5C"
+        android:textStyle="bold"
+        android:paddingBottom="20dp"
+        android:paddingTop="15dp"
+        android:layout_below="@+id/tag_apellidos"
+        />
+    <EditText
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:id="@+id/anio"
+        android:textSize="15dp"
+        android:hint="Año"
+        android:layout_below="@+id/apellidos"
+        android:layout_toRightOf="@+id/tag_fecha_nacimiento"
+        />
+    <Spinner
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/spin_mes"
+        android:entries="@array/meses"
+        android:paddingTop="20dp"
+        android:layout_below="@+id/apellidos"
+        android:layout_toRightOf="@+id/anio"
+
+        />
+    <Spinner
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/spin_dias"
+        android:entries="@array/dias"
+        android:paddingTop="20dp"
+        android:layout_below="@+id/apellidos"
+        android:layout_toRightOf="@+id/spin_mes"
+
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tag_correo"
+        android:text="Correo:  "
+        android:textSize="15dp"
+        android:textColor="#5E5C5C"
+        android:textStyle="bold"
+        android:paddingBottom="20dp"
+        android:paddingTop="15dp"
+        android:layout_below="@+id/tag_fecha_nacimiento"
+        />
+    <EditText
+        android:layout_width="305dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="42dp"
+        android:id="@+id/correo"
+        android:textSize="15dp"
+        android:hint="Ingrese un correo"
+        android:layout_below="@+id/anio"
+        android:layout_toRightOf="@+id/tag_correo"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tag_telefono"
+        android:text="Teléfono:  "
+        android:textSize="15dp"
+        android:textColor="#5E5C5C"
+        android:textStyle="bold"
+        android:paddingBottom="20dp"
+        android:paddingTop="15dp"
+        android:layout_below="@+id/tag_correo"
+        />
+    <EditText
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="25dp"
+        android:id="@+id/telefono"
+        android:textSize="15dp"
+        android:hint="Ingrese un teléfono"
+        android:layout_below="@+id/correo"
+        android:layout_toRightOf="@+id/tag_telefono"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tag_direccion"
+        android:text="Dirección:  "
+        android:textSize="15dp"
+        android:textColor="#5E5C5C"
+        android:textStyle="bold"
+        android:paddingBottom="20dp"
+        android:paddingTop="15dp"
+        android:layout_below="@+id/tag_telefono"
+        />
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="25dp"
+        android:id="@+id/direccion"
+        android:textSize="15dp"
+        android:hint="Ingrese su direccion"
+        android:layout_below="@+id/telefono"
+        android:layout_toRightOf="@+id/tag_direccion"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tag_contrasena"
+        android:text="Contraseña:  "
+        android:textSize="15dp"
+        android:textColor="#5E5C5C"
+        android:textStyle="bold"
+        android:paddingBottom="20dp"
+        android:paddingTop="15dp"
+        android:layout_below="@+id/tag_direccion"
+        />
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:id="@+id/contrasena"
+        android:textSize="15dp"
+        android:hint="Ingrese su contraseña"
+        android:layout_below="@+id/direccion"
+        android:layout_toRightOf="@+id/tag_contrasena"
+        />
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tag_confirmacion_contrasena"
+        android:text="Confirmación contraseña:  "
+        android:textSize="15dp"
+        android:textColor="#5E5C5C"
+        android:textStyle="bold"
+        android:paddingBottom="20dp"
+        android:paddingTop="15dp"
+        android:layout_below="@+id/tag_contrasena"
+        />
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="30dp"
+        android:id="@+id/confirmacion_contrasena"
+        android:textSize="15dp"
+        android:hint="Ingrese su contraseña"
+        android:layout_below="@+id/contrasena"
+        android:layout_toRightOf="@+id/tag_confirmacion_contrasena"
+        />
+
+    <ImageButton
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/icono_cancelar"
+        android:id="@+id/btn_cancelar"
+        android:onClick="cancelarPerfil"
+        android:background="@drawable/round_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/terracota"
+        />
+
+    <ImageButton
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/icono_guardar"
+        android:id="@+id/btn_guardar"
+        android:onClick="guardarPerfil"
+        android:background="@drawable/soft_edge_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/terracota"
+        />
+
+</RelativeLayout>
