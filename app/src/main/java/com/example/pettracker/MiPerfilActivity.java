@@ -1,4 +1,4 @@
-package com.example.perfilpettracker;
+package com.example.pettracker;
 
 import android.content.Intent;
 import android.os.Bundle;
