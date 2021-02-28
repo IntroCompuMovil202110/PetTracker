@@ -1,4 +1,4 @@
-package com.example.perfilpettracker;
+package com.example.pettracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
