@@ -30,6 +30,7 @@
                     android:id="@+id/profilePicture"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
+                    android:layout_marginTop="3dp"
                     android:src="@mipmap/ic_launcher"/>
 
                 <TextView
@@ -66,7 +67,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/edit_text_form"
-                android:hint="\t\tEscribe un mensaje" />
+                android:paddingStart="20dp"
+                android:layout_marginEnd="5dp"
+                android:hint="Escribe un mensaje" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/buttonMsg"
