@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.res.TypedArray;
 import android.os.Bundle;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -49,6 +50,5 @@ public class MisPublicacionesActivity extends AppCompatActivity {
                 startActivity(intent);*/
             }
         });
-
     }
 }

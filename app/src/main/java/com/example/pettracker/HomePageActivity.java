@@ -80,7 +80,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 startActivity(new Intent(this, WalkersListActivity.class));
                 break;
             case R.id.nav_chat:
-                Toast.makeText(getApplicationContext(), "Selecciono mis chats", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this,ChatListActivity.class));
                 break;
         }
         return true;
