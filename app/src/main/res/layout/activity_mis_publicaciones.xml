@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:padding="22dp"
-    tools:context=".MyPublicationsActivity">
+    tools:context=".MisPublicacionesActivity">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,6 +40,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tituloMisPublicaciones" />
 
         <ListView
+            android:id="@+id/listMisPublicaciones"
             android:layout_width="match_parent"
             android:layout_height="504dp"
             android:layout_marginTop="23dp"
@@ -60,7 +61,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/_dynamic"
+            app:layout_constraintTop_toBottomOf="@+id/listMisPublicaciones"
             app:layout_constraintVertical_bias="0.0" />
 
 

@@ -63,4 +63,43 @@
         <item>30</item>
         <item>31</item>
     </string-array>
+
+    <string name="nombrePub">Agility Gold Razas Grandes 3kg</string>
+    <string name="precioPub">$38 500</string>
+
+
+    <!-- Nombres Mis Publicaciones -->
+    <string-array name="MisNombresProductos">
+        <item>Agility Gold Razas Grandes 3kg</item>
+        <item>Saco Snoppy Talla S</item>
+        <item>Plato para Gatos</item>
+        <item>Correa para perros</item>
+        <item>Juguete para Gatos</item>
+    </string-array>
+
+    <!-- Fotos Mis Publicaciones -->
+    <string-array name="fotoProductos">
+        <item>@drawable/producto1</item>
+        <item>@drawable/producto2</item>
+        <item>@drawable/producto3</item>
+        <item>@drawable/producto4</item>
+        <item>@drawable/producto5</item>
+    </string-array>
+
+    <!-- Precios Mis Publicaciones -->
+    <string-array name="precioProductos">
+        <item>$38 500</item>
+        <item>$34 900</item>
+        <item>$14 600</item>
+        <item>$6 300</item>
+        <item>$45 200</item>
+    </string-array>
+
+    <string-array name="detalleProductos">
+        <item>Comida para perros de 3kg para razas grandes, tambien se le puede dar a razas medianas.</item>
+        <item>Saco de la tira animada snoppy talla S. Le sirve a razas medianas como french poodles, pomeranis o schnauzer.</item>
+        <item>Plato para comida o agua. Uselo a su preferencia. De aproximadamente 500 ml.</item>
+        <item>Correa para perros de cuero sintetico de alta duracion. Muy Buena.</item>
+        <item>Juguete para gatos muy entretenido y duradero. Por experiencia personal se que le fascina a los gatos y hasta tambien a perro juguetones. </item>
+    </string-array>
 </resources>
