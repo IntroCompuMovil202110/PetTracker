@@ -186,27 +186,19 @@
         android:src="@drawable/icono_editar"
         android:id="@+id/btn_editar_perfil"
         android:onClick="editarPerfil"
-        android:layout_above="@id/btn_ver_mascotas"
+        android:layout_above="@id/btn_mis_publicaciones"
         android:background="@drawable/soft_edge_button"
         android:backgroundTint="#B81614"
         android:layout_centerHorizontal="true"
         />
-    <Button
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:text="Ver Mis Mascotas"
-        android:backgroundTint="#B81614"
-        android:textSize="15dp"
-        android:id="@+id/btn_ver_mascotas"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        />
+
     <Button
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:text="Mis Publicaciones"
         android:backgroundTint="#B81614"
         android:textSize="15dp"
+        android:onClick="misPublicaciones"
         android:id="@+id/btn_mis_publicaciones"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"

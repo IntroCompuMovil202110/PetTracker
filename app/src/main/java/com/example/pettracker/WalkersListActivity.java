@@ -31,10 +31,10 @@ public class WalkersListActivity extends AppCompatActivity {
         walkers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /*Intent intent = new Intent(getBaseContext(), walkerChat.class);
+                Intent intent = new Intent(getBaseContext(), PersonalChatActivity.class);
                 Paseador p = walkersList.get(position);
                 intent.putExtra("nombre", p.getNombre());
-                startActivity(intent);*/
+                startActivity(intent);
             }
         });
     }

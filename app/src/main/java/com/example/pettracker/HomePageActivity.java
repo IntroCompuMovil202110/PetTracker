@@ -71,7 +71,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             case R.id.nav_home:
                 break;
             case R.id.nav_profile:
-                //startActivity(new Intent(this,ProductDetailsActivity.class));
+                startActivity(new Intent(this,MiPerfilActivity.class));
                 break;
             case R.id.nav_pet:
                 startActivity(new Intent(this,MapsActivity.class));

@@ -78,6 +78,7 @@
         app:layout_anchorGravity="bottom|right|end"
         android:layout_marginRight="30dp"
         app:borderWidth="0dp"
+        android:onClick="chat"
         android:backgroundTint="@color/yellow"
         />
 

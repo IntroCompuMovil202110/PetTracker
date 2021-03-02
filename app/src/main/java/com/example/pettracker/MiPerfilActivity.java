@@ -16,12 +16,19 @@ public class MiPerfilActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_miperfil);
+
     }
 
     public void editarPerfil(View view){
         Intent intent = new Intent(this, EditarPerfilActivity.class);
         startActivityForResult(intent, EDITAR_PERFIL_REQUEST_CODE);
     }
+
+
+    public void misPublicaciones(View view){
+        startActivity(new Intent(this, MisPublicacionesActivity.class));
+    }
+
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

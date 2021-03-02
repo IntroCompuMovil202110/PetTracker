@@ -44,4 +44,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
         int imageId = getResources().getIdentifier(product.getImage() , "drawable", getPackageName());
         image.setImageResource(imageId);
     }
+
+    public void chat(View view){
+        startActivity(new Intent(this,PersonalChatActivity.class));
+    }
 }
