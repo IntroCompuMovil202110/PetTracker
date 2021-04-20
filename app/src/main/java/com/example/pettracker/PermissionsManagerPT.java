@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-public class PermissionsManager {
+public class PermissionsManagerPT {
     public static final int IMAGE_GALLERY_PERMISSION_ID = 0;
     public static final int CAMERA_PERMISSION_ID = 1;
     public static final int CONTACTS_PERMISSION_ID = 2;

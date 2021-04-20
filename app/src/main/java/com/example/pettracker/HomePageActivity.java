@@ -7,10 +7,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -76,8 +74,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 break;
             case R.id.nav_pet:
                 String message = "Es necesario activar el permiso para acceder al GPS.";
-                String permission = PermissionsManager.FINE_LOCATION_PERMISSION_NAME;
-                if(PermissionsManager.askForPermission(this, permission, message, PermissionsManager.LOCATION_PERMISSION_ID)){
+                String permission = PermissionsManagerPT.FINE_LOCATION_PERMISSION_NAME;
+                if(PermissionsManagerPT.askForPermission(this, permission, message, PermissionsManagerPT.LOCATION_PERMISSION_ID)){
                     Intent intent = new Intent(HomePageActivity.this, MapsActivity.class);
                     startActivity(intent);
                 }
@@ -95,8 +93,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode){
-            case PermissionsManager.LOCATION_PERMISSION_ID:
-                if (PermissionsManager.onRequestPermissionsResult(grantResults, this, "Es necesario activar el permiso para acceder al mapa.")) {
+            case PermissionsManagerPT.LOCATION_PERMISSION_ID:
+                if (PermissionsManagerPT.onRequestPermissionsResult(grantResults, this, "Es necesario activar el permiso para acceder al mapa.")) {
                     Intent intent = new Intent(this, MapsActivity.class);
                     startActivity(intent);
                 }

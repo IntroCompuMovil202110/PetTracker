@@ -1,30 +1,24 @@
 package com.example.pettracker;
 
+import android.Manifest;
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.location.Location;
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
+import androidx.core.app.ActivityCompat;
 
-import com.mapbox.android.core.location.LocationEngine;
-import com.mapbox.android.core.location.LocationEngineCallback;
-import com.mapbox.android.core.location.LocationEngineProvider;
-import com.mapbox.android.core.location.LocationEngineRequest;
-import com.mapbox.android.core.location.LocationEngineResult;
+import com.mapbox.android.core.permissions.PermissionsListener;
+import com.mapbox.android.core.permissions.PermissionsManager;
 import com.mapbox.mapboxsdk.Mapbox;
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.location.LocationComponent;
 import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
 import com.mapbox.mapboxsdk.location.modes.CameraMode;
@@ -34,8 +28,10 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
 
+import java.util.List;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
+
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener {
 
     private MapView mapView;
     private MapboxMap map;
@@ -44,6 +40,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private SensorManager sensorManager;
     private Sensor lightSensor;
     private SensorEventListener sensorEventListener;
+    private PermissionsManager permissionsManager;
+    private LocationComponent locationComponent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,17 +76,23 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void enableLocationComponent(@NonNull Style loadedStyle) {
-        if(ContextCompat.checkSelfPermission(MapsActivity.this, PermissionsManager.FINE_LOCATION_PERMISSION_NAME) == PackageManager.PERMISSION_GRANTED) {
+        if (PermissionsManager.areLocationPermissionsGranted(MapsActivity.this)) {
             // Get an instance of the component
-            LocationComponent locationComponent = map.getLocationComponent();
+            locationComponent = map.getLocationComponent();
             // Activate with options
             locationComponent.activateLocationComponent(LocationComponentActivationOptions.builder(this, loadedStyle).build());
             // Enable to make component visible
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
             locationComponent.setLocationComponentEnabled(true);
             // Set the component's camera mode
             locationComponent.setCameraMode(CameraMode.TRACKING);
             // Set the component's render mode
             locationComponent.setRenderMode(RenderMode.COMPASS);
+        } else {
+            permissionsManager = new PermissionsManager(MapsActivity.this);
+            permissionsManager.requestLocationPermissions(MapsActivity.this);
         }
     }
 
@@ -102,7 +106,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 {
                     Log.i("AQUI", "Val: " + event.values[0]);
                     if (map != null) {
-                        if (event.values[0] < 50) {
+                        if (event.values[0] < 35) {
                             map.setStyle(mapDarkStyle);
                         } else {
                             map.setStyle(mapLightStyle);
@@ -121,7 +125,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode){
-            case PermissionsManager.LOCATION_PERMISSION_ID: {
+            case PermissionsManagerPT.LOCATION_PERMISSION_ID: {
                 if (resultCode == Activity.RESULT_OK) {
                     //startLocationUpdates();
                 } else {
@@ -130,6 +134,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 break;
             }
         }
+    }
+
+    @Override
+    public void onExplanationNeeded(List<String> permissionsToExplain) {
+        Toast.makeText(MapsActivity.this, "Es necesario activar el permiso para acceder a la localización.", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPermissionResult(boolean granted) {
+        if (granted){
+            enableLocationComponent(map.getStyle());
+        } else {
+            Toast.makeText(MapsActivity.this, "Es necesario activar el permiso para acceder a la localización.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
