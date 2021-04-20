@@ -41,15 +41,15 @@ public class MisPublicacionesActivity extends AppCompatActivity {
         CustomPublicationsAdapter adapter = new CustomPublicationsAdapter(this, R.layout.publicacion_item, products);
         list = (ListView) findViewById(R.id.listMisPublicaciones);
         list.setAdapter(adapter);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getBaseContext(), PersonalChatActivity.class);
+                Intent intent = new Intent(getBaseContext(), ProductDetailsActivity.class);
                 Product p = products.get(position);
                 intent.putExtra("nombre", p.getTitle());
                 startActivity(intent);
             }
-        });
+        });*/
     }
 
     private void loadPublications() {
