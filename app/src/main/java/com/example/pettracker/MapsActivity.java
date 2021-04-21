@@ -2,6 +2,10 @@ package com.example.pettracker;
 
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -94,9 +98,15 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
     private MapboxMap map;
     private DirectionsRoute currentRoute;
     private MapboxDirections client;
+
+    // User location
     private FusedLocationProviderClient locationProvider;
     private LocationRequest locationRequest;
     private LocationCallback locationCallback;
+
+    // Light sensor
+    private SensorManager sensorManager;
+    private SensorEventListener sensorEventListener;
 
     // Adjust variables below to change the example's UI
     private Point originPoint = Point.fromLngLat(-74.1898188, 4.6324525);
@@ -116,6 +126,8 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
         // This contains the MapView in XML and needs to be called after the access token is configured.
         setContentView(R.layout.activity_maps);
 
+        // Maps Style for luminosity sensor
+
         // Setup the MapView
         mapView = findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
@@ -133,6 +145,7 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
                         initSources(style);
                         initLayers(style);
                         enableLocationComponent(style);
+                        initLightSensor();
 
                         // Get the directions route from the Mapbox Directions API
                         getRoute(mapboxMap, originPoint, destinationPoint);
@@ -140,7 +153,7 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
                         mapboxMap.addOnMapClickListener(MapsActivity.this);
 
                         Toast.makeText(MapsActivity.this,
-                                "Tap the map to change the route destination.", Toast.LENGTH_SHORT).show();
+                                "Toca el mapa para cambiar el destino y calcular la ruta.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -225,6 +238,30 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
         locationRequest.setFastestInterval(5000);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         return locationRequest;
+    }
+
+    private void initLightSensor() {
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        Sensor lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        sensorEventListener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+                if( event.sensor.getType() == Sensor.TYPE_LIGHT)
+                {
+                    if (map != null) {
+                        if (event.values[0] < 35) {
+                            //DarkStyle
+                        } else {
+                            //LightStyle
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+            }
+        };
+        sensorManager.registerListener(sensorEventListener, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     private void moveCameraToCoordinate(double latitude, double longitude){
@@ -318,10 +355,10 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
                 Timber.d("Response code: %s", response.code());
 
                 if (response.body() == null) {
-                    Timber.e("No routes found, make sure you set the right user and access token.");
+                    Timber.e("No se encontraron rutas, asegúrese de tener el usuario y token correcto.");
                     return;
                 } else if (response.body().routes().size() < 1) {
-                    Timber.e("No routes found");
+                    Timber.e("No se encontraron rutas");
                     return;
                 }
 
@@ -356,16 +393,16 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
                         });
                     }
                 } else {
-                    Timber.d("Directions route is null");
+                    Timber.d("La ruta está en null");
                     Toast.makeText(MapsActivity.this,
-                            "The directions route cant be displayed at this time", Toast.LENGTH_SHORT).show();
+                            "La ruta no puede ser dibujada en este momento.", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<DirectionsResponse> call, Throwable throwable) {
                 Toast.makeText(MapsActivity.this,
-                        "Directions API call failed. Try again later.", Toast.LENGTH_SHORT).show();
+                        "Falló el llamado al API de rutas. Intenta más tarde.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -404,6 +441,7 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
     public void onPause() {
         super.onPause();
         mapView.onPause();
+        sensorManager.unregisterListener(sensorEventListener);
     }
 
     @Override
