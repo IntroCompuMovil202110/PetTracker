@@ -96,6 +96,7 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
     private static final String ICON_SOURCE_ID = "icon-source-id";
     private MapView mapView;
     private MapboxMap map;
+    private String currentMapStyle;
     private DirectionsRoute currentRoute;
     private MapboxDirections client;
 
@@ -135,6 +136,7 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
             @Override
             public void onMapReady(@NonNull MapboxMap mapboxMap) {
                 MapsActivity.this.map = mapboxMap;
+                currentMapStyle = Style.DARK;
                 mapboxMap.setStyle(new Style.Builder().fromUri(Style.DARK)
                         .withImage(ORIGIN_ICON_ID, BitmapUtils.getBitmapFromDrawable(
                                 getResources().getDrawable(R.drawable.blue_marker)))
@@ -145,19 +147,18 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
                         initSources(style);
                         initLayers(style);
                         enableLocationComponent(style);
-                        initLightSensor();
 
                         // Get the directions route from the Mapbox Directions API
                         getRoute(mapboxMap, originPoint, destinationPoint);
 
                         mapboxMap.addOnMapClickListener(MapsActivity.this);
 
-                        Toast.makeText(MapsActivity.this,
-                                "Toca el mapa para cambiar el destino y calcular la ruta.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MapsActivity.this, "Toca el mapa para cambiar el destino y calcular la ruta.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         });
+        initLightSensor();
     }
 
     private void enableLocationComponent(@NonNull Style loadedStyle) {
@@ -177,7 +178,7 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
                     public void onLocationResult(LocationResult locationResult) {
                         Location location = locationResult.getLastLocation();
                         if (location != null) {
-                            originPoint = Point.fromLngLat(location.getLatitude(), location.getLongitude());
+                            originPoint = Point.fromLngLat(location.getLongitude(), location.getLatitude());
                             moveCameraToCoordinate(location.getLatitude(), location.getLongitude());
                         }
                     }
@@ -249,10 +250,53 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
                 if( event.sensor.getType() == Sensor.TYPE_LIGHT)
                 {
                     if (map != null) {
-                        if (event.values[0] < 35) {
+                        Log.i("entra", "entra con " + event.values[0] + " origin " + originPoint + " destination " + destinationPoint);
+                        if (event.values[0] < 35 && !currentMapStyle.equalsIgnoreCase(Style.DARK)) {
                             //DarkStyle
-                        } else {
+                            Log.i("DARK", "DARK con " + event.values[0]);
+                            currentMapStyle = Style.DARK;
+                            map.setStyle(new Style.Builder().fromUri(Style.DARK)
+                                    .withImage(ORIGIN_ICON_ID, BitmapUtils.getBitmapFromDrawable(
+                                            getResources().getDrawable(R.drawable.blue_marker)))
+                                    .withImage(DESTINATION_ICON_ID, BitmapUtils.getBitmapFromDrawable(
+                                            getResources().getDrawable(R.drawable.red_marker))), new Style.OnStyleLoaded() {
+                                @Override
+                                public void onStyleLoaded(@NonNull Style style) {
+                                    initSources(style);
+                                    initLayers(style);
+                                    enableLocationComponent(style);
+
+                                    // Get the directions route from the Mapbox Directions API
+                                    getRoute(map, originPoint, destinationPoint);
+
+                                    map.addOnMapClickListener(MapsActivity.this);
+
+                                    Toast.makeText(MapsActivity.this, "Toca el mapa para cambiar el destino y calcular la ruta.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else if(event.values[0] >= 35 && !currentMapStyle.equalsIgnoreCase(Style.LIGHT)){
                             //LightStyle
+                            Log.i("LIGHT", "LIGHT con " + event.values[0]);
+                            currentMapStyle = Style.LIGHT;
+                            map.setStyle(new Style.Builder().fromUri(Style.LIGHT)
+                                    .withImage(ORIGIN_ICON_ID, BitmapUtils.getBitmapFromDrawable(
+                                            getResources().getDrawable(R.drawable.blue_marker)))
+                                    .withImage(DESTINATION_ICON_ID, BitmapUtils.getBitmapFromDrawable(
+                                            getResources().getDrawable(R.drawable.red_marker))), new Style.OnStyleLoaded() {
+                                @Override
+                                public void onStyleLoaded(@NonNull Style style) {
+                                    initSources(style);
+                                    initLayers(style);
+                                    enableLocationComponent(style);
+
+                                    // Get the directions route from the Mapbox Directions API
+                                    getRoute(map, originPoint, destinationPoint);
+
+                                    map.addOnMapClickListener(MapsActivity.this);
+
+                                    Toast.makeText(MapsActivity.this, "Toca el mapa para cambiar el destino y calcular la ruta.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
                     }
                 }
