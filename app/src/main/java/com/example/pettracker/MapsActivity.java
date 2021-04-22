@@ -56,6 +56,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -250,10 +252,8 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
                 if( event.sensor.getType() == Sensor.TYPE_LIGHT)
                 {
                     if (map != null) {
-                        Log.i("entra", "entra con " + event.values[0] + " origin " + originPoint + " destination " + destinationPoint);
                         if (event.values[0] < 35 && !currentMapStyle.equalsIgnoreCase(Style.DARK)) {
                             //DarkStyle
-                            Log.i("DARK", "DARK con " + event.values[0]);
                             currentMapStyle = Style.DARK;
                             map.setStyle(new Style.Builder().fromUri(Style.DARK)
                                     .withImage(ORIGIN_ICON_ID, BitmapUtils.getBitmapFromDrawable(
@@ -276,7 +276,6 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
                             });
                         } else if(event.values[0] >= 35 && !currentMapStyle.equalsIgnoreCase(Style.LIGHT)){
                             //LightStyle
-                            Log.i("LIGHT", "LIGHT con " + event.values[0]);
                             currentMapStyle = Style.LIGHT;
                             map.setStyle(new Style.Builder().fromUri(Style.LIGHT)
                                     .withImage(ORIGIN_ICON_ID, BitmapUtils.getBitmapFromDrawable(
@@ -489,7 +488,7 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
