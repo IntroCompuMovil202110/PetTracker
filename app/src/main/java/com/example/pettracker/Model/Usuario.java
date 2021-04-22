@@ -24,6 +24,16 @@ public class Usuario {
         productoUsuario = productos;
     }
 
+    public Usuario(String nombre, String apellido, String correo, String contrasena, String telefono, String direccion){
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.correo = correo;
+        this.contrasena = contrasena;
+        this.telefono = telefono;
+        this.direccion = direccion;
+
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -74,9 +84,9 @@ public class Usuario {
         return nombre;
     }
 
-    public int getCount(){
+   /* public int getCount(){
         return productoUsuario.size();
-    }
+    }*/
 
     public Object getProducto(int posicion){
         return productoUsuario.get(posicion);

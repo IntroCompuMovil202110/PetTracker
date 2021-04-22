@@ -5,17 +5,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.pettracker.Model.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -26,9 +31,19 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText telefono;
     EditText direccion;
     Button register;
-    boolean camposVer;
 
     private FirebaseAuth mAuth;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+
+    String email;
+    String password;
+    String name;
+    String surname;
+    String telephone;
+    String adress;
+
+
     public static final String TAG = "FB_APP";
 
     @Override
@@ -36,24 +51,114 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        //Firebase
         mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+
 
         nombre = findViewById(R.id.campoNombre);
         apellido = findViewById(R.id.campoApellido);
-        correo = findViewById(R.id.campocorreoInicio);
+        correo = findViewById(R.id.campocorreo);
         contrasena = findViewById(R.id.campocontrasena);
         telefono = findViewById(R.id.campoTelefono);
         direccion = findViewById(R.id.campoDireccion);
         register = findViewById(R.id.botonRegistro);
 
+        contrasena.setTransformationMethod(PasswordTransformationMethod.getInstance());
+
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                email = correo.getText().toString();
+                password = contrasena.getText().toString();
+                name = nombre.getText().toString();
+                surname = apellido.getText().toString();
+                telephone = telefono.getText().toString();
+                adress = direccion.getText().toString();
+
+                if(validateForm(email, password, name, surname, telephone, adress)){
+                    register(email, password);
+                }
+            }
+        });
+    }
+
+   private boolean validateForm(String email, String password, String name, String surname, String telephone, String address ) {
+        if (email != null && password != null) {
+            if (!email.isEmpty() && !password.isEmpty()) {
+                if (email.contains("@") && email.contains(".com") ) {
+                    return true;
+                } else {
+                    correo.setError("Su correo debe estar en el formato correo@correo.com");
+                }
+                if(password.length() > 5){
+                    return true;
+                } else{
+                    contrasena.setError("Su contraseña debe tener 6 caracteres");
+                }
+            }
+        }
+        if (TextUtils.isEmpty(email) && TextUtils.isEmpty(password)
+                && TextUtils.isEmpty(name) && TextUtils.isEmpty(surname) &&  TextUtils.isEmpty(telephone) ) {
+            correo.setError("Debe ingresar un correo de registro");
+            contrasena.setError("Debe ingresar una contraseña");
+            nombre.setError("Debe ingresar su nombre");
+            apellido.setError("Debe ingresar su apellido");
+            telefono.setError("Debe ingresar su teléfono celular ");
+
+
+            return false;
+        }
+        return false;
+    }
+
+    private void register(String email, String password){
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                            Usuario regis = new Usuario(name, surname, email, password, telephone, adress);
+                            FirebaseDatabase.getInstance().getReference("users")
+                                    .child(user.getUid())
+                                    .setValue(regis).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull  Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(RegistrationActivity.this, "Su Usuario ha sido Creado",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                    else {
+                                        Toast.makeText(RegistrationActivity.this, "Su Registro Fallo",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(RegistrationActivity.this, "Su Registro Fallo",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+                    }
+                });
 
     }
-    public void homepage (View view){
-        startActivity(new Intent(this, HomePageActivity.class));
 
+    private void updateUI (FirebaseUser user){
+        if(user != null){
+            startActivity(new Intent(this, HomePageActivity.class));
+
+        }else{
+            correo.setText("");
+            contrasena.setText("");
+        }
     }
-
-
-
 }

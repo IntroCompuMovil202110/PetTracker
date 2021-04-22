@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class HomePageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -82,6 +84,10 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             case R.id.nav_chat:
                 startActivity(new Intent(this,ChatListActivity.class));
                 break;
+            case R.id.nav_logout:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(this, MainActivity.class ));
+                finish();
         }
         return true;
     }
