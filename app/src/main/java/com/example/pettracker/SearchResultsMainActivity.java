@@ -137,7 +137,12 @@ public class SearchResultsMainActivity extends AppCompatActivity implements Navi
             case R.id.nav_profile:
                 break;
             case R.id.nav_pet:
-                Toast.makeText(getApplicationContext(), "Selecciono mis mascotas", Toast.LENGTH_SHORT).show();
+                String message = "Es necesario activar el permiso para acceder al GPS.";
+                String permission = PermissionsManagerPT.FINE_LOCATION_PERMISSION_NAME;
+                if(PermissionsManagerPT.askForPermission(this, permission, message, PermissionsManagerPT.LOCATION_PERMISSION_ID)){
+                    Intent intent = new Intent(SearchResultsMainActivity.this, MapsActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.nav_walkers:
                 startActivity(new Intent(this, WalkersListActivity.class));
@@ -147,6 +152,18 @@ public class SearchResultsMainActivity extends AppCompatActivity implements Navi
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case PermissionsManagerPT.LOCATION_PERMISSION_ID:
+                if (PermissionsManagerPT.onRequestPermissionsResult(grantResults, this, "Es necesario activar el permiso para acceder al mapa.")) {
+                    Intent intent = new Intent(this, MapsActivity.class);
+                    startActivity(intent);
+                }
+                break;
+        }
     }
 
     class CustomAdapter extends BaseAdapter{
