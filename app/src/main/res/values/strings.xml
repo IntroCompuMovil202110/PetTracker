@@ -102,4 +102,11 @@
         <item>Correa para perros de cuero sintetico de alta duracion. Muy Buena.</item>
         <item>Juguete para gatos muy entretenido y duradero. Por experiencia personal se que le fascina a los gatos y hasta tambien a perro juguetones. </item>
     </string-array>
+
+    <string-array name="roles">
+        <item>Escoga un Rol</item>
+        <item>Paseador</item>
+        <item>Cliente</item>
+    </string-array>
+
 </resources>

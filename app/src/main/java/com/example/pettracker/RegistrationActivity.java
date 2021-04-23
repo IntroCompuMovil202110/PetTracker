@@ -9,8 +9,12 @@ import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pettracker.Model.Usuario;
@@ -22,7 +26,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class RegistrationActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class RegistrationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     EditText nombre;
     EditText apellido;
@@ -31,6 +37,7 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText telefono;
     EditText direccion;
     Button register;
+    Spinner roles;
 
     private FirebaseAuth mAuth;
     FirebaseDatabase database;
@@ -42,6 +49,8 @@ public class RegistrationActivity extends AppCompatActivity {
     String surname;
     String telephone;
     String adress;
+    String rol;
+    Boolean select;
 
 
     public static final String TAG = "FB_APP";
@@ -62,8 +71,14 @@ public class RegistrationActivity extends AppCompatActivity {
         telefono = findViewById(R.id.campoTelefono);
         direccion = findViewById(R.id.campoDireccion);
         register = findViewById(R.id.botonRegistro);
+        roles = findViewById(R.id.rol);
 
         contrasena.setTransformationMethod(PasswordTransformationMethod.getInstance());
+
+        ArrayAdapter<CharSequence> adapter =  ArrayAdapter.createFromResource(this, R.array.roles, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        roles.setAdapter(adapter);
+        roles.setOnItemSelectedListener(this);
 
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -77,14 +92,14 @@ public class RegistrationActivity extends AppCompatActivity {
                 telephone = telefono.getText().toString();
                 adress = direccion.getText().toString();
 
-                if(validateForm(email, password, name, surname, telephone, adress)){
+                if(validateForm(email, password, name, surname, telephone, adress, rol)){
                     register(email, password);
                 }
             }
         });
     }
 
-   private boolean validateForm(String email, String password, String name, String surname, String telephone, String address ) {
+   private boolean validateForm(String email, String password, String name, String surname, String telephone, String address, String rol ) {
         if (email != null && password != null) {
             if (!email.isEmpty() && !password.isEmpty()) {
                 if (email.contains("@") && email.contains(".com") ) {
@@ -100,13 +115,13 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         }
         if (TextUtils.isEmpty(email) && TextUtils.isEmpty(password)
-                && TextUtils.isEmpty(name) && TextUtils.isEmpty(surname) &&  TextUtils.isEmpty(telephone) ) {
+                && TextUtils.isEmpty(name) && TextUtils.isEmpty(surname) &&  TextUtils.isEmpty(telephone) && select==false ) {
             correo.setError("Debe ingresar un correo de registro");
             contrasena.setError("Debe ingresar una contraseña");
             nombre.setError("Debe ingresar su nombre");
             apellido.setError("Debe ingresar su apellido");
             telefono.setError("Debe ingresar su teléfono celular ");
-
+            ((TextView)roles.getSelectedView()).setError("Escoga un Rol");
 
             return false;
         }
@@ -123,7 +138,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
-                            Usuario regis = new Usuario(name, surname, email, password, telephone, adress);
+                            Usuario regis = new Usuario(name, surname, email, password, telephone, adress, rol);
                             FirebaseDatabase.getInstance().getReference("users")
                                     .child(user.getUid())
                                     .setValue(regis).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -134,18 +149,15 @@ public class RegistrationActivity extends AppCompatActivity {
                                                 Toast.LENGTH_SHORT).show();
                                     }
                                     else {
+                                        // If sign in fails, display a message to the user.
+                                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
                                         Toast.makeText(RegistrationActivity.this, "Su Registro Fallo",
                                                 Toast.LENGTH_SHORT).show();
+                                        updateUI(null);
                                     }
                                 }
                             });
 
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(RegistrationActivity.this, "Su Registro Fallo",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
                         }
                     }
                 });
@@ -160,5 +172,22 @@ public class RegistrationActivity extends AppCompatActivity {
             correo.setText("");
             contrasena.setText("");
         }
+    }
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+       if(parent.getItemAtPosition(position).equals("Escoga un Rol")){
+           select = false;
+       }
+       else {
+           rol = parent.getItemAtPosition(position).toString();
+           select = true;
+       }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
