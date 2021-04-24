@@ -61,6 +61,13 @@
             android:orientation="horizontal"
             android:padding="10dp">
 
+            <ImageButton
+                android:id="@+id/imageMsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/ic_menu_gallery"
+                android:layout_gravity="center"/>
+
             <EditText
                 android:id="@+id/textMsg"
                 android:layout_width="match_parent"
