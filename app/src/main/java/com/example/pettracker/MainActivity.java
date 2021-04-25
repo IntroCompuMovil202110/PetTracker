@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         correo = findViewById(R.id.campocorreoInicio);
         contrasena = findViewById(R.id.campocontrasenaInicio);
         login = findViewById(R.id.botonIniciarSesion);
+
+        contrasena.setTransformationMethod(PasswordTransformationMethod.getInstance());
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override

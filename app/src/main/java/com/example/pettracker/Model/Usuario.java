@@ -9,6 +9,7 @@ public class Usuario {
     public String contrasena;
     public String telefono;
     public String direccion;
+    public String rol;
     List<Product> productoUsuario;
     public Usuario(){
 
@@ -22,6 +23,17 @@ public class Usuario {
         this.telefono = telefono;
         this.direccion = direccion;
         productoUsuario = productos;
+    }
+
+    public Usuario(String nombre, String apellido, String correo, String contrasena, String telefono, String direccion, String rol){
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.correo = correo;
+        this.contrasena = contrasena;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.rol = rol;
+
     }
 
     public String getNombre() {
@@ -74,9 +86,9 @@ public class Usuario {
         return nombre;
     }
 
-    public int getCount(){
+   /* public int getCount(){
         return productoUsuario.size();
-    }
+    }*/
 
     public Object getProducto(int posicion){
         return productoUsuario.get(posicion);

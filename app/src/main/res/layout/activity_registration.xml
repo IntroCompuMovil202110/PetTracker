@@ -13,8 +13,8 @@
 
         <View
             android:id="@+id/view"
-            android:layout_width="412dp"
-            android:layout_height="100dp"
+            android:layout_width="407dp"
+            android:layout_height="81dp"
             android:background="@color/red"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,13 +52,13 @@
             android:id="@+id/nombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="4dp"
             android:text="@string/nombre"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
@@ -204,28 +204,46 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:backgroundTint="@color/red"
-            android:textColor="@color/black"
             android:gravity="center"
+            android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/direccion" />
 
+        <Spinner
+            android:id="@+id/rol"
+            android:layout_width="295dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="14dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:autofillHints="Seleccione un Rol"
+            app:layout_constraintBottom_toTopOf="@+id/botonRegistro"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/campoDireccion" />
+
+
         <Button
             android:id="@+id/botonRegistro"
             android:layout_width="238dp"
             android:layout_height="58dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="13dp"
             android:backgroundTint="@color/RojoPastel"
             android:text="@string/crearCuenta"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintCircleRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/campoDireccion"/>
+            app:layout_constraintTop_toBottomOf="@+id/rol" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
