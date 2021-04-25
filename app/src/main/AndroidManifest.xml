@@ -8,6 +8,12 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- Avoid execute the application in devices without camera -->
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -16,7 +22,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PetTracker">
-        <activity android:name=".PersonalChatActivity"></activity>
+        <activity android:name=".ImageActivity"></activity>
+        <activity android:name=".PersonalChatActivity" />
         <activity android:name=".ChatListActivity" />
         <activity android:name=".EditProductActivity" />
         <activity android:name=".PublishProductActivity" />
@@ -53,7 +60,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditarPerfilActivity"/>
+        <activity android:name=".EditarPerfilActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
