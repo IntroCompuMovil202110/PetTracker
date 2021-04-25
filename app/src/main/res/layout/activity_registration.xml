@@ -212,6 +212,7 @@
             app:layout_constraintTop_toBottomOf="@+id/direccion" />
 
         <Button
+            android:id="@+id/botonRegistro"
             android:layout_width="238dp"
             android:layout_height="58dp"
             android:layout_marginTop="20dp"
@@ -224,8 +225,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/campoDireccion"
-            android:onClick="homepage"/>
+            app:layout_constraintTop_toBottomOf="@+id/campoDireccion"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

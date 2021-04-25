@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "800746975959",
+    "project_id": "pettracker-b3317",
+    "storage_bucket": "pettracker-b3317.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:800746975959:android:4fe449d644a2b88685f692",
+        "android_client_info": {
+          "package_name": "com.example.pettracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "800746975959-ln2afe3q99gsftdbur3sdk2a70kjovuk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDth7kuTeIHhtbhQkFpF9q6zkirpYsUW0A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "800746975959-ln2afe3q99gsftdbur3sdk2a70kjovuk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
