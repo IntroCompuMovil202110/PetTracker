@@ -1,29 +1,17 @@
 package com.example.pettracker.Model;
 
+import com.google.firebase.database.ServerValue;
+
 public class Message {
 
     private String message;
-    private String name;
-    private String picture;
-    private String urlImage;
-    private String type_message;
+    private String urlPicture;
+    private boolean hasPicture;
+    private String emisorKey;
+    private Object createdTimestamp;
 
     public Message() {
-    }
-
-    public Message(String message, String name, String picture, String type_message) {
-        this.message = message;
-        this.name = name;
-        this.picture = picture;
-        this.type_message = type_message;
-    }
-
-    public Message(String message, String name, String picture, String urlImage, String type_message) {
-        this.message = message;
-        this.name = name;
-        this.picture = picture;
-        this.urlImage = urlImage;
-        this.type_message = type_message;
+        createdTimestamp = ServerValue.TIMESTAMP;
     }
 
     public String getMessage() {
@@ -34,35 +22,35 @@ public class Message {
         this.message = message;
     }
 
-    public String getName() {
-        return name;
+    public String getUrlPicture() {
+        return urlPicture;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUrlPicture(String urlPicture) {
+        this.urlPicture = urlPicture;
     }
 
-    public String getPicture() {
-        return picture;
+    public boolean isHasPicture() {
+        return hasPicture;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setHasPicture(boolean hasPicture) {
+        this.hasPicture = hasPicture;
     }
 
-    public String getType_message() {
-        return type_message;
+    public String getEmisorKey() {
+        return emisorKey;
     }
 
-    public void setType_message(String type_message) {
-        this.type_message = type_message;
+    public void setEmisorKey(String emisorKey) {
+        this.emisorKey = emisorKey;
     }
 
-    public String getUrlImage() {
-        return urlImage;
+    public Object getCreatedTimestamp() {
+        return createdTimestamp;
     }
 
-    public void setUrlImage(String urlImage) {
-        this.urlImage = urlImage;
+    public void setCreatedTimestamp(Object createdTimestamp) {
+        this.createdTimestamp = createdTimestamp;
     }
 }

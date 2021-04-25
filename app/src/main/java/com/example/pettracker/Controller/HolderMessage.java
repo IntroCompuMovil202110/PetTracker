@@ -11,7 +11,7 @@ import com.example.pettracker.R;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HolderMessage extends RecyclerView.ViewHolder {
-
+    
     private TextView message;
     private TextView hour;
     private CircleImageView picture;
