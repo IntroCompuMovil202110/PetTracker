@@ -139,7 +139,15 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                             Usuario regis = new Usuario(name, surname, email, password, telephone, adress, rol);
-                            FirebaseDatabase.getInstance().getReference("users")
+
+                            String folder = "users";
+
+                            if(rol.equals("Paseador")){
+                                folder = "walkers";
+                            }else if(rol.equals("Cliente")){
+                                folder = "users";
+                            }
+                            FirebaseDatabase.getInstance().getReference(folder)
                                     .child(user.getUid())
                                     .setValue(regis).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override

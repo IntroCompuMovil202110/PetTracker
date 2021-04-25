@@ -1,9 +1,9 @@
 package com.example.pettracker.Controller;
 
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pettracker.R;
@@ -14,14 +14,14 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
 
     private CircleImageView profilePicture;
     private TextView name;
-    private LinearLayout priLayout;
+    private CardView priCard;
 
     public UserViewHolder(View itemView) {
         super(itemView);
 
         profilePicture = itemView.findViewById(R.id.profileCardUser);
         name = itemView.findViewById(R.id.nameCardUser);
-        priLayout = itemView.findViewById(R.id.priLayout);
+        priCard = itemView.findViewById(R.id.priLayout);
     }
 
     public CircleImageView getProfilePicture() {
@@ -40,11 +40,11 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
         this.name = name;
     }
 
-    public LinearLayout getPriLayout() {
-        return priLayout;
+    public CardView getPriLayout() {
+        return priCard;
     }
 
-    public void setPriLayout(LinearLayout priLayout) {
-        this.priLayout = priLayout;
+    public void setPriCard(CardView priCard) {
+        this.priCard = priCard;
     }
 }

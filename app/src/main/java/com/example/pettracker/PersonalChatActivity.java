@@ -65,6 +65,8 @@ public class PersonalChatActivity extends AppCompatActivity {
 
     private static final int SEND_IMAGE = 1;
 
+    String receptorName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +75,7 @@ public class PersonalChatActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
             KEY_RECEPTOR = bundle.getString("keyReceptor");
+            receptorName = bundle.getString("receptorName");
         }else{
             finish();
         }
@@ -93,6 +96,8 @@ public class PersonalChatActivity extends AppCompatActivity {
 
         rvMessages.setLayoutManager(l);
         rvMessages.setAdapter(adapter);
+
+        name.setText(receptorName);
 
         buttonMsg.setOnClickListener(new View.OnClickListener() {
             @Override

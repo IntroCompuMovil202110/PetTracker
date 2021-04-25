@@ -37,7 +37,8 @@ public class WalkersListActivity extends AppCompatActivity {
 
         Query query = FirebaseDatabase.getInstance()
                 .getReference()
-                .child("users");
+                .child("walkers")
+                .orderByValue();
 
         FirebaseRecyclerOptions<Paseador> options =
                 new FirebaseRecyclerOptions.Builder<Paseador>()
@@ -65,6 +66,7 @@ public class WalkersListActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(WalkersListActivity.this, PersonalChatActivity.class);
                         intent.putExtra("keyReceptor", lUsuario.getKey());
+                        intent.putExtra("receptorName", lUsuario.getUser().getNombre() + " " + lUsuario.getUser().getApellido());
                         startActivity(intent);
                     }
                 });

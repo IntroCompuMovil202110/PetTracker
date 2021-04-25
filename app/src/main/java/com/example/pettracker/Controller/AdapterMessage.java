@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.pettracker.Model.LMessage;
 import com.example.pettracker.Model.LUsuario;
+import com.example.pettracker.Model.Message;
 import com.example.pettracker.R;
 
 import java.text.SimpleDateFormat;
@@ -54,7 +55,7 @@ public class AdapterMessage extends RecyclerView.Adapter<HolderMessage> {
     public void onBindViewHolder(HolderMessage holder, int position) {
 
         LMessage lMessage = listMessages.get(position);
-        LUsuario lUsuario = lMessage.getlUser();
+       // LUsuario lUsuario = lMessage.getlUser();
 
         holder.getMessage().setText(lMessage.getMessage().getMessage());
 
@@ -87,5 +88,9 @@ public class AdapterMessage extends RecyclerView.Adapter<HolderMessage> {
         }else{
             return -1;
         }
+    }
+
+    public Message getLastMessage(){
+        return listMessages.get(listMessages.size()).getMessage();
     }
 }
