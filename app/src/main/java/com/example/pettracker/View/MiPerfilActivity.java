@@ -1,4 +1,4 @@
-package com.example.pettracker;
+package com.example.pettracker.View;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.pettracker.ImageActivity;
+import com.example.pettracker.R;
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 

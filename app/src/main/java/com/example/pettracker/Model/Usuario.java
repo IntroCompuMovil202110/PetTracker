@@ -3,12 +3,14 @@ package com.example.pettracker.Model;
 import java.util.List;
 
 public class Usuario {
+    public String fotoPerfilURL;
     public String nombre;
     public String apellido;
     public String correo;
     public String contrasena;
     public String telefono;
     public String direccion;
+    public String rol;
     List<Product> productoUsuario;
     public Usuario(){
 
@@ -22,6 +24,25 @@ public class Usuario {
         this.telefono = telefono;
         this.direccion = direccion;
         productoUsuario = productos;
+    }
+
+    public Usuario(String nombre, String apellido, String correo, String contrasena, String telefono, String direccion, String rol){
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.correo = correo;
+        this.contrasena = contrasena;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.rol = rol;
+
+    }
+
+    public String getFotoPerfilURL() {
+        return fotoPerfilURL;
+    }
+
+    public void setFotoPerfilURL(String fotoPerfilURL) {
+        this.fotoPerfilURL = fotoPerfilURL;
     }
 
     public String getNombre() {
@@ -69,14 +90,22 @@ public class Usuario {
         this.direccion = direccion;
     }
 
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
     @Override
     public String toString() {
         return nombre;
     }
 
-    public int getCount(){
+   /* public int getCount(){
         return productoUsuario.size();
-    }
+    }*/
 
     public Object getProducto(int posicion){
         return productoUsuario.get(posicion);

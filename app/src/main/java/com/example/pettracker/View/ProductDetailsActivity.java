@@ -1,16 +1,15 @@
-package com.example.pettracker;
+package com.example.pettracker.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.pettracker.Model.Product;
+import com.example.pettracker.R;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 public class ProductDetailsActivity extends AppCompatActivity {
@@ -35,7 +34,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     }
 
     public void back(View v) {
-        startActivity(new Intent(this,SearchResultsMainActivity.class));
+        startActivity(new Intent(this, SearchResultsMainActivity.class));
     }
 
     public void init(){
@@ -46,6 +45,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
     }
 
     public void chat(View view){
-        startActivity(new Intent(this,PersonalChatActivity.class));
+        startActivity(new Intent(this, PersonalChatActivity.class));
     }
 }

@@ -1,4 +1,4 @@
-package com.example.pettracker;
+package com.example.pettracker.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -14,7 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.pettracker.Controller.PermissionsManagerPT;
+import com.example.pettracker.R;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class HomePageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -70,7 +73,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             case R.id.nav_home:
                 break;
             case R.id.nav_profile:
-                startActivity(new Intent(this,MiPerfilActivity.class));
+                startActivity(new Intent(this, MiPerfilActivity.class));
                 break;
             case R.id.nav_pet:
                 String message = "Es necesario activar el permiso para acceder al GPS.";
@@ -84,8 +87,12 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 startActivity(new Intent(this, WalkersListActivity.class));
                 break;
             case R.id.nav_chat:
-                startActivity(new Intent(this,ChatListActivity.class));
+                startActivity(new Intent(this, ChatListActivity.class));
                 break;
+            case R.id.nav_logout:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(this, MainActivity.class ));
+                finish();
         }
         return true;
     }
@@ -103,6 +110,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     }
 
     public void SearchKeyWord(View v) {
-        startActivity(new Intent(this,SearchResultsMainActivity.class));
+        startActivity(new Intent(this, SearchResultsMainActivity.class));
     }
 }

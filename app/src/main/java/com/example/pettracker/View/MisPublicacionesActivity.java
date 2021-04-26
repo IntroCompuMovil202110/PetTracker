@@ -1,27 +1,18 @@
-package com.example.pettracker;
+package com.example.pettracker.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.pettracker.Model.Paseador;
+import com.example.pettracker.Controller.Adapters.CustomPublicationsAdapter;
 import com.example.pettracker.Model.Product;
+import com.example.pettracker.R;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-
-import javax.security.auth.Subject;
 
 public class MisPublicacionesActivity extends AppCompatActivity {
     /*String[] nombresProductos = {"hp,dsa,das,das"};
@@ -41,15 +32,15 @@ public class MisPublicacionesActivity extends AppCompatActivity {
         CustomPublicationsAdapter adapter = new CustomPublicationsAdapter(this, R.layout.publicacion_item, products);
         list = (ListView) findViewById(R.id.listMisPublicaciones);
         list.setAdapter(adapter);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getBaseContext(), PersonalChatActivity.class);
+                Intent intent = new Intent(getBaseContext(), ProductDetailsActivity.class);
                 Product p = products.get(position);
                 intent.putExtra("nombre", p.getTitle());
                 startActivity(intent);
             }
-        });
+        });*/
     }
 
     private void loadPublications() {
@@ -61,7 +52,7 @@ public class MisPublicacionesActivity extends AppCompatActivity {
     }
 
     public void crear(View view){
-        startActivity(new Intent(this,PublishProductActivity.class));
+        startActivity(new Intent(this, PublishProductActivity.class));
     }
 
 }
