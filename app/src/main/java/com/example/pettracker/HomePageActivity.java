@@ -9,7 +9,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -76,7 +75,12 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 startActivity(new Intent(this,MiPerfilActivity.class));
                 break;
             case R.id.nav_pet:
-                startActivity(new Intent(this,MapsActivity.class));
+                String message = "Es necesario activar el permiso para acceder al GPS.";
+                String permission = PermissionsManagerPT.FINE_LOCATION_PERMISSION_NAME;
+                if(PermissionsManagerPT.askForPermission(this, permission, message, PermissionsManagerPT.LOCATION_PERMISSION_ID)){
+                    Intent intent = new Intent(HomePageActivity.this, MapsActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.nav_walkers:
                 startActivity(new Intent(this, WalkersListActivity.class));
@@ -90,6 +94,18 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 finish();
         }
         return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case PermissionsManagerPT.LOCATION_PERMISSION_ID:
+                if (PermissionsManagerPT.onRequestPermissionsResult(grantResults, this, "Es necesario activar el permiso para acceder al mapa.")) {
+                    Intent intent = new Intent(this, MapsActivity.class);
+                    startActivity(intent);
+                }
+                break;
+        }
     }
 
     public void SearchKeyWord(View v) {

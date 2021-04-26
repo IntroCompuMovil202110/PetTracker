@@ -103,10 +103,14 @@
         <item>Juguete para gatos muy entretenido y duradero. Por experiencia personal se que le fascina a los gatos y hasta tambien a perro juguetones. </item>
     </string-array>
 
+
     <string-array name="roles">
         <item>Escoga un Rol</item>
         <item>Paseador</item>
         <item>Cliente</item>
     </string-array>
 
+
+    <!-- Mapa -->
+    <string name="mapbox_access_token">sk.eyJ1IjoicGhwZGFya2dob3N0IiwiYSI6ImNrbm5taWdwMzB6dmgzMW4xY3NuYWFldGkifQ.FVa8QgsQwPHXqQbqg9-VCA</string>
 </resources>
