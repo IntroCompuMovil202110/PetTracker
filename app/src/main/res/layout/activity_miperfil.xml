@@ -12,12 +12,13 @@
         android:id="@+id/frameLayout"
         >
         <ImageView
-            android:layout_width="400dp"
-            android:layout_height="250dp"
-            android:src="@drawable/fftactics"
+            android:layout_width="900dp"
+            android:layout_height="900dp"
+            android:src="@drawable/wallpaper_mascotas2"
             android:layout_alignParentTop="true"
             android:id="@+id/imagen_fondo"
             android:layout_gravity="center"
+            android:scaleType="fitCenter"
             />
         <FrameLayout
             android:layout_width="180dp"
@@ -33,7 +34,7 @@
                 android:src="@drawable/chocobo"
                 android:layout_gravity="center"
                 app:shapeAppearanceOverlay="@style/Circular"
-                app:strokeWidth="15dp"
+                app:strokeWidth="8dp"
                 app:strokeColor="#5E5C5C"
                 />
             <ImageButton
@@ -48,16 +49,7 @@
                 android:layout_gravity="bottom"
                 />
         </FrameLayout>
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/btn_fondo"
-            android:src="@drawable/icono_camara"
-            android:scaleType="fitCenter"
-            android:background="@drawable/round_button"
-            android:backgroundTint="#B81614"
-            android:layout_gravity="bottom"
-            />
+
     </FrameLayout>
     <TextView
         android:layout_width="wrap_content"
@@ -92,39 +84,18 @@
         android:layout_toRightOf="@+id/tag_nombre_completo"
         android:paddingBottom="8dp"
         />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tag_fecha_nacimiento"
-        android:layout_below="@+id/tag_nombre_completo"
-        android:text="Fecha de nacimiento:  "
-        android:textSize="20dp"
-        android:textColor="#5E5C5C"
-        android:textStyle="bold"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/fecha_nacimiento"
-        android:text="20/03/1997"
-        android:textSize="20dp"
-        android:textColor="#5E5C5C"
-        android:layout_toRightOf="@+id/tag_fecha_nacimiento"
-        android:layout_below="@+id/nombre_completo"
-        android:paddingTop="10dp"
-        />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tag_correo"
-        android:layout_below="@+id/tag_fecha_nacimiento"
+        android:layout_below="@+id/tag_nombre_completo"
         android:text="Correo:  "
         android:textSize="20dp"
         android:textColor="#5E5C5C"
         android:textStyle="bold"
         android:paddingTop="5dp"
+        android:layout_centerVertical="true"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -134,7 +105,8 @@
         android:textSize="20dp"
         android:textColor="#5E5C5C"
         android:layout_toRightOf="@+id/tag_correo"
-        android:layout_below="@+id/fecha_nacimiento"
+        android:layout_below="@+id/nombre_completo"
+        android:layout_centerVertical="true"
         android:paddingTop="10dp"
         />
     <TextView
@@ -159,28 +131,8 @@
         android:layout_below="@+id/correo"
         android:paddingTop="10dp"
         />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tag_direccion"
-        android:layout_below="@+id/tag_telefono"
-        android:text="Dirección:  "
-        android:textSize="20dp"
-        android:textColor="#5E5C5C"
-        android:textStyle="bold"
-        android:paddingTop="10dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/direccion"
-        android:text="Cra 67 c # 25 a 73"
-        android:textSize="20dp"
-        android:textColor="#5E5C5C"
-        android:layout_toRightOf="@+id/tag_direccion"
-        android:layout_below="@+id/telefono"
-        android:paddingTop="10dp"
-        />
+
+
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -201,7 +153,7 @@
         android:textSize="15dp"
         android:onClick="misPublicaciones"
         android:id="@+id/btn_mis_publicaciones"
-        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         />
 

@@ -54,6 +54,7 @@
             android:textSize="11sp"
             android:onClick="openCamera"
             app:backgroundTint="#E1E1E1" />
-    </LinearLayout>
+
+            </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
