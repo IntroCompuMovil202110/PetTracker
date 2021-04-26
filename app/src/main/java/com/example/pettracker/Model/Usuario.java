@@ -3,6 +3,7 @@ package com.example.pettracker.Model;
 import java.util.List;
 
 public class Usuario {
+    public String fotoPerfilURL;
     public String nombre;
     public String apellido;
     public String correo;
@@ -34,6 +35,14 @@ public class Usuario {
         this.direccion = direccion;
         this.rol = rol;
 
+    }
+
+    public String getFotoPerfilURL() {
+        return fotoPerfilURL;
+    }
+
+    public void setFotoPerfilURL(String fotoPerfilURL) {
+        this.fotoPerfilURL = fotoPerfilURL;
     }
 
     public String getNombre() {
@@ -79,6 +88,14 @@ public class Usuario {
     }
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
     @Override
