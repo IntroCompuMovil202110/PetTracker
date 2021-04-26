@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.pettracker.Controller.PermissionsManagerPT;
 import com.example.pettracker.R;
 
 import java.io.FileNotFoundException;
