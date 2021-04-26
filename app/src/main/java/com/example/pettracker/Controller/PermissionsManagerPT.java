@@ -36,4 +36,8 @@ public class PermissionsManagerPT {
         }
         return false;
     }
+
+    public static void requestPermission(Activity context,String permission,String justification,int idCode){
+        context.requestPermissions(new String[]{permission},idCode);
+    }
 }

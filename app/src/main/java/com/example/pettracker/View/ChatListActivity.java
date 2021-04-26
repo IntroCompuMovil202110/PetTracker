@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.pettracker.Controller.ChatViewHolder;
+import com.example.pettracker.Controller.Holders.ChatViewHolder;
 import com.example.pettracker.Model.Firebase.LUsuario;
 import com.example.pettracker.Model.Usuario;
 import com.example.pettracker.R;
@@ -18,9 +18,14 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import org.jetbrains.annotations.NotNull;
 
 public class ChatListActivity extends AppCompatActivity {
 
@@ -29,7 +34,7 @@ public class ChatListActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
     private DatabaseReference databaseRefence;
 
-    private String name;
+    private Usuario userSearch;
 
 
     @Override
@@ -65,9 +70,42 @@ public class ChatListActivity extends AppCompatActivity {
 
             @Override
             protected void onBindViewHolder(ChatViewHolder holder, int position, Usuario model) {
+                DatabaseReference walkReference = FirebaseDatabase.getInstance().getReference("walkers");
+                walkReference.child(getSnapshots().getSnapshot(position).getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NotNull DataSnapshot snapshot) {
+                        Usuario walker = snapshot.getValue(Usuario.class);
+                        if(walker == null){
+                            DatabaseReference userReference = FirebaseDatabase.getInstance().getReference("users");
+                            userReference.child(getSnapshots().getSnapshot(position).getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NotNull DataSnapshot snapshot) {
+                                    Usuario user = snapshot.getValue(Usuario.class);
+                                    holder.getNameMessage().setText(user.getNombre() + " " + user.getApellido());
+                                    model.setNombre(user.getNombre());
+                                    model.setApellido(user.getApellido());
+                                }
 
-                holder.getNameMessage().setText(model.getNombre());
-                final LUsuario lUsuario = new LUsuario(getSnapshots().getSnapshot(position).getKey(),model);;
+                                @Override
+                                public void onCancelled(@NotNull DatabaseError error) {
+
+                                }
+                            });
+                        }
+                        else if(walker != null) {
+                            holder.getNameMessage().setText(walker.getNombre() + " " + walker.getApellido());
+                            model.setNombre(walker.getNombre());
+                            model.setApellido(walker.getApellido());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NotNull DatabaseError error) {
+
+                    }
+                });
+
+                final LUsuario lUsuario = new LUsuario(getSnapshots().getSnapshot(position).getKey(),model);
 
                 holder.getCardLayout().setOnClickListener(new View.OnClickListener() {
                     @Override

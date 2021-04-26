@@ -52,7 +52,7 @@ public class UsuarioDAO {
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
         referenceUsuarios = database.getReference("users");
-        referenceFotoDePerfil = storage.getReference("Fotos/FotoPerfil/"+getKeyUsuario());
+        referenceFotoDePerfil = storage.getReference("profileImages/"+getKeyUsuario());
     }
 
     public String getKeyUsuario(){
