@@ -10,7 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.pettracker.Controller.UserViewHolder;
+import com.example.pettracker.Controller.Holders.UserViewHolder;
+import com.example.pettracker.Controller.UsuarioDAO;
 import com.example.pettracker.Model.Firebase.LUsuario;
 import com.example.pettracker.Model.Paseador;
 import com.example.pettracker.R;
@@ -38,8 +39,7 @@ public class WalkersListActivity extends AppCompatActivity {
 
         Query query = FirebaseDatabase.getInstance()
                 .getReference()
-                .child("walkers")
-                .orderByValue();
+                .child("walkers");
 
         FirebaseRecyclerOptions<Paseador> options =
                 new FirebaseRecyclerOptions.Builder<Paseador>()
@@ -57,6 +57,7 @@ public class WalkersListActivity extends AppCompatActivity {
 
             @Override
             protected void onBindViewHolder(UserViewHolder holder, int position, Paseador model) {
+
                 //Glide.with(WalkersListActivity.this).load()
                 holder.getName().setText(model.getNombre() + " " + model.getApellido());
 
