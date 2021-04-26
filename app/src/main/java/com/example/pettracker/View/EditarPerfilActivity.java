@@ -1,4 +1,4 @@
-package com.example.pettracker;
+package com.example.pettracker.View;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.pettracker.R;
 
 public class EditarPerfilActivity extends AppCompatActivity {
     public static final String MENSAJE = "com.example.perfilpettracker.MESSAGE";

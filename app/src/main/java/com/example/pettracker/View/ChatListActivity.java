@@ -1,40 +1,26 @@
-package com.example.pettracker;
+package com.example.pettracker.View;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.example.pettracker.Controller.AdapterMessage;
 import com.example.pettracker.Controller.ChatViewHolder;
-import com.example.pettracker.Controller.UserViewHolder;
-import com.example.pettracker.Model.LMessage;
-import com.example.pettracker.Model.LUsuario;
-import com.example.pettracker.Model.Message;
-import com.example.pettracker.Model.Paseador;
+import com.example.pettracker.Model.Firebase.LUsuario;
 import com.example.pettracker.Model.Usuario;
+import com.example.pettracker.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatListActivity extends AppCompatActivity {
 
@@ -80,7 +66,7 @@ public class ChatListActivity extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(ChatViewHolder holder, int position, Usuario model) {
 
-                holder.getNameMessage().setText("Paseador" + position);
+                holder.getNameMessage().setText(model.getNombre());
                 final LUsuario lUsuario = new LUsuario(getSnapshots().getSnapshot(position).getKey(),model);;
 
                 holder.getCardLayout().setOnClickListener(new View.OnClickListener() {

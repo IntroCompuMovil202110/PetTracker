@@ -1,4 +1,6 @@
-package com.example.pettracker.Model;
+package com.example.pettracker.Model.Firebase;
+
+import com.example.pettracker.Model.Message;
 
 import java.util.Date;
 import java.util.Locale;

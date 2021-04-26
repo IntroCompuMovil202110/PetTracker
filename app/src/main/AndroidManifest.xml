@@ -16,13 +16,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PetTracker">
-        <activity android:name=".PersonalChatActivity"></activity>
-        <activity android:name=".ChatListActivity" />
-        <activity android:name=".EditProductActivity" />
-        <activity android:name=".PublishProductActivity" />
-        <activity android:name=".WalkersListActivity" />
-        <activity android:name=".MisPublicacionesActivity" />
-        <activity android:name=".RegistrationActivity" />
+        <activity android:name=".View.PersonalChatActivity"></activity>
+        <activity android:name=".View.ChatListActivity" />
+        <activity android:name=".View.EditProductActivity" />
+        <activity android:name=".View.PublishProductActivity" />
+        <activity android:name=".View.WalkersListActivity" />
+        <activity android:name=".View.MisPublicacionesActivity" />
+        <activity android:name=".View.RegistrationActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -36,24 +36,24 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".View.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".ProductDetailsActivity" />
-        <activity android:name=".SearchResultsMainActivity" />
-        <activity android:name=".HomePageActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".View.ProductDetailsActivity" />
+        <activity android:name=".View.SearchResultsMainActivity" />
+        <activity android:name=".View.HomePageActivity" />
+        <activity android:name=".View.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MiPerfilActivity">
+        <activity android:name=".View.MiPerfilActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditarPerfilActivity"/>
+        <activity android:name=".View.EditarPerfilActivity"/>
 
         <meta-data
             android:name="preloaded_fonts"

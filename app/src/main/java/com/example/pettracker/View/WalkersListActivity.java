@@ -1,4 +1,4 @@
-package com.example.pettracker;
+package com.example.pettracker.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,8 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.pettracker.Controller.UserViewHolder;
-import com.example.pettracker.Model.LUsuario;
+import com.example.pettracker.Model.Firebase.LUsuario;
 import com.example.pettracker.Model.Paseador;
+import com.example.pettracker.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;

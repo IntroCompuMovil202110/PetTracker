@@ -1,6 +1,7 @@
-package com.example.pettracker.Model;
+package com.example.pettracker.Model.Firebase;
 
 import com.example.pettracker.Controller.UsuarioDAO;
+import com.example.pettracker.Model.Usuario;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

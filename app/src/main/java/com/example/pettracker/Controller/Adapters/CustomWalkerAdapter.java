@@ -1,4 +1,4 @@
-package com.example.pettracker;
+package com.example.pettracker.Controller.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.pettracker.Model.Paseador;
+import com.example.pettracker.R;
 
 import java.util.ArrayList;
 

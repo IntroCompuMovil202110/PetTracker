@@ -1,4 +1,4 @@
-package com.example.pettracker;
+package com.example.pettracker.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -17,22 +17,20 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pettracker.Controller.AdapterMessage;
+import com.example.pettracker.Controller.Adapters.AdapterMessage;
 import com.example.pettracker.Controller.ChatDAO;
 import com.example.pettracker.Controller.UsuarioDAO;
-import com.example.pettracker.Model.LMessage;
-import com.example.pettracker.Model.LUsuario;
+import com.example.pettracker.Model.Firebase.LMessage;
+import com.example.pettracker.Model.Firebase.LUsuario;
 import com.example.pettracker.Model.Message;
-import com.example.pettracker.Model.Usuario;
+import com.example.pettracker.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 

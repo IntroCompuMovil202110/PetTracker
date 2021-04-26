@@ -1,4 +1,4 @@
-package com.example.pettracker.Controller;
+package com.example.pettracker.Controller.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,14 +7,13 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.pettracker.Model.LMessage;
-import com.example.pettracker.Model.LUsuario;
+import com.example.pettracker.Controller.HolderMessage;
+import com.example.pettracker.Controller.UsuarioDAO;
+import com.example.pettracker.Model.Firebase.LMessage;
 import com.example.pettracker.Model.Message;
 import com.example.pettracker.R;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class AdapterMessage extends RecyclerView.Adapter<HolderMessage> {

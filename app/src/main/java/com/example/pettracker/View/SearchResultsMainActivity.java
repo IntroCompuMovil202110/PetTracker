@@ -1,4 +1,4 @@
-package com.example.pettracker;
+package com.example.pettracker.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -20,7 +20,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pettracker.Controller.PermissionsManagerPT;
 import com.example.pettracker.Model.Product;
+import com.example.pettracker.R;
 import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
@@ -132,7 +134,7 @@ public class SearchResultsMainActivity extends AppCompatActivity implements Navi
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_home:
-                startActivity(new Intent(this,HomePageActivity.class));
+                startActivity(new Intent(this, HomePageActivity.class));
                 break;
             case R.id.nav_profile:
                 break;

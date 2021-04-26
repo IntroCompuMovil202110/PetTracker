@@ -4,7 +4,7 @@ import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
-import com.example.pettracker.Model.LUsuario;
+import com.example.pettracker.Model.Firebase.LUsuario;
 import com.example.pettracker.Model.Usuario;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
