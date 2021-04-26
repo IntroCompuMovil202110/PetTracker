@@ -35,7 +35,7 @@
                 android:layout_gravity="center"
                 app:shapeAppearanceOverlay="@style/Circular"
                 app:strokeWidth="8dp"
-                app:strokeColor="#5E5C5C"
+                app:strokeColor="#EF6997"
                 />
             <ImageButton
                 android:layout_width="50dp"
@@ -54,7 +54,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Juliana"
+        android:text=""
         android:layout_centerInParent="true"
         android:textSize="40dp"
         android:textColor="#5E5C5C"
@@ -62,76 +62,125 @@
         android:id="@+id/nombre_carino"
         android:paddingBottom="10dp"
         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layoutNombre"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_below="@id/nombre_carino"
+        >
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:id="@+id/tag_nombre_completo"
-        android:layout_below="@+id/nombre_carino"
-        android:text="Nombre completo:  "
+        android:text=""
         android:textSize="20dp"
         android:textColor="#5E5C5C"
         android:textStyle="bold"
-        android:paddingBottom="10dp"
         />
+
     <TextView
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:id="@+id/nombre_completo"
-        android:layout_below="@+id/nombre_carino"
-        android:text="Juliana García Mogollón"
-        android:textSize="18dp"
+        android:text=""
+        android:textSize="20dp"
         android:textColor="#5E5C5C"
-        android:layout_toRightOf="@+id/tag_nombre_completo"
-        android:paddingBottom="8dp"
         />
-
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layoutCorreo"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_above="@id/layoutTelefono"
+        >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:id="@+id/tag_correo"
-        android:layout_below="@+id/tag_nombre_completo"
-        android:text="Correo:  "
+        android:text=""
         android:textSize="20dp"
         android:textColor="#5E5C5C"
         android:textStyle="bold"
-        android:paddingTop="5dp"
-        android:layout_centerVertical="true"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:id="@+id/correo"
-        android:text="lianalionheart@gmail.com"
+        android:text=""
         android:textSize="20dp"
         android:textColor="#5E5C5C"
-        android:layout_toRightOf="@+id/tag_correo"
-        android:layout_below="@+id/nombre_completo"
-        android:layout_centerVertical="true"
-        android:paddingTop="10dp"
         />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layoutTelefono"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_above="@id/layoutDireccion"
+        >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:id="@+id/tag_telefono"
-        android:layout_below="@+id/tag_correo"
-        android:text="Teléfono:  "
+        android:text=""
         android:textSize="20dp"
         android:textColor="#5E5C5C"
         android:textStyle="bold"
-        android:paddingTop="10dp"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:id="@+id/telefono"
-        android:text="3123201726"
+        android:text=""
         android:textSize="20dp"
         android:textColor="#5E5C5C"
-        android:layout_toRightOf="@+id/tag_telefono"
-        android:layout_below="@+id/correo"
-        android:paddingTop="10dp"
         />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layoutDireccion"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_above="@id/btn_editar_perfil"
+        >
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/tag_direccion"
+        android:text=""
+        android:textSize="20dp"
+        android:textColor="#5E5C5C"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/direccion"
+        android:text=""
+        android:textSize="20dp"
+        android:textColor="#5E5C5C"
+        />
+    </LinearLayout>
 
     <ImageButton
         android:layout_width="wrap_content"
