@@ -12,12 +12,13 @@
         android:id="@+id/frameLayout"
         >
         <ImageView
-            android:layout_width="400dp"
-            android:layout_height="250dp"
-            android:src="@drawable/fftactics"
+            android:layout_width="900dp"
+            android:layout_height="900dp"
+            android:src="@drawable/wallpaper_mascotas2"
             android:layout_alignParentTop="true"
             android:id="@+id/imagen_fondo"
             android:layout_gravity="center"
+            android:scaleType="fitCenter"
             />
         <FrameLayout
             android:layout_width="180dp"
@@ -33,8 +34,8 @@
                 android:src="@drawable/chocobo"
                 android:layout_gravity="center"
                 app:shapeAppearanceOverlay="@style/Circular"
-                app:strokeWidth="15dp"
-                app:strokeColor="#5E5C5C"
+                app:strokeWidth="8dp"
+                app:strokeColor="#EF6997"
                 />
             <ImageButton
                 android:layout_width="50dp"
@@ -48,21 +49,12 @@
                 android:layout_gravity="bottom"
                 />
         </FrameLayout>
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/btn_fondo"
-            android:src="@drawable/icono_camara"
-            android:scaleType="fitCenter"
-            android:background="@drawable/round_button"
-            android:backgroundTint="#B81614"
-            android:layout_gravity="bottom"
-            />
+
     </FrameLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Juliana"
+        android:text=""
         android:layout_centerInParent="true"
         android:textSize="40dp"
         android:textColor="#5E5C5C"
@@ -70,117 +62,126 @@
         android:id="@+id/nombre_carino"
         android:paddingBottom="10dp"
         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layoutNombre"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_below="@id/nombre_carino"
+        >
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:id="@+id/tag_nombre_completo"
-        android:layout_below="@+id/nombre_carino"
-        android:text="Nombre completo:  "
+        android:text=""
         android:textSize="20dp"
         android:textColor="#5E5C5C"
         android:textStyle="bold"
-        android:paddingBottom="10dp"
         />
+
     <TextView
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:id="@+id/nombre_completo"
-        android:layout_below="@+id/nombre_carino"
-        android:text="Juliana García Mogollón"
-        android:textSize="18dp"
-        android:textColor="#5E5C5C"
-        android:layout_toRightOf="@+id/tag_nombre_completo"
-        android:paddingBottom="8dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tag_fecha_nacimiento"
-        android:layout_below="@+id/tag_nombre_completo"
-        android:text="Fecha de nacimiento:  "
+        android:text=""
         android:textSize="20dp"
         android:textColor="#5E5C5C"
-        android:textStyle="bold"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
         />
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layoutCorreo"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_above="@id/layoutTelefono"
+        >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/fecha_nacimiento"
-        android:text="20/03/1997"
-        android:textSize="20dp"
-        android:textColor="#5E5C5C"
-        android:layout_toRightOf="@+id/tag_fecha_nacimiento"
-        android:layout_below="@+id/nombre_completo"
-        android:paddingTop="10dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:id="@+id/tag_correo"
-        android:layout_below="@+id/tag_fecha_nacimiento"
-        android:text="Correo:  "
+        android:text=""
         android:textSize="20dp"
         android:textColor="#5E5C5C"
         android:textStyle="bold"
-        android:paddingTop="5dp"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:id="@+id/correo"
-        android:text="lianalionheart@gmail.com"
+        android:text=""
         android:textSize="20dp"
         android:textColor="#5E5C5C"
-        android:layout_toRightOf="@+id/tag_correo"
-        android:layout_below="@+id/fecha_nacimiento"
-        android:paddingTop="10dp"
         />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layoutTelefono"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_above="@id/layoutDireccion"
+        >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:id="@+id/tag_telefono"
-        android:layout_below="@+id/tag_correo"
-        android:text="Teléfono:  "
+        android:text=""
         android:textSize="20dp"
         android:textColor="#5E5C5C"
         android:textStyle="bold"
-        android:paddingTop="10dp"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:id="@+id/telefono"
-        android:text="3123201726"
+        android:text=""
         android:textSize="20dp"
         android:textColor="#5E5C5C"
-        android:layout_toRightOf="@+id/tag_telefono"
-        android:layout_below="@+id/correo"
-        android:paddingTop="10dp"
         />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layoutDireccion"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_above="@id/btn_editar_perfil"
+        >
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:id="@+id/tag_direccion"
-        android:layout_below="@+id/tag_telefono"
-        android:text="Dirección:  "
+        android:text=""
         android:textSize="20dp"
         android:textColor="#5E5C5C"
         android:textStyle="bold"
-        android:paddingTop="10dp"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:id="@+id/direccion"
-        android:text="Cra 67 c # 25 a 73"
+        android:text=""
         android:textSize="20dp"
         android:textColor="#5E5C5C"
-        android:layout_toRightOf="@+id/tag_direccion"
-        android:layout_below="@+id/telefono"
-        android:paddingTop="10dp"
         />
+    </LinearLayout>
+
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -201,7 +202,7 @@
         android:textSize="15dp"
         android:onClick="misPublicaciones"
         android:id="@+id/btn_mis_publicaciones"
-        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         />
 

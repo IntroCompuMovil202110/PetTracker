@@ -16,13 +16,27 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.pettracker.Controller.PermissionsManagerPT;
 import com.example.pettracker.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
@@ -30,12 +44,15 @@ public class ImageActivity extends AppCompatActivity {
 
     private static final int IMAGE_GALLERY_PERMISSION = 0;
     private static final int CAMERA_PERMISSION = 1;
+    public static final String PERFIL_EXTRA = "com.example.pettracker.MESSAGE";
     private ImageView imageSelected;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image);
+
         imageSelected = findViewById(R.id.imageSelected);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -97,12 +114,17 @@ public class ImageActivity extends AppCompatActivity {
                 if(resultCode == RESULT_OK){
                     try {
                         final Uri imageUri = data.getData();
+                        Bundle extras = data.getExtras();
                         final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                         final Bitmap imageBitmap = BitmapFactory.decodeStream(imageStream);
                         imageSelected.setImageBitmap(imageBitmap);
+
+                        salvarImagen(imageBitmap);
+
                     } catch (FileNotFoundException e){
                         e.printStackTrace();
                     }
+
                 }
                 break;
             case CAMERA_PERMISSION:
@@ -110,7 +132,68 @@ public class ImageActivity extends AppCompatActivity {
                     Bundle extras = data.getExtras();
                     Bitmap imageBitmap = (Bitmap) extras.get("data");
                     imageSelected.setImageBitmap(imageBitmap);
+
+                    salvarImagen(imageBitmap);
                 }
         }
     }
+
+    private void salvarImagen(Bitmap imageBitmap){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        StorageReference reference = FirebaseStorage.getInstance().getReference()
+                .child("profileImages")
+                .child(uid + ".jpeg");
+        reference.putBytes(baos.toByteArray())
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        descargarURL(reference);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull @NotNull Exception e) {
+                        Log.e("UPLOADTASK", "on Failure", e.getCause());
+                    }
+                });
+    }
+
+    private void descargarURL(StorageReference reference){
+        reference.getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Log.d("Cargar Imagen", "onSuccess" + uri);
+                        setImagenPerfil(uri);
+                    }
+                });
+    }
+
+    private void setImagenPerfil(Uri uri){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        UserProfileChangeRequest request = new UserProfileChangeRequest.Builder()
+                .setPhotoUri(uri)
+                .build();
+        user.updateProfile(request)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(ImageActivity.this, "Se cambió la imagen de perfil", Toast.LENGTH_LONG);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull @NotNull Exception e) {
+                        Toast.makeText(ImageActivity.this, "Error al cambiar imagen", Toast.LENGTH_LONG);
+                    }
+                });
+        Intent datos = new Intent();
+        datos.putExtra(PERFIL_EXTRA,"Bitmap");
+        setResult(RESULT_OK,datos);
+
+    }
+
 }
