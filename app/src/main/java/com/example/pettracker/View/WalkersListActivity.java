@@ -71,6 +71,7 @@ public class WalkersListActivity extends AppCompatActivity {
                         Intent intent = new Intent(WalkersListActivity.this, PersonalChatActivity.class);
                         intent.putExtra("keyReceptor", lUsuario.getKey());
                         intent.putExtra("receptorName", lUsuario.getUser().getNombre() + " " + lUsuario.getUser().getApellido());
+                        intent.putExtra("profileURL", lUsuario.getUser().getFotoPerfilURL());
                         startActivity(intent);
                     }
                 });

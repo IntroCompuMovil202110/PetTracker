@@ -2,6 +2,7 @@ package com.example.pettracker.View;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -58,6 +59,9 @@ public class EditarPerfilActivity extends AppCompatActivity {
         confirmContra = findViewById(R.id.confirmacion_contrasena);
         tagCostoE = findViewById(R.id.tagCostoE);
         costoE = findViewById(R.id.costoE);
+
+        contrasena.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        confirmContra.setTransformationMethod(PasswordTransformationMethod.getInstance());
 
         reference = FirebaseDatabase.getInstance().getReference("users");
         reference.child(key).addValueEventListener(new ValueEventListener() {
