@@ -7,192 +7,203 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="320dp"
         android:layout_alignParentTop="true"
-        android:id="@+id/frameLayout"
-        >
+        android:id="@+id/frameLayout">
+
         <ImageView
-            android:layout_width="900dp"
-            android:layout_height="900dp"
-            android:src="@drawable/wallpaper_mascotas2"
-            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:src="@drawable/wallpaper"
+            android:scaleType="fitXY"
             android:id="@+id/imagen_fondo"
-            android:layout_gravity="center"
-            android:scaleType="fitCenter"
-            />
+            android:layout_gravity="center"/>
+
         <FrameLayout
             android:layout_width="180dp"
             android:layout_height="180dp"
-            android:layout_gravity="center"
-            >
+            android:layout_gravity="center">
 
-            <com.google.android.material.imageview.ShapeableImageView
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profilePicture"
                 android:layout_width="180dp"
                 android:layout_height="180dp"
-                android:scaleType="fitCenter"
-                android:id="@+id/foto_perfil"
-                android:src="@drawable/chocobo"
                 android:layout_gravity="center"
-                app:shapeAppearanceOverlay="@style/Circular"
+                android:src="@drawable/chocobo"
+                app:border_width="3dp"
                 app:strokeWidth="8dp"
-                app:strokeColor="#EF6997"
-                />
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/btn_foto_perfil"
-                android:onClick="image"
-                android:src="@drawable/icono_camara"
-                android:scaleType="fitCenter"
-                android:background="@drawable/round_button"
+                app:strokeColor="#EF6997" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/foto_perfil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:backgroundTint="#B81614"
                 android:layout_gravity="bottom"
-                />
+                android:src="@drawable/icono_camara"
+                app:fabSize="normal"/>
+
         </FrameLayout>
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fondo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#B81614"
+            android:layout_gravity="bottom"
+            android:src="@drawable/icono_camara"/>
+
     </FrameLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
+        android:text="Nombre"
         android:layout_centerInParent="true"
         android:textSize="40dp"
         android:textColor="#5E5C5C"
         android:textStyle="bold"
         android:id="@+id/nombre_carino"
-        android:paddingBottom="10dp"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/layoutNombre"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:layout_below="@id/nombre_carino"
-        >
+        android:paddingBottom="10dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:id="@+id/tag_nombre_completo"
-        android:text=""
-        android:textSize="20dp"
-        android:textColor="#5E5C5C"
-        android:textStyle="bold"
-        />
+        android:orientation="horizontal"
+        android:layout_below="@id/nombre_carino">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:id="@+id/nombre_completo"
-        android:text=""
-        android:textSize="20dp"
-        android:textColor="#5E5C5C"
-        />
-</LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/layoutCorreo"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:padding="5dp"
-        android:layout_above="@id/layoutTelefono"
-        >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:id="@+id/tag_correo"
-        android:text=""
-        android:textSize="20dp"
-        android:textColor="#5E5C5C"
-        android:textStyle="bold"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:id="@+id/correo"
-        android:text=""
-        android:textSize="20dp"
-        android:textColor="#5E5C5C"
-        />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/layoutTelefono"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:padding="5dp"
-        android:layout_above="@id/layoutDireccion"
-        >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:id="@+id/tag_telefono"
-        android:text=""
-        android:textSize="20dp"
-        android:textColor="#5E5C5C"
-        android:textStyle="bold"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:id="@+id/telefono"
-        android:text=""
-        android:textSize="20dp"
-        android:textColor="#5E5C5C"
-        />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/layoutDireccion"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:padding="5dp"
-        android:layout_above="@id/btn_editar_perfil"
-        >
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="10dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:id="@+id/tag_direccion"
-        android:text=""
-        android:textSize="20dp"
-        android:textColor="#5E5C5C"
-        android:textStyle="bold"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:id="@+id/direccion"
-        android:text=""
-        android:textSize="20dp"
-        android:textColor="#5E5C5C"
-        />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="Apellido: "
+                android:textSize="20dp"
+                android:textColor="#5E5C5C"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="Correo: "
+                android:textSize="20dp"
+                android:textColor="#5E5C5C"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:id="@+id/tag_telefono"
+                android:text="Teléfono: "
+                android:textSize="20dp"
+                android:textColor="#5E5C5C"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:id="@+id/tag_direccion"
+                android:text="Dirección: "
+                android:textSize="20dp"
+                android:textColor="#5E5C5C"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:id="@+id/tagCosto"
+                android:text="Costo Servicio: "
+                android:textSize="20dp"
+                android:textColor="#5E5C5C"
+                android:textStyle="bold"
+                android:visibility="gone"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:id="@+id/nombre_completo"
+                android:text="Apellidos"
+                android:textSize="20dp"
+                android:textColor="#5E5C5C"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:id="@+id/correo"
+                android:text="prueba1@gmail.com"
+                android:textSize="20dp"
+                android:textColor="#5E5C5C"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:id="@+id/telefono"
+                android:text="2222222222"
+                android:textSize="20dp"
+                android:textColor="#5E5C5C"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:id="@+id/direccion"
+                android:text="Cr.27s #2-14"
+                android:textSize="20dp"
+                android:textColor="#5E5C5C"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:id="@+id/costo"
+                android:text="0"
+                android:textSize="20dp"
+                android:textColor="#5E5C5C"
+                android:visibility="gone"
+                />
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:src="@drawable/icono_editar"
         android:id="@+id/btn_editar_perfil"
-        android:onClick="editarPerfil"
         android:layout_above="@id/btn_mis_publicaciones"
-        android:background="@drawable/soft_edge_button"
-        android:backgroundTint="#B81614"
+        android:backgroundTint="@android:color/transparent"
+        android:scaleType="fitXY"
         android:layout_centerHorizontal="true"
-        />
+        android:onClick="editarPerfil"/>
 
     <Button
         android:layout_width="180dp"

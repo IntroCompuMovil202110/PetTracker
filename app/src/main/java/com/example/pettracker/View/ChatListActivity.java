@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.example.pettracker.Controller.Holders.ChatViewHolder;
 import com.example.pettracker.Model.Firebase.LUsuario;
 import com.example.pettracker.Model.Usuario;
@@ -84,6 +85,10 @@ public class ChatListActivity extends AppCompatActivity {
                                     holder.getNameMessage().setText(user.getNombre() + " " + user.getApellido());
                                     model.setNombre(user.getNombre());
                                     model.setApellido(user.getApellido());
+                                    model.setFotoPerfilURL(user.getFotoPerfilURL());
+                                    Glide.with(ChatListActivity.this)
+                                            .load(model.getFotoPerfilURL())
+                                            .into(holder.getProfilePictureMessage());
                                 }
 
                                 @Override
@@ -96,6 +101,10 @@ public class ChatListActivity extends AppCompatActivity {
                             holder.getNameMessage().setText(walker.getNombre() + " " + walker.getApellido());
                             model.setNombre(walker.getNombre());
                             model.setApellido(walker.getApellido());
+                            model.setFotoPerfilURL(walker.getFotoPerfilURL());
+                            Glide.with(ChatListActivity.this)
+                                    .load(model.getFotoPerfilURL())
+                                    .into(holder.getProfilePictureMessage());
                         }
                     }
 
@@ -113,6 +122,7 @@ public class ChatListActivity extends AppCompatActivity {
                         Intent intent = new Intent(ChatListActivity.this, PersonalChatActivity.class);
                         intent.putExtra("keyReceptor", lUsuario.getKey());
                         intent.putExtra("receptorName", lUsuario.getUser().getNombre() + " " + lUsuario.getUser().getApellido());
+                        intent.putExtra("profileURL", lUsuario.getUser().getFotoPerfilURL());
                         startActivity(intent);
                     }
                 });

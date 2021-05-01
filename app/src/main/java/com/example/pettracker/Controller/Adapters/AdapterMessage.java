@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -11,7 +13,15 @@ import com.example.pettracker.Controller.Holders.HolderMessage;
 import com.example.pettracker.Controller.UsuarioDAO;
 import com.example.pettracker.Model.Firebase.LMessage;
 import com.example.pettracker.Model.Firebase.LUsuario;
+import com.example.pettracker.Model.Message;
 import com.example.pettracker.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +30,7 @@ public class AdapterMessage extends RecyclerView.Adapter<HolderMessage> {
 
     private List<LMessage> listMessages = new ArrayList<>();
     private Context c;
+    private String url;
 
     public AdapterMessage(Context c) {
         this.c = c;
@@ -56,9 +67,35 @@ public class AdapterMessage extends RecyclerView.Adapter<HolderMessage> {
         LMessage lMessage = listMessages.get(position);
         LUsuario lUsuario = lMessage.getlUser();
 
-        /*if(lUsuario!=null){
-            Glide.with(c).load(lUsuario.getUser().getFotoPerfilURL()).into(holder.getPicture());
-        }*/
+        if(lUsuario!=null){
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+            reference.child(lMessage.getMessage().getEmisorKey()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        Glide.with(c).load(snapshot.child("fotoPerfilURL").getValue().toString()).into(holder.getPicture());
+                    } else {
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("walkers");
+                        ref.child(lMessage.getMessage().getEmisorKey()).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                Glide.with(c).load(dataSnapshot.child("fotoPerfilURL").getValue().toString()).into(holder.getPicture());
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError error) {
+
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                }
+            });
+        }
 
         holder.getMessage().setText(lMessage.getMessage().getMessage());
 
@@ -73,6 +110,9 @@ public class AdapterMessage extends RecyclerView.Adapter<HolderMessage> {
         }
 
         holder.getHour().setText(lMessage.dateCreationMessage());
+    }
+
+    private void getProfUrl(String key){
     }
 
     @Override
@@ -92,8 +132,4 @@ public class AdapterMessage extends RecyclerView.Adapter<HolderMessage> {
             return -1;
         }
     }
-
-    //public Message getLastMessage(){
-      //  return listMessages.get(listMessages.size()).getMessage();
-   // }
 }

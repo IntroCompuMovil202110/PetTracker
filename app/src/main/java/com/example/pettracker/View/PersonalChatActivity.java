@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.pettracker.Controller.Adapters.AdapterMessage;
 import com.example.pettracker.Controller.ChatDAO;
 import com.example.pettracker.Controller.PermissionsManagerPT;
@@ -28,6 +29,7 @@ import com.example.pettracker.Controller.UsuarioDAO;
 import com.example.pettracker.Model.Firebase.LMessage;
 import com.example.pettracker.Model.Firebase.LUsuario;
 import com.example.pettracker.Model.Message;
+import com.example.pettracker.Model.Usuario;
 import com.example.pettracker.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,9 +41,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -73,6 +78,8 @@ public class PersonalChatActivity extends AppCompatActivity {
     private String KEY_EMISSOR;
 
     private String receptorName;
+    private String profURL;
+    private String url;
     private String currentPhotoPath;
     private File photoFile;
 
@@ -90,6 +97,7 @@ public class PersonalChatActivity extends AppCompatActivity {
         if (bundle != null){
             KEY_RECEPTOR = bundle.getString("keyReceptor");
             receptorName = bundle.getString("receptorName");
+            url = bundle.getString("profileURL");
         }else{
             finish();
         }
@@ -113,6 +121,9 @@ public class PersonalChatActivity extends AppCompatActivity {
         rvMessages.setAdapter(adapter);
 
         name.setText(receptorName);
+        Glide.with(PersonalChatActivity.this)
+                .load(url)
+                .into(profilePicture);
 
         buttonMsg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,6 +181,9 @@ public class PersonalChatActivity extends AppCompatActivity {
                         @Override
                         public void devolverUsuario(LUsuario lUsuario){
                             mapUsersTemp.put(message.getEmisorKey(),lUsuario);
+                            /*lUsuario.setUser(new Usuario());
+                            getProfUrl(message.getEmisorKey());
+                            lUsuario.getUser().setFotoPerfilURL(profURL);*/
                             lMessage.setlUser(lUsuario);
                             adapter.updateMessage(position,lMessage);
                         }
@@ -204,21 +218,43 @@ public class PersonalChatActivity extends AppCompatActivity {
         });
     }
 
+    private void getProfUrl(String key){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+        reference.child(key).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    System.out.println("//////////////////////////////////////");
+                    profURL = snapshot.child("fotoPerfilURL").getValue().toString();
+                    System.out.println(profURL);
+                } else {
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("walkers");
+                    ref.child(key).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            System.out.println("-------------------------------------------------");
+                            profURL = dataSnapshot.child("fotoPerfilURL").getValue().toString();
+                            System.out.println(profURL);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+    }
     private void takePicture() {
         Intent takepicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if(takepicture.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takepicture, SEND_IMAGE_CAPTURE);
-            /*photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if(photoFile != null) {
-                Uri photoURI = Uri.fromFile(photoFile);
-                takepicture.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-
-            }*/
         }
 
     }

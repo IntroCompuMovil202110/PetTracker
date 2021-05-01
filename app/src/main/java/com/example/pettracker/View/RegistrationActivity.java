@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pettracker.Model.Paseador;
 import com.example.pettracker.Model.Usuario;
 import com.example.pettracker.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -49,6 +50,9 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
     String telephone;
     String adress;
     String rol;
+    String profileURL;
+    String wallpaper;
+    String costo;
     Boolean select;
 
 
@@ -90,6 +94,8 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
                 surname = apellido.getText().toString();
                 telephone = telefono.getText().toString();
                 adress = direccion.getText().toString();
+                profileURL = "https://firebasestorage.googleapis.com/v0/b/pettracker-b3317.appspot.com/o/profileImages%2Fprofile.png?alt=media&token=7dda3a15-a2a1-4864-b7a2-198ba2285741";
+                wallpaper = "https://firebasestorage.googleapis.com/v0/b/pettracker-b3317.appspot.com/o/profileImages%2Fwallpaper.jpg?alt=media&token=f6d25017-704c-4d89-899e-33484d38af54";
 
                 if(validateForm(email, password, name, surname, telephone, adress, rol)){
                     register(email, password);
@@ -137,38 +143,57 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
-                            Usuario regis = new Usuario(name, surname, email, password, telephone, adress, rol);
-
                             String folder = "users";
 
                             if(rol.equals("Paseador")){
+                                costo = "0";
+                                Paseador regis = new Paseador(profileURL, wallpaper, name, surname, email, password, telephone, adress, rol, costo);
                                 folder = "walkers";
-                            }else if(rol.equals("Cliente")){
-                                folder = "users";
-                            }
-                            FirebaseDatabase.getInstance().getReference(folder)
-                                    .child(user.getUid())
-                                    .setValue(regis).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull  Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        Toast.makeText(RegistrationActivity.this, "Su Usuario ha sido Creado",
-                                                Toast.LENGTH_SHORT).show();
-                                    }
-                                    else {
-                                        // If sign in fails, display a message to the user.
-                                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                        Toast.makeText(RegistrationActivity.this, "Su Registro Fallo",
-                                                Toast.LENGTH_SHORT).show();
-                                        updateUI(null);
-                                    }
-                                }
-                            });
 
+                                FirebaseDatabase.getInstance().getReference(folder)
+                                        .child(user.getUid())
+                                        .setValue(regis).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull  Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            Toast.makeText(RegistrationActivity.this, "Su Usuario ha sido Creado",
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
+                                        else {
+                                            // If sign in fails, display a message to the user.
+                                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                            Toast.makeText(RegistrationActivity.this, "Su Registro Fallo",
+                                                    Toast.LENGTH_SHORT).show();
+                                            updateUI(null);
+                                        }
+                                    }
+                                });
+                            } else if (rol.equals("Cliente")){
+                                Usuario regis = new Usuario(profileURL, wallpaper, name, surname, email, password, telephone, adress, rol);
+                                folder = "users";
+
+                                FirebaseDatabase.getInstance().getReference(folder)
+                                        .child(user.getUid())
+                                        .setValue(regis).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull  Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            Toast.makeText(RegistrationActivity.this, "Su Usuario ha sido Creado",
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
+                                        else {
+                                            // If sign in fails, display a message to the user.
+                                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                            Toast.makeText(RegistrationActivity.this, "Su Registro Fallo",
+                                                    Toast.LENGTH_SHORT).show();
+                                            updateUI(null);
+                                        }
+                                    }
+                                });
+                            }
                         }
                     }
                 });
-
     }
 
     private void updateUI (FirebaseUser user){

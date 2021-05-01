@@ -8,8 +8,13 @@ public class Paseador extends Usuario {
     public Paseador() {
     }
 
-    public Paseador(String nombre, String apellido, String correo, String contrasena, String telefono, String direccion, List<Product> productos, String costoServicio) {
-        super(nombre, apellido, correo, contrasena, telefono, direccion, productos);
+    public Paseador(String fotoPerfilURL, String wallpaper, String nombre, String apellido, String correo, String contrasena, String telefono, String direccion, List<Product> productos, String costoServicio) {
+        super(fotoPerfilURL, wallpaper, nombre, apellido, correo, contrasena, telefono, direccion, productos);
+        this.costoServicio = costoServicio;
+    }
+
+    public Paseador(String fotoPerfilURL, String wallpaper, String nombre, String apellido, String correo, String contrasena, String telefono, String direccion, String rol, String costoServicio) {
+        super(fotoPerfilURL, wallpaper, nombre, apellido, correo, contrasena, telefono, direccion, rol);
         this.costoServicio = costoServicio;
     }
 
