@@ -12,6 +12,10 @@ public class LUsuario {
     private String key;
     private Usuario user;
 
+    public LUsuario() {
+
+    }
+
     public LUsuario(String key, Usuario user) {
         this.key = key;
         this.user = user;

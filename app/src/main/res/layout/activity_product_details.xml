@@ -8,7 +8,7 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="250dp"
         android:fitsSystemWindows="true">
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
@@ -53,22 +53,134 @@
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:background="@drawable/layout_bg">
-        <TextView
-            android:id="@+id/product_about"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Este collar de mascotas es hecho con el diseño y los materiales de más alta calidad. \nLa línea de mascotas LAZO ha sido elaborada por manos colombianas, de forma meticulosa creando un producto innovador, confortable y resistente. \n· Color: rosado.· Material confortable: reata elástica, fabricada con nylon y poliéster, interior de la reata reforzando en cuero para mayor resistencia y durabilidad. \n· Hebilla resistente: material potente que aseguran una larga duración.\n· Acabados en cuero con finas costuras. \n· Ancho reata 2.5cm"
-            android:textSize="18sp"
-            android:textColor="@color/white"
-            android:shadowColor="#000000"
-            app:layout_constraintVertical_bias="0"
-            app:layout_constraintHorizontal_bias="0"
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginTop="30dp" />
+            android:layout_marginTop="30dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Precio"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:shadowColor="#000000"
+                    app:layout_constraintVertical_bias="0"
+                    app:layout_constraintHorizontal_bias="0"
+                    android:paddingBottom="10dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/price_about"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="10000"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:shadowColor="#000000"
+                    app:layout_constraintVertical_bias="0"
+                    app:layout_constraintHorizontal_bias="0"
+                    android:paddingBottom="10dp"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/product_about"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Este collar de mascotas es hecho con el diseño y los materiales de más alta calidad. \nLa línea de mascotas LAZO ha sido elaborada por manos colombianas, de forma meticulosa creando un producto innovador, confortable y resistente. \n· Color: rosado.· Material confortable: reata elástica, fabricada con nylon y poliéster, interior de la reata reforzando en cuero para mayor resistencia y durabilidad. \n· Hebilla resistente: material potente que aseguran una larga duración.\n· Acabados en cuero con finas costuras. \n· Ancho reata 2.5cm"
+                android:textSize="18sp"
+                android:justificationMode="inter_word"
+                android:textColor="@color/white"
+                android:shadowColor="#000000"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintHorizontal_bias="0"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Tipo de Producto"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:shadowColor="#000000"
+                    app:layout_constraintVertical_bias="0"
+                    app:layout_constraintHorizontal_bias="0"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/type_about"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Accesorios"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:shadowColor="#000000"
+                    app:layout_constraintVertical_bias="0"
+                    app:layout_constraintHorizontal_bias="0"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Clasificación Especie"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:shadowColor="#000000"
+                    app:layout_constraintVertical_bias="0"
+                    app:layout_constraintHorizontal_bias="0"
+                    android:paddingBottom="10dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/species_about"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Perros"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:shadowColor="#000000"
+                    app:layout_constraintVertical_bias="0"
+                    app:layout_constraintHorizontal_bias="0"
+                    android:paddingBottom="10dp"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+        </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/buyProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:baselineAlignBottom="false"
@@ -79,7 +191,6 @@
         android:layout_marginRight="30dp"
         app:borderWidth="0dp"
         android:onClick="chat"
-        android:backgroundTint="@color/yellow"
-        />
+        android:backgroundTint="@color/yellow"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

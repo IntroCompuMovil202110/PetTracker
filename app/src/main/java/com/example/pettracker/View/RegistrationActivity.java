@@ -126,7 +126,7 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
             nombre.setError("Debe ingresar su nombre");
             apellido.setError("Debe ingresar su apellido");
             telefono.setError("Debe ingresar su teléfono celular ");
-            ((TextView)roles.getSelectedView()).setError("Escoga un Rol");
+            ((TextView)roles.getSelectedView()).setError("Escoja un Rol");
 
             return false;
         }

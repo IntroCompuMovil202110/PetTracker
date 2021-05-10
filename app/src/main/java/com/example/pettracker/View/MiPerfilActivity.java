@@ -30,6 +30,7 @@ import com.example.pettracker.Model.Usuario;
 import com.example.pettracker.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -299,7 +300,7 @@ public class MiPerfilActivity extends AppCompatActivity {
     public void misPublicaciones(View view){
         Intent intent = new Intent(MiPerfilActivity.this, MisPublicacionesActivity.class);
         intent.putExtra("userID", user.getUid());
-        startActivity(intent);
+           startActivity(intent);
     }
 
     public void editarPerfil(View view){

@@ -1,5 +1,7 @@
 package com.example.pettracker.Model;
 
+import com.example.pettracker.Model.Firebase.LUsuario;
+
 import java.io.Serializable;
 
 public class Product implements Serializable {
@@ -9,12 +11,20 @@ public class Product implements Serializable {
     String price;
     String type;
     String SpeciesClassification;
+    LUsuario publisher;
 
-    public Product(String title, String image, String details, String price) {
+    public Product() {
+
+    }
+
+    public Product(String title, String image, String details, String price, String type, String SpeciesClassification, LUsuario publisher) {
         this.title = title;
         this.image = image;
         this.details = details;
         this.price = price;
+        this.type = type;
+        this.SpeciesClassification = SpeciesClassification;
+        this.publisher = publisher;
     }
 
     public String getPrice() {
@@ -63,5 +73,13 @@ public class Product implements Serializable {
 
     public void setSpeciesClassification(String speciesClassification) {
         SpeciesClassification = speciesClassification;
+    }
+
+    public LUsuario getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(LUsuario publisher) {
+        this.publisher = publisher;
     }
 }

@@ -70,7 +70,7 @@ public class SearchResultsMainActivity extends AppCompatActivity implements Navi
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent= new Intent (getBaseContext() , ProductDetailsActivity.class);
-                Bundle bs =new Bundle();
+                Bundle bs = new Bundle();
                 Product p = products.get(position);
                 bs.putSerializable("product", p);
                 intent.putExtra("data",bs);
@@ -85,7 +85,7 @@ public class SearchResultsMainActivity extends AppCompatActivity implements Navi
         JSONArray paisesJson = json.getJSONArray("products");
         for (int i =0 ; i < paisesJson.length();i++){
             JSONObject objeJson = paisesJson.getJSONObject(i);
-            Product p = new Product(objeJson.getString("title"), objeJson.getString("image"),objeJson.getString("about"), objeJson.getString("price"));
+            Product p = new Product(objeJson.getString("title"), objeJson.getString("image"),objeJson.getString("about"), objeJson.getString("price"), "accesorios","perros", null);
             products.add(p);
         }
     }

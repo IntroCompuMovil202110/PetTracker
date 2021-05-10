@@ -154,6 +154,10 @@ public class EditarPerfilActivity extends AppCompatActivity {
         {
             reference.child(key).child("contrasena").setValue(contrasena.getText().toString());
             Toast.makeText(EditarPerfilActivity.this, "Edición guardada", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(EditarPerfilActivity.this, MiPerfilActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
         else {
             Toast.makeText(EditarPerfilActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();

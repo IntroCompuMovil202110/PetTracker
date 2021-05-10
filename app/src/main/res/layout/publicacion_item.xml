@@ -1,43 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    android:id="@+id/gridLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:gravity="center"
+    app:cardCornerRadius="10dp">
 
-    <ImageView
-
-        android:id="@+id/imagenPublicacion"
-        android:layout_width="99dp"
-        android:layout_height="93dp"
-        android:layout_row="0"
-        android:layout_rowSpan="2"
-        android:layout_column="0"
-        android:scaleType="fitXY"
-        android:src="@drawable/producto1"/>
-
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_columnWeight="1"
-        android:padding="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginVertical="20dp"
-        android:textSize="20dp"
-        android:textColor="@color/black"
-        android:id="@+id/nombrePublicacion"
-        android:text="@string/nombrePub"
-        android:layout_row="0"
-        android:layout_column="1" />
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imagenPublicacion"
+                android:layout_width="99dp"
+                android:layout_height="93dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/producto1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:id="@+id/nombrePublicacion"
+                android:text="@string/nombrePub"/>
 
 
-    <TextView
-        android:id="@+id/precioPublicacion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="1"
-        android:layout_column="1"
-        android:layout_columnWeight="1"
-        android:layout_marginLeft="10dp"
-        android:text="@string/precioPub"
-        android:textColor="#4B0082"
-        android:textSize="20dp" />
-</GridLayout>
+            <TextView
+                android:id="@+id/precioPublicacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="@string/precioPub"
+                android:textColor="#4B0082"
+                android:textSize="20dp"
+                android:layout_gravity="start"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
