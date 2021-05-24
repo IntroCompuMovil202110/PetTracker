@@ -18,6 +18,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
     TextView details;
     ImageView image;
     Product product;
+    TextView price;
+    TextView type;
+    TextView species;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
         title = findViewById(R.id.product_title_about);
         details = findViewById(R.id.product_about);
         image = findViewById(R.id.product_image_about);
+        price = findViewById(R.id.price_about);
+        type = findViewById(R.id.type_about);
+        species = findViewById(R.id.species_about);
 
         Bundle bundle = getIntent().getBundleExtra("data");
         product = (Product) bundle.getSerializable("product");
@@ -42,9 +48,16 @@ public class ProductDetailsActivity extends AppCompatActivity {
         details.setText(product.getDetails());
         int imageId = getResources().getIdentifier(product.getImage() , "drawable", getPackageName());
         image.setImageResource(imageId);
+        price.setText(product.getPrice());
+        type.setText(product.getType());
+        species.setText(product.getSpeciesClassification());
     }
 
     public void chat(View view){
-        startActivity(new Intent(this, PersonalChatActivity.class));
+        Intent intent = new Intent(ProductDetailsActivity.this, PersonalChatActivity.class);
+        intent.putExtra("keyReceptor", product.getPublisher().getKey());
+        intent.putExtra("receptorName", product.getPublisher().getUser().getNombre() + " " + product.getPublisher().getUser().getApellido());
+
+        startActivity(intent);
     }
 }

@@ -1,117 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
+    android:orientation="vertical"
     tools:context=".View.EditProductActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title=" ">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Editar Publicación"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/head"
-        app:layout_constraintVertical_bias="0.0">
-        <View
-            android:id="@+id/editHead"
+        android:fillViewport="true">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@color/red"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></View>
-
-        <EditText
-            android:id="@+id/txtEditProductName"
-            android:layout_width="230dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="520dp"
-            android:hint="Nombre de Producto"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editHead" />
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/txtEditProductPrice"
-            android:layout_width="230dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="470dp"
-            android:hint="Precio"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtEditProductName" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="40dp"
+                android:gravity="center">
 
-        <EditText
-            android:id="@+id/txtEditProductType"
-            android:layout_width="230dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="400dp"
-            android:hint="Tipo de Producto"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtEditProductPrice" />
+                <ImageView
+                    android:id="@+id/imageEditProduct"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_row="0"
+                    android:layout_rowSpan="2"
+                    android:layout_column="0"
+                    android:scaleType="fitXY"
+                    android:src="@android:drawable/ic_menu_gallery"
+                    tools:ignore="MissingConstraints"/>
 
-        <EditText
-            android:id="@+id/txtEditProductSpecie"
-            android:layout_width="230dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="340dp"
-            android:hint="Clasificación de Especie"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtEditProductType" />
+            </LinearLayout>
 
-        <EditText
-            android:id="@+id/txtEditProductDescription"
-            android:layout_width="230dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine"
-            android:text="Esta es una descripción. Esta es una descripción. Esta es una descripción. Esta es una descripción. Esta es una descripción. Esta es una descripción. Esta es una descripción."
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addEditProductImage" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="20dp"
+                android:gravity="center">
 
-        <ImageButton
-            android:id="@+id/addEditProductImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="280dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtEditProductSpecie"
-            app:srcCompat="@android:drawable/ic_menu_gallery" />
+                <EditText
+                    android:id="@+id/txtEditProductName"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Nombre del Producto"
+                    android:paddingTop="30dp"
+                    android:textSize="20dp"/>
 
-        <Button
-            android:id="@+id/btnEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/red"
-            android:text="Editar"
-            android:textSize="17sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtEditProductDescription" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <EditText
+                    android:id="@+id/txtEditProductPrice"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Precio"
+                    android:paddingTop="40dp"
+                    android:textSize="20dp"/>
 
-</ScrollView>
+                <Spinner
+                    android:id="@+id/txtEditProductType"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:paddingTop="40dp"
+                    android:autofillHints="Tipo de Producto" />
+
+                <Spinner
+                    android:id="@+id/txtEditProductSpecie"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:paddingTop="40dp"
+                    android:autofillHints="Clasificación de Especie" />
+
+                <EditText
+                    android:id="@+id/txtEditProductDescription"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:inputType="textMultiLine"
+                    android:paddingTop="40dp"
+                    android:hint="Descripción."/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="40dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/red"
+                    android:text="Editar"
+                    android:textSize="17sp"/>
+
+                <Button
+                    android:id="@+id/btnDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/red"
+                    android:text="Eliminar"
+                    android:textSize="17sp"
+                    android:layout_marginTop="10dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
