@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Usuario {
     public String fotoPerfilURL;
+    public String wallpaper;
     public String nombre;
     public String apellido;
     public String correo;
@@ -16,7 +17,9 @@ public class Usuario {
 
     }
 
-    public Usuario(String nombre, String apellido, String correo, String contrasena, String telefono, String direccion, List<Product> productos){
+    public Usuario(String fotoPerfilURL, String wallpaper, String nombre, String apellido, String correo, String contrasena, String telefono, String direccion, List<Product> productos){
+        this.fotoPerfilURL = fotoPerfilURL;
+        this.wallpaper = wallpaper;
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
@@ -26,7 +29,9 @@ public class Usuario {
         productoUsuario = productos;
     }
 
-    public Usuario(String nombre, String apellido, String correo, String contrasena, String telefono, String direccion, String rol){
+    public Usuario(String fotoPerfilURL, String wallpaper, String nombre, String apellido, String correo, String contrasena, String telefono, String direccion, String rol){
+        this.fotoPerfilURL = fotoPerfilURL;
+        this.wallpaper = wallpaper;
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
@@ -43,6 +48,22 @@ public class Usuario {
 
     public void setFotoPerfilURL(String fotoPerfilURL) {
         this.fotoPerfilURL = fotoPerfilURL;
+    }
+
+    public String getWallpaper() {
+        return wallpaper;
+    }
+
+    public void setWallpaper(String wallpaper) {
+        this.wallpaper = wallpaper;
+    }
+
+    public List<Product> getProductoUsuario() {
+        return productoUsuario;
+    }
+
+    public void setProductoUsuario(List<Product> productoUsuario) {
+        this.productoUsuario = productoUsuario;
     }
 
     public String getNombre() {

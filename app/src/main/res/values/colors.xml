@@ -20,5 +20,7 @@
     <color name="terracota">#B81614</color>
     <color name="terracota_2">#B81609</color>
     <color name="colorAccent">#ef5350</color>
+    <color name="darkGray">#FF393939</color>
+    <color name="pink">#FFFFCFCF</color>
 
 </resources>

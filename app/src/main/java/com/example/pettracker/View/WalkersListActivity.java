@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.example.pettracker.Controller.Holders.UserViewHolder;
 import com.example.pettracker.Controller.UsuarioDAO;
 import com.example.pettracker.Model.Firebase.LUsuario;
@@ -57,8 +58,9 @@ public class WalkersListActivity extends AppCompatActivity {
 
             @Override
             protected void onBindViewHolder(UserViewHolder holder, int position, Paseador model) {
-
-                //Glide.with(WalkersListActivity.this).load()
+                Glide.with(WalkersListActivity.this)
+                        .load(model.getFotoPerfilURL())
+                        .into(holder.getProfilePicture());
                 holder.getName().setText(model.getNombre() + " " + model.getApellido());
 
                 final LUsuario lUsuario = new LUsuario(getSnapshots().getSnapshot(position).getKey(),model);
@@ -69,6 +71,7 @@ public class WalkersListActivity extends AppCompatActivity {
                         Intent intent = new Intent(WalkersListActivity.this, PersonalChatActivity.class);
                         intent.putExtra("keyReceptor", lUsuario.getKey());
                         intent.putExtra("receptorName", lUsuario.getUser().getNombre() + " " + lUsuario.getUser().getApellido());
+                        intent.putExtra("profileURL", lUsuario.getUser().getFotoPerfilURL());
                         startActivity(intent);
                     }
                 });
