@@ -112,6 +112,7 @@
                 android:background="@drawable/static_rv_bg">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/perros"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:cardCornerRadius="30dp"
@@ -431,6 +432,7 @@
                 android:background="@drawable/static_rv_bg">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/gatos"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:cardCornerRadius="30dp"

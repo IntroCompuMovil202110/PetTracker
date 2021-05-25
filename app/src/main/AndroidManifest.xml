@@ -7,7 +7,7 @@
          location permissions for the "MyLocation" functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.CAMERA" /> <!-- Avoid execute the application in devices without camera -->
@@ -22,8 +22,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PetTracker">
-        <activity android:name=".ImageActivity"></activity>
-        <activity android:name=".View.PersonalChatActivity"></activity>
+        <activity android:name=".View.SearchResultAnimal"></activity>
+        <activity android:name=".ImageActivity" />
+        <activity android:name=".View.PersonalChatActivity" />
         <activity android:name=".View.ChatListActivity" />
         <activity android:name=".View.EditProductActivity" />
         <activity android:name=".View.PublishProductActivity" />
@@ -60,7 +61,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.EditarPerfilActivity"/>
+        <activity android:name=".View.EditarPerfilActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

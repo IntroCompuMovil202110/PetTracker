@@ -30,6 +30,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     CardView limpieza;
     CardView medicamentos;
     CardView todos;
+    CardView perros;
+    CardView gatos;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
 
@@ -55,6 +57,9 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         limpieza = findViewById(R.id.limpieza);
         medicamentos = findViewById(R.id.meds);
         todos = findViewById(R.id.todos);
+
+        perros = findViewById(R.id.perros);
+        gatos = findViewById(R.id.gatos);
 
         comida.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +115,23 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             }
         });
 
+        perros.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent (getBaseContext() , SearchResultAnimal.class);
+                intent.putExtra("tipo", "perros");
+                startActivity(intent);
+            }
+        });
+
+        gatos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent (getBaseContext() , SearchResultAnimal.class);
+                intent.putExtra("tipo", "gatos");
+                startActivity(intent);
+            }
+        });
 
     }
 

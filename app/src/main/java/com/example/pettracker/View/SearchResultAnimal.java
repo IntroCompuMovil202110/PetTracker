@@ -40,7 +40,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchResultsMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class SearchResultAnimal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     ListView list;
     Toolbar toolBar;
@@ -87,9 +87,10 @@ public class SearchResultsMainActivity extends AppCompatActivity implements Navi
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 products.clear();
+
                 for(DataSnapshot productsData: snapshot.getChildren()){
-                    if(!productsData.getKey().equals(mAuth)) {
-                        for (DataSnapshot prod : productsData.getChildren()) {
+                    if(!productsData.getKey().equals(mAuth)){
+                        for(DataSnapshot prod: productsData.getChildren()){
                             String detalle = prod.child("details").getValue().toString();
                             String titulo = prod.child("title").getValue().toString();
                             String imagen = prod.child("image").getValue().toString();
@@ -102,30 +103,16 @@ public class SearchResultsMainActivity extends AppCompatActivity implements Navi
 
                             Usuario user = new Usuario("imagen", apellido, nombre);
                             LUsuario usuario = new LUsuario(key, user);
-                            Product product = new Product(titulo, imagen, detalle, precio, tipo, classificacion, usuario, prod.getKey());
+                            Product product = new Product(titulo, imagen, detalle, precio, tipo, classificacion, usuario,prod.getKey());
 
-                            if (tip.equals("comida")) {
-                                if (product.getType().equals("Comida")) {
+                            if(tip.equals("perros")){
+                                if(product.getSpeciesClassification().equals("Perros")){
                                     products.add(product);
                                 }
-                            } else if (tip.equals("juguetes")) {
-                                if (product.getType().equals("Juguetes")) {
+                            } else if(tip.equals("gatos")){
+                                if(product.getSpeciesClassification().equals("Gatos")){
                                     products.add(product);
                                 }
-                            } else if (tip.equals("accesorios")) {
-                                if (product.getType().equals("Accesorios")) {
-                                    products.add(product);
-                                }
-                            } else if (tip.equals("limpieza")) {
-                                if (product.getType().equals("Limpieza")) {
-                                    products.add(product);
-                                }
-                            } else if (tip.equals("medicamentos")) {
-                                if (product.getType().equals("Medicamentos")) {
-                                    products.add(product);
-                                }
-                            } else {
-                                products.add(product);
                             }
                         }
                     }
@@ -145,7 +132,7 @@ public class SearchResultsMainActivity extends AppCompatActivity implements Navi
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(SearchResultsMainActivity.this, ProductDetailsActivity.class);
+                Intent intent = new Intent(SearchResultAnimal.this, ProductDetailsActivity.class);
                 intent.putExtra("product", products.get(position).getKey());
                 intent.putExtra("user", products.get(position).getPublisher().getKey());
                 intent.putExtra("tipo", tip);
@@ -191,7 +178,7 @@ public class SearchResultsMainActivity extends AppCompatActivity implements Navi
                 String message = "Es necesario activar el permiso para acceder al GPS.";
                 String permission = PermissionsManagerPT.FINE_LOCATION_PERMISSION_NAME;
                 if(PermissionsManagerPT.askForPermission(this, permission, message, PermissionsManagerPT.LOCATION_PERMISSION_ID)){
-                    Intent intent = new Intent(SearchResultsMainActivity.this, MapsActivity.class);
+                    Intent intent = new Intent(SearchResultAnimal.this, MapsActivity.class);
                     startActivity(intent);
                 }
                 break;
@@ -242,7 +229,7 @@ public class SearchResultsMainActivity extends AppCompatActivity implements Navi
 
             text_title.setText(products.get(position).getTitle());
             text_details.setText(products.get(position).getPrice());
-            Glide.with(SearchResultsMainActivity.this).load(products.get(position).getImage()).into(imageView);
+            Glide.with(SearchResultAnimal.this).load(products.get(position).getImage()).into(imageView);
 
             return convertView;
         }

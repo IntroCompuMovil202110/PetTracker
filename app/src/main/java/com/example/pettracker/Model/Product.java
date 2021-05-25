@@ -11,19 +11,21 @@ public class Product implements Serializable {
     String price;
     String type;
     String SpeciesClassification;
+    String key;
     LUsuario publisher;
 
     public Product() {
 
     }
 
-    public Product(String title, String image, String details, String price, String type, String SpeciesClassification, LUsuario publisher) {
+    public Product(String title, String image, String details, String price, String type, String SpeciesClassification, LUsuario publisher, String key) {
         this.title = title;
         this.image = image;
         this.details = details;
         this.price = price;
         this.type = type;
         this.SpeciesClassification = SpeciesClassification;
+        this.key = key;
         this.publisher = publisher;
     }
 
@@ -65,6 +67,14 @@ public class Product implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setkey(String key) {
+        this.key = key;
     }
 
     public String getSpeciesClassification() {

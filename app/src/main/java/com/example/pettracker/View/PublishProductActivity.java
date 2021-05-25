@@ -72,6 +72,7 @@ public class PublishProductActivity extends AppCompatActivity implements Adapter
     private FirebaseUser user;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
+    private DatabaseReference prodReference;
     private FirebaseStorage storage;
     private StorageReference storageReference;
 
@@ -81,6 +82,7 @@ public class PublishProductActivity extends AppCompatActivity implements Adapter
     String type;
     String specie;
     String description;
+    String key = "";
     Boolean typeSelect;
     Boolean specieSelect;
 
@@ -177,10 +179,11 @@ public class PublishProductActivity extends AppCompatActivity implements Adapter
     }
 
     void publish(String name, String price, String description, LUsuario lUsuario) {
-        Product product = new Product(name, image, description, price, type, specie, lUsuario);
+        Product product = new Product(name, image, description, price, type, specie, lUsuario, key);
         FirebaseDatabase.getInstance().getReference("products")
                 .child(user.getUid())
                 .push().setValue(product).addOnCompleteListener(new OnCompleteListener<Void>() {
+
             @Override
             public void onComplete(@NonNull @NotNull Task<Void> task) {
                 if(task.isSuccessful()) {
@@ -197,6 +200,7 @@ public class PublishProductActivity extends AppCompatActivity implements Adapter
                 }
             }
         });
+
     }
 
     boolean validateForm(String name, String price, String description) {
