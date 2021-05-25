@@ -42,6 +42,13 @@ public class Usuario {
 
     }
 
+    public Usuario(String fotoPerfilURL, String nombre, String apellido){
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.fotoPerfilURL = fotoPerfilURL;
+
+    }
+
     public String getFotoPerfilURL() {
         return fotoPerfilURL;
     }

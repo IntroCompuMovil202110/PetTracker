@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,17 +21,21 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.pettracker.Controller.PermissionsManagerPT;
+import com.example.pettracker.Model.Firebase.LUsuario;
 import com.example.pettracker.Model.Product;
+import com.example.pettracker.Model.Usuario;
 import com.example.pettracker.R;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +45,9 @@ public class SearchResultsMainActivity extends AppCompatActivity implements Navi
     Toolbar toolBar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-    List<Product> products;
+    ArrayList<Product> products;
+
+    DatabaseReference studentDbRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,21 +58,85 @@ public class SearchResultsMainActivity extends AppCompatActivity implements Navi
         navigationView = findViewById(R.id.nav_view2);
         setSupportActionBar(toolBar);
 
-        try {
-            initArray();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolBar, R.string.app_name, R.string.app_name);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
+
         list = findViewById(R.id.results);
+
+        studentDbRef = FirebaseDatabase.getInstance().getReference("products");
+
+        products = new ArrayList<Product>();
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        final String tip = extras.getString("tipo");
+
         CustomAdapter customAdapter = new CustomAdapter();
         list.setAdapter(customAdapter);
+
+
+        studentDbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                products.clear();
+
+                for(DataSnapshot productsData: snapshot.getChildren()){
+                    for(DataSnapshot prod: productsData.getChildren()){
+                        String detalle = prod.child("details").getValue().toString();
+                        String titulo = prod.child("title").getValue().toString();
+                        String imagen = prod.child("image").getValue().toString();
+                        String precio = prod.child("price").getValue().toString();
+                        String tipo = prod.child("type").getValue().toString();
+                        String classificacion = prod.child("speciesClassification").getValue().toString();
+                        String key = prod.child("publisher").child("key").getValue().toString();
+                        String apellido = prod.child("publisher").child("user").child("apellido").getValue().toString();
+                        String nombre = prod.child("publisher").child("user").child("nombre").getValue().toString();
+
+                        Usuario user = new Usuario("imagen", apellido, nombre);
+                        LUsuario usuario = new LUsuario(key, user);
+                        Product product = new Product(titulo, imagen, detalle, precio, tipo, classificacion, usuario);
+
+                        if(tip.equals("comida")){
+                            if(product.getType() == "Comida"){
+                                products.add(product);
+                            }
+                        } else if(tip.equals("juguetes")){
+                            if(product.getType().equals("Juguetes")){
+                                products.add(product);
+                            }
+                        } else if(tip.equals("accesorios")){
+                            if(product.getType().equals("Accesorios")){
+                                products.add(product);
+                            }
+                        } else if(tip.equals("limpieza")){
+                            if(product.getType().equals("Limpieza")){
+                                products.add(product);
+                            }
+                        } else if(tip.equals("medicamentos")){
+                            if(product.getType().equals("Medicamentos")){
+                                products.add(product);
+                            }
+                        }else {
+                            products.add(product);
+                        }
+                    }
+
+                }
+                CustomAdapter customAdapter = new CustomAdapter();
+                list.setAdapter(customAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+
+        });
+
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -77,35 +148,9 @@ public class SearchResultsMainActivity extends AppCompatActivity implements Navi
                 startActivity(intent);
             }
         });
-    }
 
-    private void initArray() throws JSONException {
-        products = new ArrayList<Product>();
-        JSONObject json = new JSONObject(loadJSONFromAsset());
-        JSONArray paisesJson = json.getJSONArray("products");
-        for (int i =0 ; i < paisesJson.length();i++){
-            JSONObject objeJson = paisesJson.getJSONObject(i);
-            Product p = new Product(objeJson.getString("title"), objeJson.getString("image"),objeJson.getString("about"), objeJson.getString("price"), "accesorios","perros", null);
-            products.add(p);
-        }
     }
-
-    public String loadJSONFromAsset() {
-        String json =null;
-        try{
-            InputStream is = this.getAssets().open("products.json");
-            int size = is.available();
-            byte [] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json=new String (buffer, "UTF-8");
-        } catch (IOException ex){
-            ex.printStackTrace();
-            return null;
-        }
-        return json;
-    }
-
+    
     @Override
     public void onBackPressed() {
         if(drawerLayout.isDrawerOpen(GravityCompat.START)){
@@ -193,9 +238,10 @@ public class SearchResultsMainActivity extends AppCompatActivity implements Navi
 
             text_title.setText(products.get(position).getTitle());
             text_details.setText(products.get(position).getPrice());
-            int imageId = getResources().getIdentifier(products.get(position).getImage() , "drawable", getPackageName());
-            imageView.setImageResource(imageId);
+            Glide.with(SearchResultsMainActivity.this).load(products.get(position).getImage()).into(imageView);
+
             return convertView;
         }
     }
+
 }

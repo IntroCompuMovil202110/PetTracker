@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.pettracker.Controller.PermissionsManagerPT;
+import com.example.pettracker.Model.Product;
 import com.example.pettracker.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,6 +24,12 @@ import com.google.firebase.auth.FirebaseAuth;
 public class HomePageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     Toolbar toolBar;
+    CardView comida;
+    CardView juguetes;
+    CardView accesorios;
+    CardView limpieza;
+    CardView medicamentos;
+    CardView todos;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
 
@@ -40,6 +48,68 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
+
+        comida = findViewById(R.id.comida);
+        juguetes = findViewById(R.id.juguetes);
+        accesorios = findViewById(R.id.accesorios);
+        limpieza = findViewById(R.id.limpieza);
+        medicamentos = findViewById(R.id.meds);
+        todos = findViewById(R.id.todos);
+
+        comida.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent (getBaseContext() , SearchResultsMainActivity.class);
+                intent.putExtra("tipo", "comida");
+                startActivity(intent);
+            }
+        });
+
+        juguetes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent (getBaseContext() , SearchResultsMainActivity.class);
+                intent.putExtra("tipo", "juguetes");
+                startActivity(intent);
+            }
+        });
+
+        accesorios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent (getBaseContext() , SearchResultsMainActivity.class);
+                intent.putExtra("tipo", "accesorios");
+                startActivity(intent);
+            }
+        });
+
+        limpieza.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent (getBaseContext() , SearchResultsMainActivity.class);
+                intent.putExtra("tipo", "limpieza");
+                startActivity(intent);
+            }
+        });
+
+        medicamentos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent (getBaseContext() , SearchResultsMainActivity.class);
+                intent.putExtra("tipo", "medicamentos");
+                startActivity(intent);
+            }
+        });
+
+        todos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent (getBaseContext() , SearchResultsMainActivity.class);
+                intent.putExtra("tipo", "todos");
+                startActivity(intent);
+            }
+        });
+
 
     }
 

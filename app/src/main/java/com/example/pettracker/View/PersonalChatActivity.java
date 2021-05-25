@@ -2,17 +2,24 @@ package com.example.pettracker.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -88,6 +95,11 @@ public class PersonalChatActivity extends AppCompatActivity {
     private static final int SEND_IMAGE_CAPTURE = 2;
     private static final int CAMERA_PERMISSION = 66;
 
+    //Notificacion
+    private static final String CHANNEL_ID = "Notificacion";
+    private int notificationId = 66;
+    Map<String, Boolean> old = new HashMap<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,6 +137,8 @@ public class PersonalChatActivity extends AppCompatActivity {
                 .load(url)
                 .into(profilePicture);
 
+        createNotificationChannel();
+
         buttonMsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,6 +150,8 @@ public class PersonalChatActivity extends AppCompatActivity {
                     message.setEmisorKey(UsuarioDAO.getInstancia().getKeyUsuario());
                     ChatDAO.getInstance().newMessage(KEY_EMISSOR,KEY_RECEPTOR,message);
                     textMsg.setText("");
+
+                    crearNotificacion(receptorName, KEY_RECEPTOR);
                 }
             }
         });
@@ -216,6 +232,39 @@ public class PersonalChatActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    private void crearNotificacion(String nombre, String uid){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder( getApplicationContext(), CHANNEL_ID);
+        builder.setSmallIcon(R.id.profilePicture);
+        builder.setContentTitle("Notificación Cambio de Estado");
+        builder.setContentText("El usuario " + nombre);
+        builder.setColor(Color.BLUE);
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        Intent intent = new Intent(PersonalChatActivity.this, PersonalChatActivity.class);
+        intent.putExtra("userKey", uid);
+        PendingIntent pendingIntent = PendingIntent.getActivity(PersonalChatActivity.this, 0, intent, 0);
+        builder.setContentIntent(pendingIntent);
+        builder.setAutoCancel(true);
+
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(PersonalChatActivity.this);
+        notificationManagerCompat.notify(notificationId, builder.build());
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "CanalNotificaciones";
+            String descripcion = "Cambio en Firebase";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+
+            channel.setDescription(descripcion);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     private void getProfUrl(String key){
