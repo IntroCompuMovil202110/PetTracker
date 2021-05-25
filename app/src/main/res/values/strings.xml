@@ -117,14 +117,12 @@
         <item>Accesorios</item>
         <item>Limpieza</item>
         <item>Medicamentos</item>
-        <item>Otro</item>
     </string-array>
 
     <string-array name="species">
         <item>Clasificación de Especie</item>
         <item>Gatos</item>
         <item>Perros</item>
-        <item>Otro</item>
     </string-array>
 
     <!-- Mapa -->

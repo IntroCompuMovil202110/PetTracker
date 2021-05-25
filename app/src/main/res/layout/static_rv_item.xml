@@ -5,7 +5,8 @@
     android:layout_height="150dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="10dp"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:id="@+id/listProd_item">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
@@ -45,9 +46,12 @@
 
             <TextView
                 android:id="@+id/Product_title"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:maxLines="1"
+                android:autoSizeMinTextSize="5sp"
                 android:layout_height="wrap_content"
                 android:text="Collar"
+                android:autoSizeTextType="uniform"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 

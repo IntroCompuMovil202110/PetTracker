@@ -9,6 +9,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="250dp"
+
         android:fitsSystemWindows="true">
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
@@ -23,9 +24,9 @@
 
             <ImageView
                 android:id="@+id/product_image_about"
-                android:layout_width="220dp"
+                android:layout_width="210dp"
                 android:layout_marginRight="20dp"
-                android:layout_height="180dp"
+                android:layout_height="155dp"
                 android:layout_gravity="center|end"
                 android:layout_marginBottom="15dp"
                 android:scaleType="fitXY"
