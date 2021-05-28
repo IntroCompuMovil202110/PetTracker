@@ -181,6 +181,9 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             case R.id.nav_chat:
                 startActivity(new Intent(this, ChatListActivity.class));
                 break;
+            case R.id.nav_veterinarias:
+                startActivity(new Intent(this, BuscarVeterinariaActivity.class));
+                break;
             case R.id.nav_logout:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(this, MainActivity.class ));
