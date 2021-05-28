@@ -17,9 +17,15 @@ import android.widget.Toast;
 
 import com.example.pettracker.Controller.PermissionsManagerPT;
 import com.example.pettracker.Model.Product;
+import com.example.pettracker.Model.Usuario;
 import com.example.pettracker.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class HomePageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -32,8 +38,12 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     CardView todos;
     CardView perros;
     CardView gatos;
+    MenuItem option;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+    private FirebaseAuth mAuth;
+    private DatabaseReference databaseReference;
+    private FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +67,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         limpieza = findViewById(R.id.limpieza);
         medicamentos = findViewById(R.id.meds);
         todos = findViewById(R.id.todos);
+        option = findViewById(R.id.nav_pet);
 
         perros = findViewById(R.id.perros);
         gatos = findViewById(R.id.gatos);
@@ -132,7 +143,29 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 startActivity(intent);
             }
         });
+        database = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        getUserType();
+    }
 
+    public void getUserType(){
+        databaseReference = database.getReference("users/" + mAuth.getCurrentUser().getUid());
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Load the user data
+                Usuario user = dataSnapshot.getValue(Usuario.class);
+                if (user.getRol().equalsIgnoreCase("Cliente")){
+                    option.setTitle("Buscar Paseadores");
+                } else {
+                    option.setTitle("Solicitudes de Paseos");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.err.println("Query error " + databaseError.toException());
+            }
+        });
     }
 
     @Override

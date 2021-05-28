@@ -148,7 +148,7 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
                             if(rol.equals("Paseador")){
                                 costo = "0";
                                 Paseador regis = new Paseador(profileURL, wallpaper, name, surname, email, password, telephone, adress, rol, costo);
-                                folder = "walkers";
+                                folder = "users";
 
                                 FirebaseDatabase.getInstance().getReference(folder)
                                         .child(user.getUid())
