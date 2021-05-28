@@ -201,9 +201,6 @@ public class SearchResultsMainActivity extends AppCompatActivity implements Navi
             case R.id.nav_chat:
                 Toast.makeText(getApplicationContext(), "Selecciono mis chats", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.nav_veterinarias:
-                startActivity(new Intent(this, BuscarVeterinariaActivity.class));
-                break;
         }
         return true;
     }

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,10 +29,16 @@ import java.io.Serializable;
 public class BuscarVeterinariaActivity extends AppCompatActivity {
     private JSONArray jsonArray;
     private String[] nomVeterinarias;
+
+    LinearLayout titulo;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_veterinarias);
+
         consumeRestVolley();
+
+
     }
     public void consumeRestVolley(){
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -41,6 +48,7 @@ public class BuscarVeterinariaActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Object response) {
                         String data = (String)response;
+
                         try {
                             JSONObject jsonObject = new JSONObject(data);
                             jsonArray = jsonObject.getJSONArray("veterinarias");
@@ -63,7 +71,8 @@ public class BuscarVeterinariaActivity extends AppCompatActivity {
            nomVeterinarias = new String[jsonArray.length()];
            for(int i = 0; i<jsonArray.length();i++){
                JSONObject explrObject = jsonArray.getJSONObject(i);
-               nomVeterinarias[i] = explrObject.getString("nombre");
+               String dato = explrObject.getString("nombre").toLowerCase();
+               nomVeterinarias[i] = convert(dato);
            }
            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, nomVeterinarias);
            ListView listView= (ListView) findViewById(R.id.listaVeterinarias);
@@ -86,5 +95,37 @@ public class BuscarVeterinariaActivity extends AppCompatActivity {
         catch(JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    static String convert(String str)
+    {
+
+        // Create a char array of given String
+        char ch[] = str.toCharArray();
+        for (int i = 0; i < str.length(); i++) {
+
+            // If first character of a word is found
+            if (i == 0 && ch[i] != ' ' ||
+                    ch[i] != ' ' && ch[i - 1] == ' ') {
+
+                // If it is in lower-case
+                if (ch[i] >= 'a' && ch[i] <= 'z') {
+
+                    // Convert into Upper-case
+                    ch[i] = (char)(ch[i] - 'a' + 'A');
+                }
+            }
+
+            // If apart from first character
+            // Any one is in Upper-case
+            else if (ch[i] >= 'A' && ch[i] <= 'Z')
+
+                // Convert into Lower-Case
+                ch[i] = (char)(ch[i] + 'a' - 'A');
+        }
+
+        // Convert the char array to equivalent String
+        String st = new String(ch);
+        return st;
     }
 }

@@ -6,17 +6,61 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:padding="15dp"
-    android:background="@color/white"
-    >
+    android:background="@color/white">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutVeterinaria"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutGatos"
+            app:layout_constraintVertical_bias="0.044"
+            tools:layout_editor_absoluteX="0dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/static_rv_bg">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/veterinarias"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="30dp"
+                app:cardElevation="50dp"
+                android:onClick="SearchKeyWord">
+
+                <ImageView
+                    android:id="@+id/imgVeterinarias"
+                    android:layout_width="match_parent"
+                    android:layout_height="377dp"
+                    android:scaleType="fitStart"
+                    app:srcCompat="@drawable/ic_vet" />
+
+                <TextView
+                    android:id="@+id/textVeterinarias"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:fontFamily="@font/baloo"
+                    android:shadowColor="#000000"
+                    android:text="Veterinarias"
+                    android:textColor="@color/black"
+                    android:textSize="25sp" />
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/listaVeterinarias"
+            android:paddingTop="20dp"
             />
     </LinearLayout>
 </ScrollView>

@@ -11,6 +11,7 @@ import com.example.pettracker.R;
 
 public class VeterinariaActivity extends AppCompatActivity {
     private Veterinaria veterinaria;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
@@ -19,10 +20,12 @@ public class VeterinariaActivity extends AppCompatActivity {
         TextView nomVeterinaria = findViewById(R.id.nomVeterinaria);
         nomVeterinaria.setText(veterinaria.getNombre());
         TextView dirVeterinaria = findViewById(R.id.dirVeterinaria);
-        dirVeterinaria.setText("Dirección: " + veterinaria.getDireccion());
+        dirVeterinaria.setText(veterinaria.getDireccion());
         TextView horaVeterinaria = findViewById(R.id.horaVeterinaria);
         horaVeterinaria.setText(veterinaria.getHoras());
         TextView telVeterinaria = findViewById(R.id.telVeterinaria);
-        telVeterinaria.setText("Teléfono: " + veterinaria.getTelefono());
+        telVeterinaria.setText( veterinaria.getTelefono());
+
+
     }
 }

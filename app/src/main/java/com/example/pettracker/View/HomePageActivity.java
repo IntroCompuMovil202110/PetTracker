@@ -32,6 +32,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     CardView todos;
     CardView perros;
     CardView gatos;
+    CardView veterinarias;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
 
@@ -60,6 +61,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
         perros = findViewById(R.id.perros);
         gatos = findViewById(R.id.gatos);
+        veterinarias = findViewById(R.id.veterinarias);
 
         comida.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +135,13 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             }
         });
 
+        veterinarias.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getBaseContext(), BuscarVeterinariaActivity.class));
+            }
+        });
+
     }
 
     @Override
@@ -180,9 +189,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 break;
             case R.id.nav_chat:
                 startActivity(new Intent(this, ChatListActivity.class));
-                break;
-            case R.id.nav_veterinarias:
-                startActivity(new Intent(this, BuscarVeterinariaActivity.class));
                 break;
             case R.id.nav_logout:
                 FirebaseAuth.getInstance().signOut();
