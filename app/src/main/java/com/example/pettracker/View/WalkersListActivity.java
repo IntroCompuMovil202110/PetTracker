@@ -12,9 +12,8 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.example.pettracker.Controller.Holders.UserViewHolder;
-import com.example.pettracker.Controller.UsuarioDAO;
 import com.example.pettracker.Model.Firebase.LUsuario;
-import com.example.pettracker.Model.Paseador;
+import com.example.pettracker.Model.Usuario;
 import com.example.pettracker.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -24,7 +23,7 @@ import com.google.firebase.database.Query;
 import java.util.ArrayList;
 
 public class WalkersListActivity extends AppCompatActivity {
-    ArrayList<Paseador> walkersList;
+    ArrayList<Usuario> walkersList;
 
     private RecyclerView walkers;
     private FirebaseRecyclerAdapter adapter;
@@ -42,12 +41,12 @@ public class WalkersListActivity extends AppCompatActivity {
                 .getReference()
                 .child("walkers");
 
-        FirebaseRecyclerOptions<Paseador> options =
-                new FirebaseRecyclerOptions.Builder<Paseador>()
-                    .setQuery(query, Paseador.class)
+        FirebaseRecyclerOptions<Usuario> options =
+                new FirebaseRecyclerOptions.Builder<Usuario>()
+                    .setQuery(query, Usuario.class)
                     .build();
 
-        adapter = new FirebaseRecyclerAdapter<Paseador, UserViewHolder>(options) {
+        adapter = new FirebaseRecyclerAdapter<Usuario, UserViewHolder>(options) {
             @Override
             public UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext())
@@ -57,7 +56,7 @@ public class WalkersListActivity extends AppCompatActivity {
             }
 
             @Override
-            protected void onBindViewHolder(UserViewHolder holder, int position, Paseador model) {
+            protected void onBindViewHolder(UserViewHolder holder, int position, Usuario model) {
                 Glide.with(WalkersListActivity.this)
                         .load(model.getFotoPerfilURL())
                         .into(holder.getProfilePicture());

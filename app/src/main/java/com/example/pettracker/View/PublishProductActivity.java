@@ -29,7 +29,6 @@ import android.widget.Toast;
 
 import com.example.pettracker.Controller.PermissionsManagerPT;
 import com.example.pettracker.Model.Firebase.LUsuario;
-import com.example.pettracker.Model.Paseador;
 import com.example.pettracker.Model.Product;
 import com.example.pettracker.Model.Usuario;
 import com.example.pettracker.R;
@@ -154,7 +153,7 @@ public class PublishProductActivity extends AppCompatActivity implements Adapter
                     databaseReference.child(user.getUid()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                            Paseador paseador = new Paseador();
+                            Usuario paseador = new Usuario();
                             paseador.setNombre(snapshot.child("nombre").getValue().toString());
                             paseador.setApellido(snapshot.child("apellido").getValue().toString());
                             paseador.setFotoPerfilURL(snapshot.child("fotoPerfilURL").getValue().toString());

@@ -8,6 +8,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -38,9 +39,9 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     CardView todos;
     CardView perros;
     CardView gatos;
-    MenuItem option;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+    private ProgressDialog loadingScreen;
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
     private FirebaseDatabase database;
@@ -67,10 +68,10 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         limpieza = findViewById(R.id.limpieza);
         medicamentos = findViewById(R.id.meds);
         todos = findViewById(R.id.todos);
-        option = findViewById(R.id.nav_pet);
 
         perros = findViewById(R.id.perros);
         gatos = findViewById(R.id.gatos);
+        loadingScreen = new ProgressDialog(this);
 
         comida.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,13 +154,20 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                loadingScreen.setTitle("Cargando.");
+                loadingScreen.setMessage("Por favor espere.");
+                loadingScreen.setCancelable(false);
+                loadingScreen.show();
                 // Load the user data
                 Usuario user = dataSnapshot.getValue(Usuario.class);
+                Menu menu = navigationView.getMenu();
+                MenuItem menuItem = menu.findItem(R.id.nav_pet);
                 if (user.getRol().equalsIgnoreCase("Cliente")){
-                    option.setTitle("Buscar Paseadores");
+                    menuItem.setTitle("Buscar Paseadores");
                 } else {
-                    option.setTitle("Solicitudes de Paseos");
+                    menuItem.setTitle("Solicitudes de Paseos");
                 }
+                loadingScreen.dismiss();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
