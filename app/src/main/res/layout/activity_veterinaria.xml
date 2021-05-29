@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    >
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/veterinaria"
+        android:scaleType="fitCenter"
+        android:id="@+id/imgVet"
+        android:padding="10dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/imgVet"
+        android:text="Nombre"
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:id="@+id/nomVeterinaria"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/direccionTitulo"
+        android:text="Dirección"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:padding="10dp"
+        app:layout_constraintTop_toBottomOf="@id/nomVeterinaria"
+
+        />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dirección"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:id="@+id/dirVeterinaria"
+            app:layout_constraintTop_toBottomOf="@id/direccionTitulo" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/horarioTitulo"
+        android:text="Horario"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:padding="10dp"
+        app:layout_constraintTop_toBottomOf="@id/dirVeterinaria"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/telTitulo"
+        app:layout_constraintTop_toBottomOf="@id/horarioTitulo"
+        android:text="Horario"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:id="@+id/horaVeterinaria"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/telVeterinaria"
+        app:layout_constraintTop_toBottomOf="@id/horaVeterinaria"
+        android:text="Teléfono"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:padding="10dp"
+        android:id="@+id/telTitulo"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Teléfono"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:id="@+id/telVeterinaria"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
