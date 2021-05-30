@@ -16,10 +16,16 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.pettracker.Controller.PermissionsManagerPT;
+import com.example.pettracker.Model.Information;
 import com.example.pettracker.Model.Product;
 import com.example.pettracker.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import io.flutter.embedding.android.FlutterActivity;
+import io.flutter.embedding.android.FlutterTextureView;
 
 public class HomePageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -33,8 +39,12 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     CardView perros;
     CardView gatos;
     CardView veterinarias;
+    CardView informacion;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+
+
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +72,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         perros = findViewById(R.id.perros);
         gatos = findViewById(R.id.gatos);
         veterinarias = findViewById(R.id.veterinarias);
+        informacion = findViewById(R.id.informacion);
 
         comida.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,6 +152,32 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 startActivity(new Intent(getBaseContext(), BuscarVeterinariaActivity.class));
             }
         });
+
+        informacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(FlutterActivity.createDefaultIntent(getBaseContext()));
+            }
+        });
+
+    }
+
+    public void ingresarInformacion(){
+        String titulo = "Tips para pasear a tu perro en cuarentena";
+        String contenido = "1. Lávate las manos antes de salir.\n" +
+                "Es importante que laves tus manos de forma adecuada con agua y jabón antibacterial durante al menos 20 segundos.\n" +
+                "2. Sólo una persona debe salir.\n" +
+                "Salir con la mascota debe hacerse en el menor tiempo posible para que ésta haga sus necesidades fisiológicas. \n" +
+                "3. Evita socializar con otras personas y/o mascotas.\n" +
+                "Mantén una distancia responsable de al menos 1.5 metros\n" +
+                "4. Aseo al regresar a casa.\n" +
+                "Limpia las patas de tu perro con agua o toallitas desinfectantes sin alcohol. Después lávate bien las manos y cámbiate de ropa.\n" +
+                "5. Sal a pasear temprano en la mañana y/o en la noche.\n" +
+                "Se sugiere salir a la calle en horarios donde sea más probable que haya menos gente transitando.";
+
+        Information information = new Information(titulo, contenido);
+
+        databaseReference.push().setValue(information);
 
     }
 
