@@ -39,7 +39,7 @@ public class WalkersListActivity extends AppCompatActivity {
 
         Query query = FirebaseDatabase.getInstance()
                 .getReference()
-                .child("walkers");
+                .child("users").orderByChild("rol").equalTo("Paseador");
 
         FirebaseRecyclerOptions<Usuario> options =
                 new FirebaseRecyclerOptions.Builder<Usuario>()
@@ -78,20 +78,6 @@ public class WalkersListActivity extends AppCompatActivity {
         };
 
         walkers.setAdapter(adapter);
-       /* walkersList = new ArrayList<>();
-        loadWalkers();
-        CustomWalkerAdapter adapter = new CustomWalkerAdazpter(this, R.layout.walker_item, walkersList);
-        walkers = (ListView) findViewById(R.id.walkersList);
-        walkers.setAdapter(adapter);
-        walkers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getBaseContext(), PersonalChatActivity.class);
-                Paseador p = walkersList.get(position);
-                intent.putExtra("nombre", p.getNombre());
-                startActivity(intent);
-            }
-        });*/
     }
 
     @Override
@@ -105,16 +91,4 @@ public class WalkersListActivity extends AppCompatActivity {
         super.onStop();
         adapter.stopListening();
     }
-
-    /*private void loadWalkers() {
-        walkersList.add(new Paseador("Paseador 1", "Apellido", "email@email.com", "pass", "123456", "abc 123", new ArrayList<Product>(), "12000"));
-        walkersList.add(new Paseador("Paseador 2", "Apellido", "email@email.com", "pass", "123456", "abc 123", new ArrayList<Product>(), "12000"));
-        walkersList.add(new Paseador("Paseador 3", "Apellido", "email@email.com", "pass", "123456", "abc 123", new ArrayList<Product>(), "12000"));
-        walkersList.add(new Paseador("Paseador 4", "Apellido", "email@email.com", "pass", "123456", "abc 123", new ArrayList<Product>(), "12000"));
-        walkersList.add(new Paseador("Paseador 5", "Apellido", "email@email.com", "pass", "123456", "abc 123", new ArrayList<Product>(), "12000"));
-        walkersList.add(new Paseador("Paseador 6", "Apellido", "email@email.com", "pass", "123456", "abc 123", new ArrayList<Product>(), "12000"));
-        walkersList.add(new Paseador("Paseador 7", "Apellido", "email@email.com", "pass", "123456", "abc 123", new ArrayList<Product>(), "12000"));
-        walkersList.add(new Paseador("Paseador 8", "Apellido", "email@email.com", "pass", "123456", "abc 123", new ArrayList<Product>(), "12000"));
-        walkersList.add(new Paseador("Paseador 9", "Apellido", "email@email.com", "pass", "123456", "abc 123", new ArrayList<Product>(), "12000"));
-    }*/
 }

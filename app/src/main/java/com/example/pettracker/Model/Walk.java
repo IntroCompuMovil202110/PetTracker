@@ -5,19 +5,13 @@ package com.example.pettracker.Model;
 * El paseador puede aceptar un paseo y ahí se abre el mapa
 * */
 public class Walk {
-    String key;
+    String walkID;
     String clientID;
     String walkerID;
+    // Status could be "Pendiente", "Aceptado", "Terminado"
+    String status;
 
     public Walk() {
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
     }
 
     public String getClientID() {
@@ -34,5 +28,21 @@ public class Walk {
 
     public void setWalkerID(String walkerID) {
         this.walkerID = walkerID;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getWalkID() {
+        return walkID;
+    }
+
+    public void setWalkID(String walkID) {
+        this.walkID = walkID;
     }
 }

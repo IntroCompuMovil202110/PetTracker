@@ -22,7 +22,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PetTracker">
-        <activity android:name=".View.SearchResultAnimal"></activity>
+        <activity android:name=".View.WalkListActivity"></activity>
+        <activity android:name=".View.SearchResultAnimal" />
         <activity android:name=".ImageActivity" />
         <activity android:name=".View.PersonalChatActivity" />
         <activity android:name=".View.ChatListActivity" />
