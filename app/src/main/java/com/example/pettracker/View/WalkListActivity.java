@@ -67,6 +67,11 @@ public class WalkListActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
     private DatabaseReference databaseReferenceL;
+    private DatabaseReference databaseReferenceE;
+    private DatabaseReference databaseReferenceU;
+    private DatabaseReference databaseReferenceA;
+    private DatabaseReference databaseReferenceW;
+    private DatabaseReference databaseReferenceM;
     private FirebaseDatabase database;
     private Usuario currentUser;
 
@@ -155,6 +160,36 @@ public class WalkListActivity extends AppCompatActivity {
                         .into(holder.getProfilePicture());
                 holder.getStatus().setText(model.getStatus());
                 holder.getName().setText(currentUser.getNombre() + " " + currentUser.getApellido());
+                holder.getPriCard().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        databaseReferenceM = database.getReference("walk/" + model.getWalkID());
+                        databaseReferenceM.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                loadingScreen.setTitle("Cargando.");
+                                loadingScreen.setMessage("Por favor espere.");
+                                loadingScreen.setCancelable(false);
+                                loadingScreen.show();
+                                Walk auxWalk = dataSnapshot.getValue(Walk.class);
+                                if(auxWalk.getStatus().equalsIgnoreCase("Aceptado")){
+                                    Intent intent = new Intent(WalkListActivity.this, MapsActivity.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("clientID", auxWalk.getClientID());
+                                    bundle.putString("walkID", auxWalk.getWalkID());
+                                    bundle.putString("walkerID", auxWalk.getWalkerID());
+                                    intent.putExtra("bundle", bundle);
+                                    startActivity(intent);
+                                }
+                                loadingScreen.dismiss();
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                System.err.println("Query error " + databaseError.toException());
+                            }
+                        });
+                    }
+                });
             }
         };
 
@@ -198,8 +233,33 @@ public class WalkListActivity extends AppCompatActivity {
                 holder.getBtnWalkAccept().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // TODO
-                        // Proceso de aceptar paseo
+                        databaseReferenceE = database.getReference("walk/" + model.getWalkID());
+                        databaseReferenceE.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                loadingScreen.setTitle("Cargando.");
+                                loadingScreen.setMessage("Por favor espere.");
+                                loadingScreen.setCancelable(false);
+                                loadingScreen.show();
+                                // Load the user data
+                                Walk myWalk = dataSnapshot.getValue(Walk.class);
+                                myWalk.setWalkerID(mAuth.getCurrentUser().getUid());
+                                myWalk.setStatus("Aceptado");
+                                databaseReferenceE.setValue(myWalk);
+                                loadingScreen.dismiss();
+                                Intent intent = new Intent(WalkListActivity.this, MapsActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putString("clientID", myWalk.getClientID());
+                                bundle.putString("walkID", myWalk.getWalkID());
+                                bundle.putString("walkerID", myWalk.getWalkerID());
+                                intent.putExtra("bundle", bundle);
+                                startActivity(intent);
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                System.err.println("Query error " + databaseError.toException());
+                            }
+                        });
                     }
                 });
 
@@ -223,8 +283,8 @@ public class WalkListActivity extends AppCompatActivity {
     }
 
     public void getUserInfo(String id){
-        databaseReference = database.getReference("users/" + id);
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReferenceU = database.getReference("users/" + id);
+        databaseReferenceU.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 loadingScreen.setTitle("Cargando.");
@@ -256,14 +316,14 @@ public class WalkListActivity extends AppCompatActivity {
                     }
                 }
                 if (save){
-                    databaseReferenceL = database.getReference("walk/");
-                    String key = databaseReferenceL.push().getKey();
-                    databaseReferenceL = database.getReference("walk/" + key);
+                    databaseReferenceW = database.getReference("walk/");
+                    String key = databaseReferenceW.push().getKey();
+                    databaseReferenceW = database.getReference("walk/" + key);
                     Walk walk = new Walk();
                     walk.setClientID(mAuth.getCurrentUser().getUid());
                     walk.setWalkID(key);
                     walk.setStatus("Pendiente");
-                    databaseReferenceL.setValue(walk);
+                    databaseReferenceW.setValue(walk);
                 }
             }
             @Override
@@ -285,21 +345,23 @@ public class WalkListActivity extends AppCompatActivity {
                 public void onLocationResult(LocationResult locationResult) {
                     Location location = locationResult.getLastLocation();
                     if (location != null) {
-                        LatLng actualLoc = new LatLng(location.getLatitude(), location.getLongitude());
-                        databaseReferenceL = database.getReference("users/" + mAuth.getCurrentUser().getUid());
-                        databaseReferenceL.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                Usuario myUser = dataSnapshot.getValue(Usuario.class);
-                                myUser.setLatitude(actualLoc.latitude);
-                                myUser.setLongitude(actualLoc.longitude);
-                                databaseReferenceL.setValue(myUser);
-                            }
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                                Log.w("Mapa", "error en la consulta", databaseError.toException());
-                            }
-                        });
+                        if(mAuth.getCurrentUser() != null){
+                            LatLng actualLoc = new LatLng(location.getLatitude(), location.getLongitude());
+                            databaseReferenceA = database.getReference("users/" + mAuth.getCurrentUser().getUid());
+                            databaseReferenceA.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    Usuario myUser = dataSnapshot.getValue(Usuario.class);
+                                    myUser.setLatitude(actualLoc.latitude);
+                                    myUser.setLongitude(actualLoc.longitude);
+                                    databaseReferenceA.setValue(myUser);
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    Log.w("Mapa", "error en la consulta", databaseError.toException());
+                                }
+                            });
+                        }
                     }
                 }
             };
