@@ -8,14 +8,18 @@ import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.pettracker.Controller.NotificationJobIntentService;
 import com.example.pettracker.Controller.PermissionsManagerPT;
 import com.example.pettracker.Model.Product;
 import com.example.pettracker.Model.Usuario;
@@ -46,6 +50,9 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     private DatabaseReference databaseReference;
     private FirebaseDatabase database;
 
+
+    public static String CHANNEL_ID = "Notificaciones";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +79,9 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         perros = findViewById(R.id.perros);
         gatos = findViewById(R.id.gatos);
         loadingScreen = new ProgressDialog(this);
+
+        init();
+        createNotificationChannel();
 
         comida.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -244,5 +254,28 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
     public void SearchKeyWord(View v) {
         startActivity(new Intent(this, SearchResultsMainActivity.class));
+    }
+
+    private void init() {
+        Intent intent = new Intent(HomePageActivity.this, NotificationJobIntentService.class);
+        NotificationJobIntentService.enqueueWork(this, intent);
+        System.out.println("Profesor....");
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Notificaciones";
+            String description = "mostrar el cambio de estado de un usuario";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            //IMPORTANCE_MAX MUESTRA LA NOTIFICACIÓN ANIMADA
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }
