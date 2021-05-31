@@ -8,6 +8,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,9 +18,15 @@ import android.widget.Toast;
 
 import com.example.pettracker.Controller.PermissionsManagerPT;
 import com.example.pettracker.Model.Product;
+import com.example.pettracker.Model.Usuario;
 import com.example.pettracker.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class HomePageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -32,9 +39,12 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     CardView todos;
     CardView perros;
     CardView gatos;
-    CardView veterinarias;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+    private ProgressDialog loadingScreen;
+    private FirebaseAuth mAuth;
+    private DatabaseReference databaseReference;
+    private FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +71,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
         perros = findViewById(R.id.perros);
         gatos = findViewById(R.id.gatos);
-        veterinarias = findViewById(R.id.veterinarias);
+        loadingScreen = new ProgressDialog(this);
 
         comida.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,14 +144,36 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 startActivity(intent);
             }
         });
+        database = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        getUserType();
+    }
 
-        veterinarias.setOnClickListener(new View.OnClickListener() {
+    public void getUserType(){
+        databaseReference = database.getReference("users/" + mAuth.getCurrentUser().getUid());
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getBaseContext(), BuscarVeterinariaActivity.class));
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                loadingScreen.setTitle("Cargando.");
+                loadingScreen.setMessage("Por favor espere.");
+                loadingScreen.setCancelable(false);
+                loadingScreen.show();
+                // Load the user data
+                Usuario user = dataSnapshot.getValue(Usuario.class);
+                Menu menu = navigationView.getMenu();
+                MenuItem menuItem = menu.findItem(R.id.nav_pet);
+                if (user.getRol().equalsIgnoreCase("Cliente")){
+                    menuItem.setTitle("Buscar Paseadores");
+                } else {
+                    menuItem.setTitle("Solicitudes de Paseos");
+                }
+                loadingScreen.dismiss();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.err.println("Query error " + databaseError.toException());
             }
         });
-
     }
 
     @Override
@@ -180,7 +212,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 String message = "Es necesario activar el permiso para acceder al GPS.";
                 String permission = PermissionsManagerPT.FINE_LOCATION_PERMISSION_NAME;
                 if(PermissionsManagerPT.askForPermission(this, permission, message, PermissionsManagerPT.LOCATION_PERMISSION_ID)){
-                    Intent intent = new Intent(HomePageActivity.this, MapsActivity.class);
+                    Intent intent = new Intent(HomePageActivity.this, WalkListActivity.class);
                     startActivity(intent);
                 }
                 break;
@@ -203,7 +235,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         switch (requestCode){
             case PermissionsManagerPT.LOCATION_PERMISSION_ID:
                 if (PermissionsManagerPT.onRequestPermissionsResult(grantResults, this, "Es necesario activar el permiso para acceder al mapa.")) {
-                    Intent intent = new Intent(this, MapsActivity.class);
+                    Intent intent = new Intent(this, WalkListActivity.class);
                     startActivity(intent);
                 }
                 break;

@@ -1,5 +1,6 @@
 package com.example.pettracker.View;
 
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
@@ -9,9 +10,12 @@ import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.pettracker.Controller.PermissionsManagerPT;
+import com.example.pettracker.Model.Usuario;
+import com.example.pettracker.Model.Walk;
 import com.example.pettracker.R;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -25,9 +29,17 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
 import com.mapbox.api.directions.v5.DirectionsCriteria;
@@ -94,6 +106,7 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
 
     private static final String ORIGIN_ICON_ID = "origin-icon-id";
     private static final String DESTINATION_ICON_ID = "destination-icon-id";
+    private static final String CLIENT_ICON_ID = "client-icon-id";
     private static final String ROUTE_LAYER_ID = "route-layer-id";
     private static final String ROUTE_LINE_SOURCE_ID = "route-source-id";
     private static final String ICON_LAYER_ID = "icon-layer-id";
@@ -103,6 +116,14 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
     private String currentMapStyle;
     private DirectionsRoute currentRoute;
     private MapboxDirections client;
+
+    //Firebase
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReferenceW;
+    private DatabaseReference databaseReferenceC;
+    private DatabaseReference databaseReferenceS;
+    private ValueEventListener val;
 
     // User location
     private FusedLocationProviderClient locationProvider;
@@ -114,11 +135,13 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
     private SensorEventListener sensorEventListener;
 
     // Adjust variables below to change the example's UI
+    private Point clientPoint = Point.fromLngLat(-74.1898188, 4.6324525);
     private Point originPoint = Point.fromLngLat(-74.1898188, 4.6324525);
     private Point destinationPoint = Point.fromLngLat(-74.06485, 4.628944);
     private static final float LINE_WIDTH = 6f;
     private static final String ORIGIN_COLOR = "#2096F3";
     private static final String DESTINATION_COLOR = "#F84D4D";
+    private static final String CLIENT_COLOR = "#6bff61";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,7 +154,17 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
         // This contains the MapView in XML and needs to be called after the access token is configured.
         setContentView(R.layout.activity_maps);
 
-        // Maps Style for luminosity sensor
+        //Firebase config
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        Intent intent = getIntent();
+        Bundle bundle = intent.getBundleExtra("bundle");
+        int sender = bundle.getInt("sender");
+        if (sender == 1){
+            findViewById(R.id.btnFinishWalk).setVisibility(View.INVISIBLE);
+        } else {
+            findViewById(R.id.btnFinishWalk).setVisibility(View.VISIBLE);
+        }
 
         // Setup the MapView
         mapView = findViewById(R.id.map);
@@ -144,6 +177,8 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
                 mapboxMap.setStyle(new Style.Builder().fromUri(Style.DARK)
                         .withImage(ORIGIN_ICON_ID, BitmapUtils.getBitmapFromDrawable(
                                 getResources().getDrawable(R.drawable.blue_marker)))
+                        .withImage(CLIENT_ICON_ID, BitmapUtils.getBitmapFromDrawable(
+                                getResources().getDrawable(R.drawable.green_marker)))
                         .withImage(DESTINATION_ICON_ID, BitmapUtils.getBitmapFromDrawable(
                                 getResources().getDrawable(R.drawable.red_marker))), new Style.OnStyleLoaded() {
                     @Override
@@ -151,6 +186,7 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
                         initSources(style);
                         initLayers(style);
                         enableLocationComponent(style);
+                        getUsersLocation(mapboxMap);
 
                         // Get the directions route from the Mapbox Directions API
                         getRoute(mapboxMap, originPoint, destinationPoint);
@@ -182,8 +218,15 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
                     public void onLocationResult(LocationResult locationResult) {
                         Location location = locationResult.getLastLocation();
                         if (location != null) {
-                            originPoint = Point.fromLngLat(location.getLongitude(), location.getLatitude());
-                            moveCameraToCoordinate(location.getLatitude(), location.getLongitude());
+                            Intent intent = getIntent();
+                            Bundle bundle = intent.getBundleExtra("bundle");
+                            int sender = bundle.getInt("sender");
+                            if (sender == 1){
+                                clientPoint = Point.fromLngLat(location.getLongitude(), location.getLatitude());
+                            } else {
+                                originPoint = Point.fromLngLat(location.getLongitude(), location.getLatitude());
+                                moveCameraToCoordinate(location.getLatitude(), location.getLongitude());
+                            }
                         }
                     }
                 };
@@ -192,6 +235,68 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
             PermissionsManager permissionsManager = new PermissionsManager(MapsActivity.this);
             permissionsManager.requestLocationPermissions(MapsActivity.this);
         }
+    }
+
+    private void getUsersLocation(MapboxMap mapboxMap) {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getBundleExtra("bundle");
+        String clientID = bundle.getString("clientID");
+        String walkerID = bundle.getString("walkerID");
+        int sender = bundle.getInt("sender");
+
+        if(sender == 1){
+            // Sender is a client
+            databaseReferenceC = database.getReference("users/" + walkerID);
+            val = databaseReferenceC.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Usuario myWalker = dataSnapshot.getValue(Usuario.class);
+                    originPoint = Point.fromLngLat(myWalker.getLongitude(), myWalker.getLatitude());
+                    moveCameraToCoordinate(myWalker.getLatitude(), myWalker.getLongitude());
+                    getRoute(mapboxMap, originPoint, destinationPoint);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+        } else {
+            // Sender is a walker
+            databaseReferenceW = database.getReference("users/" + clientID);
+            val = databaseReferenceW.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Usuario myClient = dataSnapshot.getValue(Usuario.class);
+                    clientPoint = Point.fromLngLat(myClient.getLongitude(), myClient.getLatitude());
+                    getRoute(mapboxMap, originPoint, destinationPoint);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+        }
+    }
+
+    public void updateWalkStatus(View view){
+        Intent intent = getIntent();
+        Bundle bundle = intent.getBundleExtra("bundle");
+        String walkID = bundle.getString("walkID");
+        databaseReferenceS = database.getReference("walk/" + walkID);
+        val = databaseReferenceS.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Walk myWalk = dataSnapshot.getValue(Walk.class);
+                myWalk.setStatus("Terminado");
+                databaseReferenceS.setValue(myWalk);
+                Intent intent = new Intent(MapsActivity.this, HomePageActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 
     private void turnOnLocation(){
@@ -260,6 +365,8 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
                             map.setStyle(new Style.Builder().fromUri(Style.DARK)
                                     .withImage(ORIGIN_ICON_ID, BitmapUtils.getBitmapFromDrawable(
                                             getResources().getDrawable(R.drawable.blue_marker)))
+                                    .withImage(CLIENT_ICON_ID, BitmapUtils.getBitmapFromDrawable(
+                                            getResources().getDrawable(R.drawable.green_marker)))
                                     .withImage(DESTINATION_ICON_ID, BitmapUtils.getBitmapFromDrawable(
                                             getResources().getDrawable(R.drawable.red_marker))), new Style.OnStyleLoaded() {
                                 @Override
@@ -267,6 +374,7 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
                                     initSources(style);
                                     initLayers(style);
                                     enableLocationComponent(style);
+                                    getUsersLocation(map);
 
                                     // Get the directions route from the Mapbox Directions API
                                     getRoute(map, originPoint, destinationPoint);
@@ -282,6 +390,8 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
                             map.setStyle(new Style.Builder().fromUri(Style.LIGHT)
                                     .withImage(ORIGIN_ICON_ID, BitmapUtils.getBitmapFromDrawable(
                                             getResources().getDrawable(R.drawable.blue_marker)))
+                                    .withImage(CLIENT_ICON_ID, BitmapUtils.getBitmapFromDrawable(
+                                            getResources().getDrawable(R.drawable.green_marker)))
                                     .withImage(DESTINATION_ICON_ID, BitmapUtils.getBitmapFromDrawable(
                                             getResources().getDrawable(R.drawable.red_marker))), new Style.OnStyleLoaded() {
                                 @Override
@@ -289,6 +399,7 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
                                     initSources(style);
                                     initLayers(style);
                                     enableLocationComponent(style);
+                                    getUsersLocation(map);
 
                                     // Get the directions route from the Mapbox Directions API
                                     getRoute(map, originPoint, destinationPoint);
@@ -310,7 +421,7 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
     }
 
     private void moveCameraToCoordinate(double latitude, double longitude){
-        map.animateCamera( CameraUpdateFactory.newLatLngZoom( new LatLng(latitude, longitude),12));
+        map.animateCamera( CameraUpdateFactory.newLatLngZoom( new LatLng(latitude, longitude),10));
     }
 
     @Override
@@ -344,9 +455,11 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
     private FeatureCollection getOriginAndDestinationFeatureCollection() {
         Feature originFeature = Feature.fromGeometry(originPoint);
         originFeature.addStringProperty("originDestination", "origin");
+        Feature clientFeature = Feature.fromGeometry(clientPoint);
+        clientFeature.addStringProperty("originDestination", "client");
         Feature destinationFeature = Feature.fromGeometry(destinationPoint);
         destinationFeature.addStringProperty("originDestination", "destination");
-        return FeatureCollection.fromFeatures(new Feature[] {originFeature, destinationFeature});
+        return FeatureCollection.fromFeatures(new Feature[] {originFeature, clientFeature, destinationFeature});
     }
 
     /**
@@ -371,6 +484,7 @@ public class MapsActivity extends AppCompatActivity implements MapboxMap.OnMapCl
         loadedMapStyle.addLayer(new SymbolLayer(ICON_LAYER_ID, ICON_SOURCE_ID).withProperties(
                 iconImage(match(get("originDestination"), literal("origin"),
                         stop("origin", ORIGIN_ICON_ID),
+                        stop("client", CLIENT_ICON_ID),
                         stop("destination", DESTINATION_ICON_ID))),
                 iconIgnorePlacement(true),
                 iconAllowOverlap(true),

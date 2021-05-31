@@ -191,7 +191,7 @@ public class SearchResultsMainActivity extends AppCompatActivity implements Navi
                 String message = "Es necesario activar el permiso para acceder al GPS.";
                 String permission = PermissionsManagerPT.FINE_LOCATION_PERMISSION_NAME;
                 if(PermissionsManagerPT.askForPermission(this, permission, message, PermissionsManagerPT.LOCATION_PERMISSION_ID)){
-                    Intent intent = new Intent(SearchResultsMainActivity.this, MapsActivity.class);
+                    Intent intent = new Intent(SearchResultsMainActivity.this, WalkListActivity.class);
                     startActivity(intent);
                 }
                 break;
@@ -210,7 +210,7 @@ public class SearchResultsMainActivity extends AppCompatActivity implements Navi
         switch (requestCode){
             case PermissionsManagerPT.LOCATION_PERMISSION_ID:
                 if (PermissionsManagerPT.onRequestPermissionsResult(grantResults, this, "Es necesario activar el permiso para acceder al mapa.")) {
-                    Intent intent = new Intent(this, MapsActivity.class);
+                    Intent intent = new Intent(this, WalkListActivity.class);
                     startActivity(intent);
                 }
                 break;
