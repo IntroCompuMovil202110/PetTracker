@@ -1,10 +1,10 @@
 rootProject.name = "PetTracker"
 include ':app'
-setBinding(new Binding([gradle:this]))
-
-evaluate(new File(
-        settingsDir.parentFile,
-        'my_flutter/.android/include_flutter.groovy'
+// assumed existing content
+setBinding(new Binding([gradle: this]))                                // new
+evaluate(new File(                                                     // new
+        settingsDir.parentFile,                                              // new
+        'my_flutter/.android/include_flutter.groovy'                         // new
 ))
 include ':my_flutter'
 project(':my_flutter').projectDir = new File('../my_flutter')
