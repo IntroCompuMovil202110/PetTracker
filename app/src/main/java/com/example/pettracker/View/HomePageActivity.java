@@ -8,16 +8,22 @@ import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.pettracker.Controller.NotificationJobIntentService;
 import com.example.pettracker.Controller.PermissionsManagerPT;
 import com.example.pettracker.Model.Information;
 import com.example.pettracker.Model.Product;
+import com.example.pettracker.Model.Usuario;
 import com.example.pettracker.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +32,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.android.FlutterTextureView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class HomePageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -40,11 +51,19 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     CardView gatos;
     CardView veterinarias;
     CardView informacion;
+
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-
-
+    private ProgressDialog loadingScreen;
+    private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
+    private FirebaseDatabase database;
+
+
+    public static String CHANNEL_ID = "Notificaciones";
+
+
+    //private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +90,15 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
         perros = findViewById(R.id.perros);
         gatos = findViewById(R.id.gatos);
+
         veterinarias = findViewById(R.id.veterinarias);
         informacion = findViewById(R.id.informacion);
+
+        loadingScreen = new ProgressDialog(this);
+
+        init();
+        createNotificationChannel();
+
 
         comida.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,11 +171,34 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 startActivity(intent);
             }
         });
+        database = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        getUserType();
+    }
 
-        veterinarias.setOnClickListener(new View.OnClickListener() {
+    public void getUserType(){
+        databaseReference = database.getReference("users/" + mAuth.getCurrentUser().getUid());
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getBaseContext(), BuscarVeterinariaActivity.class));
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                loadingScreen.setTitle("Cargando.");
+                loadingScreen.setMessage("Por favor espere.");
+                loadingScreen.setCancelable(false);
+                loadingScreen.show();
+                // Load the user data
+                Usuario user = dataSnapshot.getValue(Usuario.class);
+                Menu menu = navigationView.getMenu();
+                MenuItem menuItem = menu.findItem(R.id.nav_pet);
+                if (user.getRol().equalsIgnoreCase("Cliente")){
+                    menuItem.setTitle("Buscar Paseadores");
+                } else {
+                    menuItem.setTitle("Solicitudes de Paseos");
+                }
+                loadingScreen.dismiss();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.err.println("Query error " + databaseError.toException());
             }
         });
 
@@ -178,6 +227,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         Information information = new Information(titulo, contenido);
 
         databaseReference.push().setValue(information);
+
 
     }
 
@@ -217,7 +267,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 String message = "Es necesario activar el permiso para acceder al GPS.";
                 String permission = PermissionsManagerPT.FINE_LOCATION_PERMISSION_NAME;
                 if(PermissionsManagerPT.askForPermission(this, permission, message, PermissionsManagerPT.LOCATION_PERMISSION_ID)){
-                    Intent intent = new Intent(HomePageActivity.this, MapsActivity.class);
+                    Intent intent = new Intent(HomePageActivity.this, WalkListActivity.class);
                     startActivity(intent);
                 }
                 break;
@@ -240,7 +290,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         switch (requestCode){
             case PermissionsManagerPT.LOCATION_PERMISSION_ID:
                 if (PermissionsManagerPT.onRequestPermissionsResult(grantResults, this, "Es necesario activar el permiso para acceder al mapa.")) {
-                    Intent intent = new Intent(this, MapsActivity.class);
+                    Intent intent = new Intent(this, WalkListActivity.class);
                     startActivity(intent);
                 }
                 break;
@@ -249,5 +299,28 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
     public void SearchKeyWord(View v) {
         startActivity(new Intent(this, SearchResultsMainActivity.class));
+    }
+
+    private void init() {
+        Intent intent = new Intent(HomePageActivity.this, NotificationJobIntentService.class);
+        NotificationJobIntentService.enqueueWork(this, intent);
+        System.out.println("Profesor....");
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Notificaciones";
+            String description = "mostrar el cambio de estado de un usuario";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            //IMPORTANCE_MAX MUESTRA LA NOTIFICACIÓN ANIMADA
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }

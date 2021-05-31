@@ -13,6 +13,9 @@ public class Usuario {
     public String direccion;
     public String rol;
     List<Product> productoUsuario;
+    private double latitude;
+    private double longitude;
+
     public Usuario(){
 
     }
@@ -143,4 +146,19 @@ public class Usuario {
         return productoUsuario.indexOf(getProducto(posicion));
     }
 
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 }

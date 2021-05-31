@@ -3,6 +3,7 @@ package com.example.pettracker.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,7 +18,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pettracker.Model.Paseador;
 import com.example.pettracker.Model.Usuario;
 import com.example.pettracker.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -54,6 +54,7 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
     String wallpaper;
     String costo;
     Boolean select;
+    private ProgressDialog loadingScreen;
 
 
     public static final String TAG = "FB_APP";
@@ -75,6 +76,7 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
         direccion = findViewById(R.id.campoDireccion);
         register = findViewById(R.id.botonRegistro);
         roles = findViewById(R.id.rol);
+        loadingScreen = new ProgressDialog(this);
 
         contrasena.setTransformationMethod(PasswordTransformationMethod.getInstance());
 
@@ -139,6 +141,10 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            loadingScreen.setTitle("Getting your data.");
+                            loadingScreen.setMessage("Please wait.");
+                            loadingScreen.setCancelable(false);
+                            loadingScreen.show();
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
@@ -146,9 +152,8 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
                             String folder = "users";
 
                             if(rol.equals("Paseador")){
-                                costo = "0";
-                                Paseador regis = new Paseador(profileURL, wallpaper, name, surname, email, password, telephone, adress, rol, costo);
-                                folder = "walkers";
+                                Usuario regis = new Usuario(profileURL, wallpaper, name, surname, email, password, telephone, adress, rol);
+                                folder = "users";
 
                                 FirebaseDatabase.getInstance().getReference(folder)
                                         .child(user.getUid())

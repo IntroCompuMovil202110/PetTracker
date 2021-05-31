@@ -48,9 +48,13 @@ public class SearchResultAnimal extends AppCompatActivity implements NavigationV
     NavigationView navigationView;
     ArrayList<Product> products;
     String key;
+    MenuItem option;
 
     DatabaseReference productsDbRef;
     String mAuth;
+    private FirebaseAuth auth;
+    private DatabaseReference databaseReference;
+    private FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,7 @@ public class SearchResultAnimal extends AppCompatActivity implements NavigationV
         toolBar = findViewById(R.id.toolbar2);
         drawerLayout = findViewById(R.id.drawer_layout2);
         navigationView = findViewById(R.id.nav_view2);
+        option = findViewById(R.id.nav_pet);
         setSupportActionBar(toolBar);
 
         navigationView.bringToFront();
@@ -66,6 +71,10 @@ public class SearchResultAnimal extends AppCompatActivity implements NavigationV
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        database = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
+        getUserType();
 
         mAuth = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -140,6 +149,26 @@ public class SearchResultAnimal extends AppCompatActivity implements NavigationV
             }
         });
 
+    }
+
+    public void getUserType(){
+        databaseReference = database.getReference("users/" + auth.getCurrentUser().getUid());
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Load the user data
+                Usuario user = dataSnapshot.getValue(Usuario.class);
+                if (user.getRol().equalsIgnoreCase("Cliente")){
+                    option.setTitle("Buscar Paseadores");
+                } else {
+                    option.setTitle("Solicitudes de Paseos");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.err.println("Query error " + databaseError.toException());
+            }
+        });
     }
 
     @Override

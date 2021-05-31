@@ -12,16 +12,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.pettracker.Model.Paseador;
+import com.example.pettracker.Model.Usuario;
 import com.example.pettracker.R;
 
 import java.util.ArrayList;
 
-public class CustomWalkerAdapter extends ArrayAdapter<Paseador> {
-    ArrayList<Paseador> walkers;
+public class CustomWalkerAdapter extends ArrayAdapter<Usuario> {
+    ArrayList<Usuario> walkers;
     Context context;
     int resource;
-    public CustomWalkerAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Paseador> walkers){
+    public CustomWalkerAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Usuario> walkers){
         super(context, resource, walkers);
         this.context = context;
         this.resource = resource;
@@ -34,7 +34,7 @@ public class CustomWalkerAdapter extends ArrayAdapter<Paseador> {
             LayoutInflater layoutInflater=(LayoutInflater)getContext().getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.walker_item,null,true);
         }
-        Paseador p = getItem(position);
+        Usuario p = getItem(position);
         ImageView walkerImg = (ImageView) convertView.findViewById(R.id.walkerImg);
         TextView walkerName = (TextView) convertView.findViewById(R.id.txtName);
         walkerName.setText(walkers.get(position).getNombre());

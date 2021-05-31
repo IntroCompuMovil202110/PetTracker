@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.pettracker.Model.Paseador;
 import com.example.pettracker.Model.Product;
 import com.example.pettracker.R;
 
