@@ -173,6 +173,7 @@ public class WalkListActivity extends AppCompatActivity {
                                     bundle.putString("clientID", auxWalk.getClientID());
                                     bundle.putString("walkID", auxWalk.getWalkID());
                                     bundle.putString("walkerID", auxWalk.getWalkerID());
+                                    bundle.putInt("sender", 1);
                                     intent.putExtra("bundle", bundle);
                                     startActivity(intent);
                                 }
@@ -253,6 +254,7 @@ public class WalkListActivity extends AppCompatActivity {
                                 bundle.putString("clientID", myWalk.getClientID());
                                 bundle.putString("walkID", myWalk.getWalkID());
                                 bundle.putString("walkerID", myWalk.getWalkerID());
+                                bundle.putInt("sender", 2);
                                 intent.putExtra("bundle", bundle);
                                 startActivity(intent);
                             }
