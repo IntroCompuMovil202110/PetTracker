@@ -11,19 +11,15 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
-import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.pettracker.Controller.Holders.UserViewHolder;
 import com.example.pettracker.Controller.Holders.WalkViewHolder;
 import com.example.pettracker.Controller.PermissionsManagerPT;
 import com.example.pettracker.Model.Firebase.LUsuario;
@@ -44,14 +40,11 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.SettingsClient;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -65,6 +58,7 @@ public class WalkListActivity extends AppCompatActivity {
     private FirebaseRecyclerAdapter adapter;
     private ProgressDialog loadingScreen;
     private FirebaseAuth mAuth;
+    private Usuario currentUser;
     private DatabaseReference databaseReference;
     private DatabaseReference databaseReferenceL;
     private DatabaseReference databaseReferenceE;
@@ -72,8 +66,8 @@ public class WalkListActivity extends AppCompatActivity {
     private DatabaseReference databaseReferenceA;
     private DatabaseReference databaseReferenceW;
     private DatabaseReference databaseReferenceM;
+    private DatabaseReference databaseReferenceP;
     private FirebaseDatabase database;
-    private Usuario currentUser;
 
     private FusedLocationProviderClient locationProvider;
     private LocationRequest locationRequest;
@@ -87,7 +81,6 @@ public class WalkListActivity extends AppCompatActivity {
         approved = false;
         setContentView(R.layout.activity_walk_list);
         walk = findViewById(R.id.walkList);
-
 
         currentUser = new Usuario();
         loadingScreen = new ProgressDialog(WalkListActivity.this);
@@ -106,10 +99,6 @@ public class WalkListActivity extends AppCompatActivity {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                loadingScreen.setTitle("Cargando.");
-                loadingScreen.setMessage("Por favor espere.");
-                loadingScreen.setCancelable(false);
-                loadingScreen.show();
                 // Load the user data
                 Usuario user = dataSnapshot.getValue(Usuario.class);
                 if (user.getRol().equalsIgnoreCase("Cliente")){
@@ -118,7 +107,6 @@ public class WalkListActivity extends AppCompatActivity {
                 } else {
                     getPendingWalks();
                 }
-                loadingScreen.dismiss();
                 approved = true;
             }
             @Override
@@ -149,17 +137,28 @@ public class WalkListActivity extends AppCompatActivity {
 
             @Override
             protected void onBindViewHolder(WalkViewHolder holder, int position, Walk model) {
-                getUserInfo(model.getClientID());
-                try {
-                    Thread.sleep(650);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Glide.with(WalkListActivity.this)
-                        .load(currentUser.getFotoPerfilURL())
-                        .into(holder.getProfilePicture());
-                holder.getStatus().setText(model.getStatus());
-                holder.getName().setText(currentUser.getNombre() + " " + currentUser.getApellido());
+                databaseReferenceU = database.getReference("users/" + model.getClientID());
+                loadingScreen.setTitle("Cargando.");
+                loadingScreen.setMessage("Por favor espere.");
+                loadingScreen.setCancelable(false);
+                loadingScreen.show();
+                databaseReferenceU.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        // Load the user data
+                        Usuario user = dataSnapshot.getValue(Usuario.class);
+                        Glide.with(WalkListActivity.this)
+                                .load(user.getFotoPerfilURL())
+                                .into(holder.getProfilePicture());
+                        holder.getStatus().setText(model.getStatus());
+                        holder.getName().setText(user.getNombre() + " " + user.getApellido());
+                        loadingScreen.dismiss();
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        System.err.println("Query error " + databaseError.toException());
+                    }
+                });
                 holder.getPriCard().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -167,10 +166,6 @@ public class WalkListActivity extends AppCompatActivity {
                         databaseReferenceM.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                loadingScreen.setTitle("Cargando.");
-                                loadingScreen.setMessage("Por favor espere.");
-                                loadingScreen.setCancelable(false);
-                                loadingScreen.show();
                                 Walk auxWalk = dataSnapshot.getValue(Walk.class);
                                 if(auxWalk.getStatus().equalsIgnoreCase("Aceptado")){
                                     Intent intent = new Intent(WalkListActivity.this, MapsActivity.class);
@@ -181,7 +176,6 @@ public class WalkListActivity extends AppCompatActivity {
                                     intent.putExtra("bundle", bundle);
                                     startActivity(intent);
                                 }
-                                loadingScreen.dismiss();
                             }
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -218,17 +212,29 @@ public class WalkListActivity extends AppCompatActivity {
 
             @Override
             protected void onBindViewHolder(WalkViewHolder holder, int position, Walk model) {
-                getUserInfo(model.getClientID());
-                try {
-                    Thread.sleep(650);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Glide.with(WalkListActivity.this)
-                        .load(currentUser.getFotoPerfilURL())
-                        .into(holder.getProfilePicture());
-                holder.getStatus().setText(model.getStatus());
-                holder.getName().setText(currentUser.getNombre() + " " + currentUser.getApellido());
+                databaseReferenceP = database.getReference("users/" + model.getClientID());
+                loadingScreen.setTitle("Cargando.");
+                loadingScreen.setMessage("Por favor espere.");
+                loadingScreen.setCancelable(false);
+                loadingScreen.show();
+                databaseReferenceP.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        // Load the user data
+                        Usuario user = dataSnapshot.getValue(Usuario.class);
+                        currentUser = user;
+                        Glide.with(WalkListActivity.this)
+                                .load(user.getFotoPerfilURL())
+                                .into(holder.getProfilePicture());
+                        holder.getStatus().setText(model.getStatus());
+                        holder.getName().setText(user.getNombre() + " " + user.getApellido());
+                        loadingScreen.dismiss();
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        System.err.println("Query error " + databaseError.toException());
+                    }
+                });
 
                 holder.getBtnWalkAccept().setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -237,16 +243,11 @@ public class WalkListActivity extends AppCompatActivity {
                         databaseReferenceE.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                loadingScreen.setTitle("Cargando.");
-                                loadingScreen.setMessage("Por favor espere.");
-                                loadingScreen.setCancelable(false);
-                                loadingScreen.show();
                                 // Load the user data
                                 Walk myWalk = dataSnapshot.getValue(Walk.class);
                                 myWalk.setWalkerID(mAuth.getCurrentUser().getUid());
                                 myWalk.setStatus("Aceptado");
                                 databaseReferenceE.setValue(myWalk);
-                                loadingScreen.dismiss();
                                 Intent intent = new Intent(WalkListActivity.this, MapsActivity.class);
                                 Bundle bundle = new Bundle();
                                 bundle.putString("clientID", myWalk.getClientID());
@@ -263,7 +264,7 @@ public class WalkListActivity extends AppCompatActivity {
                     }
                 });
 
-                final LUsuario lUsuario = new LUsuario(model.getClientID(),currentUser);
+                final LUsuario lUsuario = new LUsuario(model.getClientID(), currentUser);
 
                 holder.getPriCard().setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -280,27 +281,6 @@ public class WalkListActivity extends AppCompatActivity {
 
         walk.setAdapter(adapter);
         adapter.startListening();
-    }
-
-    public void getUserInfo(String id){
-        databaseReferenceU = database.getReference("users/" + id);
-        databaseReferenceU.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                loadingScreen.setTitle("Cargando.");
-                loadingScreen.setMessage("Por favor espere.");
-                loadingScreen.setCancelable(false);
-                loadingScreen.show();
-                // Load the user data
-                Usuario user = dataSnapshot.getValue(Usuario.class);
-                currentUser = user;
-                loadingScreen.dismiss();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.err.println("Query error " + databaseError.toException());
-            }
-        });
     }
 
     public void saveWalk(){
