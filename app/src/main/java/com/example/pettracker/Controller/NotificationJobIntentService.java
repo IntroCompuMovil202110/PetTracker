@@ -10,7 +10,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.pettracker.Model.Message;
-import com.example.pettracker.Model.Paseador;
 import com.example.pettracker.Model.Usuario;
 import com.example.pettracker.R;
 import com.example.pettracker.View.ChatListActivity;
@@ -147,7 +146,7 @@ public class NotificationJobIntentService extends JobIntentService {
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Paseador user = dataSnapshot.getValue(Paseador.class);
+                Usuario user = dataSnapshot.getValue(Usuario.class);
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(NotificationJobIntentService.this, CHANNEL_ID);
                 mBuilder.setSmallIcon(R.drawable.bell);
                 mBuilder.setContentTitle("Nuevo mensaje");

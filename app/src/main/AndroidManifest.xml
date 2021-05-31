@@ -65,7 +65,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".View.EditarPerfilActivity" />
-
+        <activity
+            android:name="io.flutter.embedding.android.FlutterActivity"
+            android:theme="@style/Theme.PetTracker"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize"
+            />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

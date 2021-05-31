@@ -4,6 +4,11 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PetTracker.iml" filepath="$PROJECT_DIR$/PetTracker.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/PetTracker.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/PetTracker.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1785736482/PetTracker.firebase_core.iml" filepath="$PROJECT_DIR$/.idea/modules/-1785736482/PetTracker.firebase_core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1523399174/PetTracker.firebase_database.iml" filepath="$PROJECT_DIR$/.idea/modules/-1523399174/PetTracker.firebase_database.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-473849252/PetTracker.flutter.iml" filepath="$PROJECT_DIR$/.idea/modules/-473849252/PetTracker.flutter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-836092799/PetTracker.my_flutter.iml" filepath="$PROJECT_DIR$/.idea/modules/-836092799/PetTracker.my_flutter.iml" />
+      <module fileurl="file://$USER_HOME$/AndroidStudioProjects/flutter_module/flutter_module.iml" filepath="$USER_HOME$/AndroidStudioProjects/flutter_module/flutter_module.iml" />
     </modules>
   </component>
 </project>
