@@ -23,7 +23,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PetTracker">
-        <activity android:name=".View.SearchResultAnimal"></activity>
+        <activity android:name=".View.WalkListActivity"></activity>
+        <activity android:name=".View.SearchResultAnimal" />
         <activity android:name=".ImageActivity" />
         <activity android:name=".View.PersonalChatActivity" />
         <activity android:name=".View.ChatListActivity" />
@@ -32,6 +33,7 @@
         <activity android:name=".View.WalkersListActivity" />
         <activity android:name=".View.MisPublicacionesActivity" />
         <activity android:name=".View.RegistrationActivity" />
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

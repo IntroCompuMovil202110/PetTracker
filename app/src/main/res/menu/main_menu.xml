@@ -24,6 +24,7 @@
             android:id="@+id/nav_chat"
             android:title="Chats"
             android:icon="@drawable/ic_chat"/>
+
         <item
             android:id="@+id/nav_logout"
             android:title="Cerrar Sesión"
